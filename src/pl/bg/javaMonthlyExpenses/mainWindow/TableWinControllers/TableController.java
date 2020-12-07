@@ -35,7 +35,7 @@ public abstract class TableController  {
 
 
 
-    protected void chooseWhich(Button button, ComboBox comboBox) {
+    public void chooseWhich(Button button, ComboBox comboBox) {
 
 
         switch (comboBox.getValue().toString()) {

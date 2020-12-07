@@ -17,6 +17,7 @@ import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.RecordModify;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.UpdateRecord;
 import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.Filter;
 import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableCategoriesWinController;
+import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableShopWinController;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 
@@ -164,6 +165,9 @@ public class MainWindow extends Application implements Initializable {
 
     // TODO: 2020-12-08
     public void tableShops() {
+
+       TableShopWinController tabShopController=  new TableShopWinController();
+       tabShopController.start();
 
     }
 

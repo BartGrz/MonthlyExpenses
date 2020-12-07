@@ -7,17 +7,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
-import pl.bg.javaMonthlyExpenses.database.tools.Logger;
-import pl.bg.javaMonthlyExpenses.holder.Record;
+
 import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.PopUp;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.ComboBoxTools;
 
-
-import javax.sound.midi.Receiver;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -25,17 +26,7 @@ import java.util.ResourceBundle;
 
 public class TableCategoriesWinController extends TableController implements  Initializable {
 
-    private static Stage stage = new Stage();
-    @FXML
-    private Button button_delORadd = new Button(), button_check = new Button(),button_update=new Button();
-    @FXML
-    ComboBox comboBox_category, comboBox_options = new ComboBox();
-    @FXML
-    private TextField textField_changeTo= new TextField(),textField_modifiy = new TextField();
-    @FXML
-    private Label label_to = new Label();
-    private ObservableList list_options = FXCollections.observableArrayList("Delete", "Add New", "Change");
-    private ObservableList list_categories = FXCollections.observableArrayList();
+
     private final String table_name = "Category";
     @Override
     public void start() {
