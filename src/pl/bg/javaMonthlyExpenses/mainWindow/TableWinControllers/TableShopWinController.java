@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class TableShopWinController  implements Initializable {
+public class TableShopWinController extends TableController  implements Initializable {
     protected static Stage stage = new Stage();
     @FXML
     protected Button button_delORadd = new Button(), button_check = new Button(),button_update=new Button();
@@ -55,11 +55,6 @@ public class TableShopWinController  implements Initializable {
 
 
 
-    void showList() {
-
-    }
-
-
     void addNew() {
         new SQLModifyMain.Insert().insert(table_name, Arrays.asList(textField_modifiy.getText()));
         new PopUp().popUp();
@@ -71,8 +66,8 @@ public class TableShopWinController  implements Initializable {
         new PopUp().popUp();
     }
 
-
-    void clear() {
+    @FXML
+    public void clear() {
         comboBox_category.setVisible(false);
 
         textField_modifiy.setVisible(false);
@@ -91,8 +86,8 @@ public class TableShopWinController  implements Initializable {
 
     }
 
-
-    void choose() {
+@FXML
+   public void choose() {
         chooseWhich(button_delORadd,comboBox_options);
     }
 

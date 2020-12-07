@@ -26,7 +26,6 @@ public abstract class TableController  {
 
 
     abstract void start();
-    abstract void showList();
     abstract void addNew();
     abstract void delete();
     abstract void clear();

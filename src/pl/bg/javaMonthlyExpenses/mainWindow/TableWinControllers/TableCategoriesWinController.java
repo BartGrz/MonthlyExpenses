@@ -44,10 +44,6 @@ public class TableCategoriesWinController extends TableController implements  In
         stage.show();
     }
 
-    @Override
-    public void showList() {
-
-    }
 
     @Override
     public void addNew() {
