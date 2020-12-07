@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class TableCategoriesWinController implements TableWin, Initializable {
+public class TableCategoriesWinController extends TableController implements  Initializable {
 
     private static Stage stage = new Stage();
     @FXML
@@ -128,66 +128,5 @@ public class TableCategoriesWinController implements TableWin, Initializable {
 
     }
 
-    private void chooseWhich(Button button, ComboBox comboBox) {
 
-
-        switch (comboBox.getValue().toString()) {
-
-            case "Add New":
-
-                label_to.setVisible(false);
-                button_update.setVisible(false);
-                textField_changeTo.setVisible(false);
-                comboBox_category.setVisible(false);
-                textField_modifiy.setVisible(true);
-                button.setText("ADD");
-                button.setVisible(true);
-                button_delORadd.setOnAction(e -> addNew());
-               break;
-
-            case "Change":
-
-                comboBox_category.setVisible(true);
-                textField_modifiy.setVisible(false);
-                textField_changeTo.setVisible(true);
-                label_to.setVisible(true);
-                button_update.setVisible(true);
-                button_delORadd.setVisible(false);
-                button_update.setOnAction(e -> change());
-                break;
-
-            case "Delete":
-
-                label_to.setVisible(false);
-                button_update.setVisible(false);
-                textField_changeTo.setVisible(false);
-                textField_modifiy.setVisible(false);
-                textField_changeTo.setVisible(false);
-                comboBox_category.setVisible(true);
-                button_delORadd.setText("DELETE");
-                button_delORadd.setVisible(true);
-                button_delORadd.setOnAction(e -> delete());
-                break;
-
-        }
-    }
-
-    // TODO: 2020-12-08
-    public void checkIfVisible(TextField textField,ComboBox comboBox){
-
-        //do poprawy !! nie dziala
-
-        if(textField.isVisible()) {
-
-
-        }else if (comboBox.isVisible()){
-
-
-
-        }else {
-
-
-        }
-
-    }
 }
