@@ -6,7 +6,7 @@ import pl.bg.javaMonthlyExpenses.holder.Record;
 
 import java.util.*;
 
-public class UpdateBalanceTool extends SQLEssentials {
+public class UpdateBalanceTool  {
 
     public void sumBalance() {
 

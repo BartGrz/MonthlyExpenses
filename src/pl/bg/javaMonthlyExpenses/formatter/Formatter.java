@@ -1,9 +1,9 @@
 package pl.bg.javaMonthlyExpenses.formatter;
 
-import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLEssentials;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import static pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools.findObjectType;
 
 public class Formatter {
 
@@ -23,8 +23,9 @@ public class Formatter {
         return null;
 
  */
-
-        output.append(list.get(0));
+      
+        output.append(list.get(0) + ",");
+        
 
         return ""+ output;
     }
@@ -54,30 +55,35 @@ public class Formatter {
 
         for (int i = 0; i < values.size(); i++) {
 
-            if(SQLEssentials.findObjectType(values.get(i)).equals("String") ||
-                    SQLEssentials.findObjectType(values.get(i)).equals("date") ) {
-
+            if(findObjectType(values.get(i)).equals("String") ||
+                    findObjectType(values.get(i)).equals("date") ) {
+                
             String changed = values.get(i).toString();
+            
                 if(!values.get(i+1).equals("String") || !values.get(i+1).equals("date") ) {
+                    
                      stb.append("'" + changed + "'");
                      returnedValues.add(stb);
+                     
             }else {
+                    
                     stb.append("'" + changed + "')");
                     returnedValues.add(stb);
             }
 
         } else {
+            
             Object notString = values.get(i);
             stb.append(notString );
             returnedValues.add(stb);
         }
 
-        if(values.size()==i+1 && !SQLEssentials.findObjectType(values.get(i)).equals("String")) {
+        if(values.size()==i+1 && !findObjectType(values.get(i)).equals("String")) {
             stb.append(")");
 
             return returnedValues;
 
-        }else if (values.size()==i+1 && SQLEssentials.findObjectType(values.get(i)).equals("String")){
+        }else if (values.size()==i+1 && findObjectType(values.get(i)).equals("String")){
 
             return returnedValues;
 
@@ -86,10 +92,6 @@ public class Formatter {
             stb.append(",");
 
           }
-
-
-
-
     }
        return null;
     }
@@ -99,21 +101,23 @@ public class Formatter {
 
         StringBuilder stb = new StringBuilder();
 
-        if (SQLEssentials.findObjectType(value).equals("String") )  {
+        if (findObjectType(value).equals("String") )  {
                 stb.append("'" + value + "%'");
                 return "" + stb;
+                
             } else {
+            
             }
         return value;
     }
     public static Object findTypeAndFormat(Object value) {
 
         StringBuilder stb = new StringBuilder();
-
-
-            if (SQLEssentials.findObjectType(value).equals("String") || SQLEssentials.findObjectType(value).equals("date"))  {
+        
+            if (findObjectType(value).equals("String") || findObjectType(value).equals("date"))  {
                 stb.append("'" + value + "'");
                 return  ""+stb;
+                
             } else {
 
             }

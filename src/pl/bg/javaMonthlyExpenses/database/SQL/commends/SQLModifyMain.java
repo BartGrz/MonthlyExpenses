@@ -1,6 +1,7 @@
 package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
+import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.util.List;
 
 import static pl.bg.javaMonthlyExpenses.formatter.Formatter.valueFormatter;
 
-public class SQLModifyMain extends SQLEssentials {
+public class SQLModifyMain extends SQLTools {
 
     public SQLModifyMain() {
     }

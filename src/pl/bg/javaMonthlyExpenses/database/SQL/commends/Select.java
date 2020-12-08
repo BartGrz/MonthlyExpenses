@@ -3,7 +3,9 @@ package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
+import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.ResultRecordBuild;
+import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 import pl.bg.javaMonthlyExpenses.exeptions.ListException;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 import pl.bg.javaMonthlyExpenses.holder.Record;
@@ -11,8 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools.findObjectType;
 
-     public  class Select extends SQLEssentials {
+
+public  class Select extends SQLTools {
 
           private static String table_name;
 
@@ -38,9 +42,10 @@ import java.util.List;
 
         list_names.removeAll(list_names);
        pragmaTable(table_name);
-List <Object > list_results = new ArrayList<>();
+       
+        List <Object > list_results = new ArrayList<>();
 
-       String columnCondition_name = getColumntypeName(table_name,findObjectType(condition));
+       String columnCondition_name = getColumntypeName(table_name, findObjectType(condition));
 
 
         sql = "Select "+ Formatter.listFormatterColumns(columns) + " from " + table_name + " where "

@@ -1,4 +1,9 @@
+/*
+
+Pierwotna metoda z metodami zasilającymi pakiet SQLCommends
+
 package pl.bg.javaMonthlyExpenses.database.SQL.commends;
+
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
@@ -135,13 +140,11 @@ public class SQLEssentials {
 
         checkConnection();
 
-        result = new ArrayList<>();
+      List<Object> result = new ArrayList<>();
 
         try {
             rs = statement.executeQuery(sql);
-
-
-
+            
             while (rs.next()) {
 
                 for (int i = 0; i < list.size(); i++) {
@@ -345,3 +348,6 @@ public class SQLEssentials {
     }
     
 }
+
+
+ */
