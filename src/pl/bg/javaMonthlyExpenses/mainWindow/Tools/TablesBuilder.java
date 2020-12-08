@@ -81,7 +81,7 @@ public class TablesBuilder {
     public static void buildDog(TableView tableView) {
 
         Tables.buildTable(new Tables<String,Record>("Konto","accountName"),tableView);
-        Tables.buildTable(new Tables<Double,Record>("WydanoNaPsa","dogExpense"),tableView);
+        Tables.buildTable(new Tables<Double,Record>("WydanoNaPsa","amount"),tableView);
     }
     public static void buildMainWithoutId(TableView tableView) {
 

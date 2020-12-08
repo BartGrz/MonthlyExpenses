@@ -291,16 +291,16 @@ public static class SelectJoin<T, V>   {
         
         
         StringBuilder stb = new StringBuilder();
+        final String tableAccount = "Account";
         
-        
-        sql = "Select " + "Sum(Amount)" + ", b.categoryName from " + table_name + "" +
+        sql = "Select " + "Sum(a.Amount)" + ",c.accountName , b.categoryName from " + table_name + "" +
                 " a Join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined)
-                + " where b.";
+                + " Join Account c on a." +fetchTablesID(tableAccount)   + " = c."+fetchTablesID(tableAccount)  +" where b.";
         
         stb.append(sql + getColumntypeName(tableJoined, findObjectType(condition_1)) + " = " + Formatter.findTypeAndFormat(condition_1) + " ");
-        stb.append(" AND " + getColumntypeName(table_name,"Integer") + " = " + id );
+        stb.append(" AND a." + getColumntypeName(table_name,"Integer") + " = " + id );
         stb.append(" OR b." + getColumntypeName(tableJoined, findObjectType(condition_2)) + " = " + Formatter.findTypeAndFormat(condition_2));
-        stb.append(" AND " + getColumntypeName(table_name,"Integer") + " = " + id );
+        stb.append(" AND a." + getColumntypeName(table_name,"Integer") + " = " + id );
         
         sql = stb.toString();
         
@@ -315,8 +315,9 @@ public static class SelectJoin<T, V>   {
                     rs = statement.executeQuery(sql);
                     while (rs.next()) {
                         
-                        Record.list.add(new Record.Builder().expense(rs.getDouble("Sum(Amount)"))
+                        Record.list.add(new Record.Builder().expense(rs.getDouble("Sum(a.Amount)"))
                                 .category(rs.getString("categoryName"))
+                                .account(rs.getString("accountName"))
                                 .build());
                         
                     }

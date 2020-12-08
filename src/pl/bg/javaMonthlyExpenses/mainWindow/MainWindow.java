@@ -138,15 +138,18 @@ public class MainWindow extends Application implements Initializable {
          TablesBuilder.buildExpenseAdd(tableView_addExpense);
 
         new Select.SelectJoin().joinMain();
-        Looper.forLoop(Record.list.size(),(i)->tableView_main.getItems().add(Record.list.get(i)));
+        Looper.forLoop(20,(i)->tableView_main.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
 
         selectJoin.selectJoin(list_columns,list_tables,null,null);
         Looper.forLoop(Record.list.size(),(i)->tableView_balance.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
 
-        selectJoinDemo.selectJoinDog(1); //doz miany JoinOR z idtabeli do zrobienia z tego sumJoin_mixConditions_AND w klasie SelectJoin ;
-        selectJoinDemo.selectJoinDog(2);
+       new Select.SelectJoin<String,String>("Expense")
+               .sumJoin_mixConditions_OR("Category","Vet","Pies",1);
+        new Select.SelectJoin<String,String>("Expense")
+                .sumJoin_mixConditions_OR("Category","Vet","Pies",2);
+        
         Looper.forLoop(Record.list.size(),(i)->tableView_dog.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
 
