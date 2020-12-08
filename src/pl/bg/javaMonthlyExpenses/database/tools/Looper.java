@@ -19,6 +19,14 @@ public class Looper {
 
 
     }
+    public static void forLoopChoseIndex(int beginIndex,int endIndex, Loop loop ) {
+        
+        for (int i = beginIndex; i<endIndex;i++ ) {
+            loop.loop(i);
+        }
+        
+        
+    }
 
 public static void whileLoop(boolean condition, DoIt doIt) {
 

@@ -41,8 +41,8 @@ public class MainWindow extends Application implements Initializable {
     private List <String> list_columns =new ArrayList<>();
     private List <String> list_tables=new ArrayList<>();
 
-     private SQLSelectJoinDemo selectJoinDemo = new SQLSelectJoinDemo();
-    private SQLSelectJoin selectJoin = new SQLSelectJoin();
+
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -57,11 +57,13 @@ public class MainWindow extends Application implements Initializable {
     }
 
     public void closeApp () {
+        
         Platform.exit();
         System.exit(0);
 
     }
     public void filter() {
+      
       Filter filter = new Filter();
       filter.startFilter();
     }
@@ -78,6 +80,7 @@ public class MainWindow extends Application implements Initializable {
         tableView_balance.refresh();
     }
     public void update(){
+    
   new UpdateRecord().startModify();
 
     }
@@ -92,6 +95,7 @@ public class MainWindow extends Application implements Initializable {
         list_columns.add("debt");
         list_columns.add("result");
         fillingTables();
+        
     }
     public void delete() {
 
@@ -135,30 +139,31 @@ public class MainWindow extends Application implements Initializable {
         TablesBuilder.buildMain(tableView_main);
         TablesBuilder.buildBalance(tableView_balance);
         TablesBuilder.buildDog(tableView_dog);
-         TablesBuilder.buildExpenseAdd(tableView_addExpense);
+        TablesBuilder.buildExpenseAdd(tableView_addExpense);
 
         new Select.SelectJoin().joinMain();
-        Looper.forLoop(20,(i)->tableView_main.getItems().add(Record.list.get(i)));
+        Looper.forLoopChoseIndex(Record.list.size()-20,Record.list.size(),(i)->tableView_main.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
 
-        selectJoin.selectJoin(list_columns,list_tables,null,null);
+   
+        Looper.forLoopChoseIndex(1,3,i->
+                new Select.SelectJoin("Balance").selectJoinOneCond("Account",i));
         Looper.forLoop(Record.list.size(),(i)->tableView_balance.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
 
-       new Select.SelectJoin<String,String>("Expense")
-               .sumJoin_mixConditions_OR("Category","Vet","Pies",1);
-        new Select.SelectJoin<String,String>("Expense")
-                .sumJoin_mixConditions_OR("Category","Vet","Pies",2);
-        
+        Looper.forLoopChoseIndex(1,3,i-> new Select.SelectJoin<String, String>("Expense")
+        .sumJoin_mixConditions_OR("Category", "Vet", "Pies", i));
+   
+
         Looper.forLoop(Record.list.size(),(i)->tableView_dog.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
 
         new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category",Arrays.asList("swinsk","napoj"));
         Looper.forLoop(Record.list.size(),(i)->tableView_addExpense.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
-        //
+     
     }
-    // TODO: 2020-12-07
+  
     public void tableCategories() {
 
         TableCategoriesWinController tabCatController = new TableCategoriesWinController();
@@ -166,7 +171,7 @@ public class MainWindow extends Application implements Initializable {
 
     }
 
-    // TODO: 2020-12-08
+  
     public void tableShops() {
 
        TableShopWinController tabShopController=  new TableShopWinController();

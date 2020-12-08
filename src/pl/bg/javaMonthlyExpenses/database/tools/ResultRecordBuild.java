@@ -1,4 +1,4 @@
-package pl.bg.javaMonthlyExpenses.dummy;
+package pl.bg.javaMonthlyExpenses.database.tools;
 
 public abstract class ResultRecordBuild {
 

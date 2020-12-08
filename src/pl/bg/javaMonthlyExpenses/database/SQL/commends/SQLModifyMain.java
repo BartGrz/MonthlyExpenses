@@ -35,7 +35,6 @@ public static class Insert extends SQLModifyMain {
                      " values " + Formatter.listFormatterValues(valueFormatter(values)) + ";";
 
          }
-Logger.test(""+sql);
             try {
                 statement.execute(sql);
             } catch (SQLException e) {
@@ -100,7 +99,7 @@ public static class Update extends SQLModifyMain {
               sql = "Update " + table_name + " set " + id_fk + " = " + matchWithId(matchIdWithColumn(column), changeTo.toString())
                       + " where " + id_main + " = " + condition + ";";
           }
-                Logger.test("" +sql);
+          
                 Logger.result("row [" + column + "] was updated to : " + changeTo);
 
             try {

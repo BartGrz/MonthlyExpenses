@@ -1,6 +1,7 @@
 package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
 import pl.bg.javaMonthlyExpenses.database.tools.Logger;
+import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 
 import java.util.*;
@@ -11,16 +12,17 @@ public class SQLSum extends SQLEssentials {
 
 
         Select.setConnection();
-        for (int i = 1; i < 3; i++) {
-            new SQLModifyMain.Update("Balance").update("Balance", new Select("Expense").selectSumBasic(i), i);
-        }
-
+        Looper.forLoopChoseIndex(1,3,i-> new SQLModifyMain.Update("Balance")
+                .update("Balance", new Select("Expense").selectSumBasic(i), i));
+        
         sumDebt();
     }
 
 
     private void sumDebt() {
-        for (int i = 1; i < 3; i++) {
+      //  for (int i = 1; i < 3; i++) {
+Looper.forLoopChoseIndex(1,3,i->{
+    
 
             new Select.SelectJoin<Boolean, Integer>("Expense")
                     .sumJoin_mixConditions_AND("CommonAccount", true, i);
@@ -39,29 +41,29 @@ public class SQLSum extends SQLEssentials {
 
                     break;
             }
-        }
+});
 
         sumResult();
 
     }
 
     private void sumResult() {
-
-
-
-        for (int i = 1; i < 3; i++) {
+    
+    
+    
+        Looper.forLoopChoseIndex(1,3,i->{
 
             new Select("Balance").selectSpecifyColumns(Arrays.asList("Balance", "debt"), i);
-        }
+        });
 
 
     double balance_b = (double) Select.results.get(0);
     double debt_b = (double) Select.results.get(1);
     double balance_u = (double) Select.results.get(2);
     double debt_u = (double) Select.results.get(3);
-
-
-    for(int i = 1;i<3;i++) {
+    
+    
+        Looper.forLoopChoseIndex(1,3,i->{
         switch (i) {
 
             case 1 :
@@ -72,7 +74,8 @@ public class SQLSum extends SQLEssentials {
                 new SQLModifyMain.Update("Balance").update("result",(balance_b - debt_u),i);
                 break;
         }
-    }
+        });
+        
     Logger.result("UPDATE COMPLETED ");
     Logger.end();
 

@@ -24,10 +24,7 @@ static LocalDate ld = LocalDate.now();
     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:mm:dd");
     static Hashtable<String, Type> hashtable = new Hashtable<>();
 
-    static void addToList(List<?> list, ListAdding listAdding) {
-
-        listAdding.listAdding(list);
-    }
+    
 
 
    static Statement statement;
@@ -36,19 +33,19 @@ static LocalDate ld = LocalDate.now();
     private static List list_values= Arrays.asList(0.0,1,"2020-10-31",1,1,1);
 
     public static void main(String[] args) {
-String table_name = "Category";
+        String table_name = "Category";
         list_columns.add("accountName");
         list_columns.add("Balance");
         list_columns.add("debt");
         list_columns.add("result");
-
+    
         list_tables.add("Balance");
         list_tables.add("Account");
-
-
-      SQLEssentials.setConnection();
-
-       List <Object> wynik = new Select(table_name).selectBasic();
+    
+    
+        SQLEssentials.setConnection();
+    
+        List<Object> wynik = new Select(table_name).selectBasic();
 
 
 
@@ -61,10 +58,10 @@ String table_name = "Category";
 
         Looper.forLoop(Record.list.size(),i->Logger.test(Record.list.get(i).toString()));
  */
-        
-        new Select.SelectJoin<String,String>("Expense").sumJoin_mixConditions_OR("Category","Vet","Pies",1);
-        new Select.SelectJoin<String,String>("Expense").sumJoin_mixConditions_OR("Category","Vet","Pies",2);
-        Looper.forLoop(Record.list.size(),i->Logger.test(Record.list.get(i).amount + " " + Record.list.get(i).categoryName));
+    
+   
+       // Logger.warn(""+Select.checkIfForeignColumn("Expense","accountName"));
+        Looper.forLoop(Record.list.size(),i->Logger.warn(""+ Record.list.get(i).toString()));
     }
   
 

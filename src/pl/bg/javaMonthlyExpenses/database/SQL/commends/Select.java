@@ -3,7 +3,7 @@ package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
 import pl.bg.javaMonthlyExpenses.database.tools.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
-import pl.bg.javaMonthlyExpenses.dummy.ResultRecordBuild;
+import pl.bg.javaMonthlyExpenses.database.tools.ResultRecordBuild;
 import pl.bg.javaMonthlyExpenses.exeptions.ListException;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 import pl.bg.javaMonthlyExpenses.holder.Record;
@@ -152,6 +152,34 @@ public static class SelectJoin<T, V>   {
                   }
 
               }
+              public void joinMainCondition(int id ) {
+                  
+                  sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                          "join Account a on e.idAccount = a.idAccount "
+                          + "join Category c on e.idCategory = c.idCategory " +
+                          "Join Shop s on e.idShop=s.idShop" +
+                          " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount where idExpense =  " + id +  ";";
+              
+
+        try {
+        rs =statement.executeQuery(sql);
+        while (rs.next()) {
+            Record.list.add(new Record.Builder()
+                    .id(rs.getInt("idExpense"))
+                    .account(rs.getString("accountName"))
+                    .expense(rs.getDouble("amount"))
+                    .category(rs.getString("categoryName"))
+                    .date(rs.getString("date"))
+                    .shop(rs.getString("shopName"))
+                    .common(String.valueOf( rs.getBoolean("isCommon")))
+                    .build());
+        }
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    
 
 
     public void selectJoinMainCondition(String byColumn, Object condition) {
@@ -304,7 +332,6 @@ public static class SelectJoin<T, V>   {
         
         sql = stb.toString();
         
-        Logger.test(""+sql);
         stb.delete(0, stb.length());
         
         ResultRecordBuild res = new ResultRecordBuild() {
@@ -330,6 +357,37 @@ public static class SelectJoin<T, V>   {
         res.resultSetRecordbuild(sql);
         
     }
+    
+        public void selectJoinOneCond(String tableJoined, Object condition ) {
+                  
+                  sql = "Select " + checkIfForeignColumn(table_name,getColumntypeName(tableJoined,"String"))
+                          + ", * from " + table_name + " a Join " + tableJoined + " b  on a."+ fetchTablesID(tableJoined)
+                          +" = b."+ fetchTablesID(tableJoined) +  "  where a." + fetchTablesID(tableJoined) +" = " +condition;
+                  
+                  ResultRecordBuild res = new ResultRecordBuild() {
+                      @Override
+                      public void resultSetRecordbuild(String sql) {
+                          try {
+                              rs= statement.executeQuery(sql);
+                              while (rs.next()) {
+                                  
+                                  Record.list.add(new Record.Builder()
+                                          .balance(Math.round(rs.getDouble("Balance")*100)/100)
+                                          .account(rs.getString("accountName"))
+                                          .debt(Math.round(rs.getDouble("debt")*100)/100)
+                                          .result(Math.round(rs.getDouble("result")*100)/100)
+                                          .build());
+                                  
+                              }
+                              
+                          } catch (SQLException throwables) {
+                              throwables.printStackTrace();
+                          }
+                      }
+                  };
+                  res.resultSetRecordbuild(sql);
+                  
+        }
           }
       }
 

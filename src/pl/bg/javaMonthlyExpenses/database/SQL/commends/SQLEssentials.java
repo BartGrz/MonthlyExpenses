@@ -333,4 +333,20 @@ public class SQLEssentials {
         return null;
 
     }
+    
+    public  static String checkIfForeignColumn(String table_name, String columnJoined) {
+        
+        pragmaTable(table_name);
+        
+        for (int i = 0; i<list_names.size();i++) {
+            if(list_names.get(i).equals(columnJoined)) {
+                
+                return columnJoined;
+            }else {
+                return "b."+columnJoined;
+            }
+        }
+        return null;
+    }
+    
 }

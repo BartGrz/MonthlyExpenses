@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
-import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLSelectJoinDemo;
+import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.PopUp;
@@ -31,11 +31,12 @@ public class  DeleteRecord {
 
 
     public void check() {
-
+        Select.checkConnection();
         int id_delete = Integer.valueOf(id.getText());
-        SQLSelectJoinDemo sqlSelectJoin = new SQLSelectJoinDemo(id_delete);
-        sqlSelectJoin.setConnection();
-        sqlSelectJoin.selectJoinMain();
+       // SQLSelectJoinDemo sqlSelectJoin = new SQLSelectJoinDemo(id_delete);
+        new Select.SelectJoin<>().joinMainCondition(id_delete);
+        //sqlSelectJoin.setConnection();
+        //sqlSelectJoin.selectJoinMain();
 
         TablesBuilder.buildMainWithoutId(tableView_delete);
 
