@@ -53,15 +53,20 @@ String table_name = "Category";
 
 
 
-
+/*
     Record.addToList( new Record.Builder().id((int) SwitchFilter.switchBuildingRecord(table_name, "Integer", wynik, j -> wynik.remove(j)))
             .category((String) SwitchFilter.switchBuildingRecord(table_name, "String", wynik, j -> wynik.remove(j)))
             .build());
 
 
         Looper.forLoop(Record.list.size(),i->Logger.test(Record.list.get(i).toString()));
-
+ */
         
+        new Select.SelectJoin<String,String>("Expense").sumJoin_mixConditions_OR("Category","Vet","Pies",1);
+        new Select.SelectJoin<String,String>("Expense").sumJoin_mixConditions_OR("Category","Vet","Pies",2);
+        Looper.forLoop(Record.list.size(),i->Logger.test(Record.list.get(i).amount + " " + Record.list.get(i).categoryName));
     }
+  
+
 
 }

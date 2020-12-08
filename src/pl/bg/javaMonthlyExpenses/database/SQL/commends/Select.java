@@ -287,7 +287,48 @@ public static class SelectJoin<T, V>   {
                   res.resultSetRecordbuild(sql);
 
               }
-
+    public void sumJoin_mixConditions_OR(String tableJoined, T condition_1, V condition_2,int id) {
+        
+        
+        StringBuilder stb = new StringBuilder();
+        
+        
+        sql = "Select " + "Sum(Amount)" + ", b.categoryName from " + table_name + "" +
+                " a Join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined)
+                + " where b.";
+        
+        stb.append(sql + getColumntypeName(tableJoined, findObjectType(condition_1)) + " = " + Formatter.findTypeAndFormat(condition_1) + " ");
+        stb.append(" AND " + getColumntypeName(table_name,"Integer") + " = " + id );
+        stb.append(" OR b." + getColumntypeName(tableJoined, findObjectType(condition_2)) + " = " + Formatter.findTypeAndFormat(condition_2));
+        stb.append(" AND " + getColumntypeName(table_name,"Integer") + " = " + id );
+        
+        sql = stb.toString();
+        
+        Logger.test(""+sql);
+        stb.delete(0, stb.length());
+        
+        ResultRecordBuild res = new ResultRecordBuild() {
+            @Override
+            public void resultSetRecordbuild(String sql) {
+                
+                try {
+                    rs = statement.executeQuery(sql);
+                    while (rs.next()) {
+                        
+                        Record.list.add(new Record.Builder().expense(rs.getDouble("Sum(Amount)"))
+                                .category(rs.getString("categoryName"))
+                                .build());
+                        
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                
+            }
+        };
+        res.resultSetRecordbuild(sql);
+        
+    }
           }
       }
 
