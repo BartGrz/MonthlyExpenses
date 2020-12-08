@@ -1,6 +1,6 @@
 package pl.bg.javaMonthlyExpenses.exeptions;
 
-import pl.bg.javaMonthlyExpenses.database.tools.Logger;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 
 public class ListException extends Exception {
 

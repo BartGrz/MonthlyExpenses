@@ -1,6 +1,7 @@
 package pl.bg.javaMonthlyExpenses.database.tools;
 
 
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
 import java.io.File;
 import java.io.FileNotFoundException;

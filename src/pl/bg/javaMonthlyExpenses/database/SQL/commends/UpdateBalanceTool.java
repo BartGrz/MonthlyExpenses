@@ -1,12 +1,12 @@
 package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
-import pl.bg.javaMonthlyExpenses.database.tools.Logger;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 
 import java.util.*;
 
-public class SQLSum extends SQLEssentials {
+public class UpdateBalanceTool extends SQLEssentials {
 
     public void sumBalance() {
 

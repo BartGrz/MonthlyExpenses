@@ -1,9 +1,9 @@
 package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
 
-import pl.bg.javaMonthlyExpenses.database.tools.Logger;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
-import pl.bg.javaMonthlyExpenses.database.tools.ResultRecordBuild;
+import pl.bg.javaMonthlyExpenses.database.tools.SQL.ResultRecordBuild;
 import pl.bg.javaMonthlyExpenses.exeptions.ListException;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 import pl.bg.javaMonthlyExpenses.holder.Record;
@@ -315,6 +315,7 @@ public static class SelectJoin<T, V>   {
                   res.resultSetRecordbuild(sql);
 
               }
+              
     public void sumJoin_mixConditions_OR(String tableJoined, T condition_1, V condition_2,int id) {
         
         

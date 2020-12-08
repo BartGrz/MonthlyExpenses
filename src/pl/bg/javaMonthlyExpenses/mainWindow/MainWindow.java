@@ -73,10 +73,9 @@ public class MainWindow extends Application implements Initializable {
         recordModify.startModify();
     }
     public void updateSumTable() {
-
-        SQLSum sum = new SQLSum();
-        sum.setConnection();
-        sum.sumBalance();
+       
+       UpdateBalanceTool updBalTool= new UpdateBalanceTool();
+       updBalTool.sumBalance();
         tableView_balance.refresh();
     }
     public void update(){

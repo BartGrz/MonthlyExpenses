@@ -1,6 +1,6 @@
 package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
-import pl.bg.javaMonthlyExpenses.database.tools.Logger;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
 import java.sql.*;
@@ -25,9 +25,8 @@ public class SQLEssentials {
     public String sql_add;
     public static HashMap<String, String> map = new HashMap<String, String>();
     public static ResultSet rs;
-
-
-    public static void setConnection() {
+    
+    public static void setConnection() { //connection
 
 
         try {
@@ -38,8 +37,8 @@ public class SQLEssentials {
             Logger.error("" + e);
         }
     }
-
-    public void disconnect() {
+    
+    public void disconnect() { //connection
         try {
             statement.getConnection().close();
         } catch (SQLException e) {
@@ -48,7 +47,7 @@ public class SQLEssentials {
         Logger.conn_status("Disconnected");
     }
 
-    public static void pragmaTable(String table_name) {
+    public static void pragmaTable(String table_name) { //sqlTool
         checkConnection();
         sql = "pragma table_info(" + table_name + ");";
 
@@ -71,9 +70,8 @@ public class SQLEssentials {
         }
 
     }
-
-
-    public Object returnValue(List values) {
+    
+    public Object returnValue(List values) { //ObjectInfo
 
         Object obj;
 
@@ -86,8 +84,8 @@ public class SQLEssentials {
 
         return null;
     }
-
-    public List findTypeFromList(List test) {
+    
+    public List findTypeFromList(List test) { //ObjectInfo
 
         List list = new ArrayList();
 
@@ -98,7 +96,7 @@ public class SQLEssentials {
         return list;
     }
 
-    public static String findObjectType(Object val) {
+    public static String findObjectType(Object val) {//ObjectInfo
 
         String result = val.getClass().getSimpleName();
 
@@ -108,7 +106,7 @@ public class SQLEssentials {
         }
         return result;
     }
-
+    
     public static String fetchTablesID(String mainTable) {
 
         checkConnection();
@@ -133,8 +131,7 @@ public class SQLEssentials {
         return null;
 
     }
-
-    public static List findAndAdd(List list, String sql) {
+    public static List findAndAdd(List list, String sql) { //do usuniecia na 90%
 
         checkConnection();
 
@@ -175,7 +172,6 @@ public class SQLEssentials {
 
 
     }
-
     public static String onlyNames(List list) {
         String name;
         for (int i = 0; i < list.size(); i++) {
@@ -191,6 +187,7 @@ public class SQLEssentials {
         }
         return null;
     }
+    
     public static List<String> fetchColumnsNamesByType(String type) {
 
       List<String>  list_columnNames = new ArrayList<>();
@@ -208,8 +205,7 @@ public class SQLEssentials {
         }
         return list_columnNames;
     }
-
-
+    
     public static int matchWithId(String table_name, String val) {
         int id = 0;
 
@@ -234,10 +230,9 @@ public class SQLEssentials {
 
         return id;
     }
-
-
-
-    public static void checkConnection() {
+    
+    
+    public static void checkConnection() { //connection
 
         try {
             if (!statement.isClosed()) {
@@ -249,7 +244,7 @@ public class SQLEssentials {
             e.printStackTrace();
         }
     }
-
+    
     public static void returnSumAvailable(String table_name) {
 
         pragmaTable(table_name);
@@ -265,7 +260,7 @@ public class SQLEssentials {
         }
         list_names.removeAll(list_names);
     }
-
+    
     public static String getColumntypeName(String table_name, String type) {
         String columnTypeName = null;
         list_names.removeAll(list_names);
@@ -312,7 +307,7 @@ public class SQLEssentials {
       //  list_names.removeAll(list_names);
         return columnTypeName;
     }
-    public static String matchIdWithColumn(String column){
+    public static String matchIdWithColumn(String column){ //sqlTool
 
         checkConnection();
         List<String> list_tables = Arrays.asList("Expense","CommonAccount","Account","Category","Shop","Balance");

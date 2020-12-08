@@ -1,4 +1,4 @@
-package pl.bg.javaMonthlyExpenses.database.tools;
+package pl.bg.javaMonthlyExpenses.Logger;
 
 import java.text.DateFormat;
 import java.time.LocalTime;

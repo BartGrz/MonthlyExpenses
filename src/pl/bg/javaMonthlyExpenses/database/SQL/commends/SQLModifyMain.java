@@ -1,10 +1,9 @@
 package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
-import pl.bg.javaMonthlyExpenses.database.tools.Logger;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
 import java.sql.SQLException;
-import java.text.Normalizer;
 import java.util.List;
 
 import static pl.bg.javaMonthlyExpenses.formatter.Formatter.valueFormatter;
