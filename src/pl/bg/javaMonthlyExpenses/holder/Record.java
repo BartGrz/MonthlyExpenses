@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Record {
-
-
+    
     public  static List<Record> list = new ArrayList<>();
     public  int main_id;
-     public  double amount,balance,debt,finalResult,dogExpense;
+     public  double amount,balance,debt,finalResult;
      public  String accountName, date,categoryName,shopName;
      public  String isCommon;
 
     public static class Builder {
 
         public int main_id;
-        public double amount,balance,debt,finalResult,dogExpense;
+        public double amount,balance,debt,finalResult;
         public String accountName, date,categoryName,shopName;
         public String isCommon;
 
@@ -40,11 +39,7 @@ public class Record {
             finalResult= val;
             return this;
         }
-        public Builder expense_dog (double val) {
-            dogExpense= val;
-            return this;
-        }
-
+        
         public Builder account(String val) {
             accountName = val;
             return this;
@@ -73,12 +68,12 @@ public class Record {
     }
 
     public Record(Builder builder) {
+        
         this.main_id = builder.main_id;
         this.accountName=builder.accountName;
         this.categoryName = builder.categoryName;
         this.shopName=builder.shopName;
         this.amount = builder.amount;
-        this.dogExpense=builder.dogExpense;
         this.date = builder.date;
         this.isCommon=builder.isCommon;
         this.debt=builder.debt;
@@ -115,8 +110,7 @@ public class Record {
     public String getIsCommon() {
         return isCommon;
     }
-
-    public double getDogExpense() { return dogExpense; }
+    
 
     public double getBalance() { return balance; }
 
@@ -127,6 +121,7 @@ public class Record {
     
     @Override
     public String toString() {
+        
         return "Record{" +
                 "balance=" + balance +
                 ", debt=" + debt +

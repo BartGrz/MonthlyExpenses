@@ -389,5 +389,12 @@ public static class SelectJoin<T, V>   {
                   
         }
           }
+          
+          public void selectJoinRange() {
+         
+         // TODO: 2020-12-08
+              //trzeba stworzyc metode filtrujaco baze przez wzglad na <x AND >x  <= => np suma wydatkow od 1.12 do 20.12
+         
+          }
       }
 

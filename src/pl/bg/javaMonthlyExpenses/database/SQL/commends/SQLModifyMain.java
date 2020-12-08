@@ -17,17 +17,17 @@ public class SQLModifyMain extends SQLEssentials {
 public static class Insert extends SQLModifyMain {
 
      public void insert(String table_name, List values) {
-
-
-
+         
          pragmaTable(table_name);
          list_names.remove(0); //usuwa ID z listy nazw po komendzie pragma tableinfo();
+         
          if(values.size()==1) {
 
              Object value = values.get(0);
 
              sql = "Insert into " + table_name + "(" + Formatter.listFormatterColumns(list_names) + ")" +
                      " values (" + Formatter.findTypeAndFormat(value) + ");";
+             
          }else {
 
 
@@ -83,15 +83,15 @@ public static class Update extends SQLModifyMain {
 
             private String id_main, id_fk;
 
-       public void update(String column, Object changeTo, int condition) {
+    public void update(String column, Object changeTo, int condition) {
 
                 pragmaTable(table_name);
 
-               List<String> list_id = fetchColumnsNamesByType("Integer");
                id_main= fetchTablesID(table_name);
                id_fk = fetchTablesID(matchIdWithColumn(column));
 
           if(matchIdWithColumn(column).equals(table_name)) {
+              
               sql = "Update " + table_name + " set " + column + " = " + Formatter.findTypeAndFormat(changeTo)
                       + " where " + id_main + " = " + condition + ";";
           }else {
