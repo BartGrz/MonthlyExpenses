@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableShopWinController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableShopWinController">
 
     <SplitPane dividerPositions="0.37027027027027026" layoutY="27.0" orientation="VERTICAL" prefHeight="372.0" prefWidth="600.0">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="598.0">
@@ -20,7 +20,7 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="143.0" prefWidth="598.0" />
     </SplitPane>
     <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="600.0">
-        <Menu mnemonicParsing="false" onAction="#clear" text="Category">
+        <Menu mnemonicParsing="false" text="Category">
             <MenuItem mnemonicParsing="false" text="Save" />
             <MenuItem mnemonicParsing="false" text="Clear" />
         </Menu>

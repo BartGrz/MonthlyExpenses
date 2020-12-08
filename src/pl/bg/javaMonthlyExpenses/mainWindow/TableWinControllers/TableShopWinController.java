@@ -114,47 +114,5 @@ public class TableShopWinController extends TableController  implements Initiali
         ComboBoxTools.fillingComboBox(new Select(table_name).selectBasic(), list_categories, () -> comboBox_category.setItems(list_categories));
 
     }
-    public void chooseWhich(Button button, ComboBox comboBox) {
-
-
-        switch (comboBox.getValue().toString()) {
-
-            case "Add New":
-
-                label_to.setVisible(false);
-                button_update.setVisible(false);
-                textField_changeTo.setVisible(false);
-                comboBox_category.setVisible(false);
-                textField_modifiy.setVisible(true);
-                button.setText("ADD");
-                button.setVisible(true);
-                button_delORadd.setOnAction(e -> addNew());
-                break;
-
-            case "Change":
-
-                comboBox_category.setVisible(true);
-                textField_modifiy.setVisible(false);
-                textField_changeTo.setVisible(true);
-                label_to.setVisible(true);
-                button_update.setVisible(true);
-                button_delORadd.setVisible(false);
-                button_update.setOnAction(e -> change());
-                break;
-
-            case "Delete":
-
-                label_to.setVisible(false);
-                button_update.setVisible(false);
-                textField_changeTo.setVisible(false);
-                textField_modifiy.setVisible(false);
-                textField_changeTo.setVisible(false);
-                comboBox_category.setVisible(true);
-                button_delORadd.setText("DELETE");
-                button_delORadd.setVisible(true);
-                button_delORadd.setOnAction(e -> delete());
-                break;
-
-        }
-    }
+    
 }
