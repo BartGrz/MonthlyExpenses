@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.*;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
@@ -25,7 +24,6 @@ import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.Filter;
 import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableCategoriesWinController;
 import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableShopWinController;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.ComboBoxTools;
-import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 
