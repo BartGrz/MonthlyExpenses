@@ -245,7 +245,12 @@ public class SQLTools extends Connection {
         }
         return result;
         
-        
-        
     }
+    
+    public static double round (double val) {
+        
+        
+        return Math.round(val *100)/100;
+    }
+    
 }

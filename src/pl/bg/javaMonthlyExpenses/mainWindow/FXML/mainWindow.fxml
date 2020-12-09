@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="514.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.MainWindow">
+<AnchorPane prefHeight="514.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.MainWindow">
    <children>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="468.0" prefWidth="734.0">
          <children>
@@ -38,7 +38,7 @@
               </menus>
             </MenuBar>
           <AnchorPane layoutX="495.0" layoutY="40.0" minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="225.0" />
-            <SplitPane dividerPositions="0.003537735849056604" layoutY="40.0" prefHeight="478.0" prefWidth="850.0">
+            <SplitPane dividerPositions="0.6273584905660378" layoutY="40.0" prefHeight="478.0" prefWidth="850.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
@@ -51,7 +51,12 @@
                         <TableView fx:id="tableView_dog" layoutX="1.0" layoutY="76.0" prefHeight="76.0" prefWidth="361.0" />
                         <TableView fx:id="tableView_addExpense" layoutX="1.0" layoutY="151.0" prefHeight="83.0" prefWidth="361.0" />
                         <TableView fx:id="tableView_sumFromRange" layoutX="362.0" layoutY="76.0" prefHeight="76.0" prefWidth="481.0" />
-                        <ComboBox  fx:id="comboBox_rangeFrom" layoutX="386.0" layoutY="38.0" prefWidth="150.0" />
+                        <ComboBox fx:id="comboBox_rangeFrom" onAction="#chooseRange" layoutX="378.0" layoutY="38.0" prefHeight="25.0" prefWidth="176.0" />
+                        <ComboBox fx:id="comboBox_rangeTo" layoutX="584.0" layoutY="38.0" prefHeight="25.0" prefWidth="176.0" />
+                        <Label layoutX="388.0" layoutY="15.0" text="FROM DATE" />
+                        <Label layoutX="584.0" layoutY="15.0" text="TO DATE" />
+                        <Button fx:id="button_filter" onAction="#filterSumByTimeRange"  layoutX="776.0" layoutY="38.0" mnemonicParsing="false" text="FILTER" />
+
                      </children>
                   </AnchorPane>
               </items>

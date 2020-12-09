@@ -33,10 +33,8 @@ public class  DeleteRecord {
     public void check() {
         Select.checkConnection();
         int id_delete = Integer.valueOf(id.getText());
-       // SQLSelectJoinDemo sqlSelectJoin = new SQLSelectJoinDemo(id_delete);
         new Select.SelectJoin<>().joinMainCondition(id_delete);
-        //sqlSelectJoin.setConnection();
-        //sqlSelectJoin.selectJoinMain();
+
 
         TablesBuilder.buildMainWithoutId(tableView_delete);
 

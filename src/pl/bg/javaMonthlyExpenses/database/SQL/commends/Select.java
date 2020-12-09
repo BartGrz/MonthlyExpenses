@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools.findObjectType;
+import static pl.bg.javaMonthlyExpenses.formatter.Formatter.findTypeAndFormat;
 
 
 public  class Select extends SQLTools {
@@ -195,7 +196,7 @@ public static class SelectJoin<T, V>   {
                               "join Account a on e.idAccount = a.idAccount "
                               + "join Category c on e.idCategory = c.idCategory " +
                               "Join Shop s on e.idShop=s.idShop" +
-                              " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " like " + Formatter.findTypeAndFormat(condition) + " ; ";
+                              " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " like " + findTypeAndFormat(condition) + " ; ";
 
                   } else {
 
@@ -250,7 +251,7 @@ public static class SelectJoin<T, V>   {
                                   " a join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined)
                                   + " where "  +foreignColumn + " like " + Formatter.PartialCondition(conditions.get(i));
 
-Logger.test(""+ sql);
+
 
                           ResultRecordBuild res = new ResultRecordBuild() {
                               @Override
@@ -293,9 +294,9 @@ Logger.test(""+ sql);
                           " a Join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined)
                           + " where b.";
 
-                  stb.append(sql + getColumntypeName(tableJoined, findObjectType(condition_1)) + " = " + Formatter.findTypeAndFormat(condition_1) + " ");
+                  stb.append(sql + getColumntypeName(tableJoined, findObjectType(condition_1)) + " = " + findTypeAndFormat(condition_1) + " ");
 
-                  stb.append(" AND a." + getColumntypeName(table_name, findObjectType(condition_2)) + " = " + Formatter.findTypeAndFormat(condition_2));
+                  stb.append(" AND a." + getColumntypeName(table_name, findObjectType(condition_2)) + " = " + findTypeAndFormat(condition_2));
 
                   sql = stb.toString();
 
@@ -332,9 +333,9 @@ Logger.test(""+ sql);
                 " a Join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined)
                 + " Join Account c on a." +fetchTablesID(tableAccount)   + " = c."+fetchTablesID(tableAccount)  +" where b.";
         
-        stb.append(sql + getColumntypeName(tableJoined, findObjectType(condition_1)) + " = " + Formatter.findTypeAndFormat(condition_1) + " ");
+        stb.append(sql + getColumntypeName(tableJoined, findObjectType(condition_1)) + " = " + findTypeAndFormat(condition_1) + " ");
         stb.append(" AND a." + getColumntypeName(table_name,"Integer") + " = " + id );
-        stb.append(" OR b." + getColumntypeName(tableJoined, findObjectType(condition_2)) + " = " + Formatter.findTypeAndFormat(condition_2));
+        stb.append(" OR b." + getColumntypeName(tableJoined, findObjectType(condition_2)) + " = " + findTypeAndFormat(condition_2));
         stb.append(" AND a." + getColumntypeName(table_name,"Integer") + " = " + id );
         
         sql = stb.toString();
@@ -395,13 +396,39 @@ Logger.test(""+ sql);
                   res.resultSetRecordbuild(sql);
                   
         }
+    public void sumJoinRange(String dateFrom, String dateTo, int id) {
+        
+        sql = "Select Sum(e.Amount) , b.accountName from Expense e " +
+                "Join Account b on e." +fetchTablesID("Account") +  " = b." + fetchTablesID("Account")
+                + " where e.date >= " + findTypeAndFormat(dateFrom)
+                + " AND e.date <= " + findTypeAndFormat(dateTo)
+                + " And e."+ fetchTablesID("Account") + " = " + id;
+        
+        Logger.warn(""+sql);
+        
+        ResultRecordBuild res = new ResultRecordBuild() {
+            @Override
+            public void resultSetRecordbuild(String sql) {
+                try {
+                    rs = statement.executeQuery(sql);
+                    while(rs.next()) {
+                        Record.list.add(new Record.Builder()
+                                .expense(round(rs.getDouble("Sum(e.Amount)")))
+                                .account(rs.getString("accountName"))
+                                .build());
+                    }
+                } catch (SQLException throwables) {
+                  Logger.error(""+throwables);
+                }
+                
+            }
+        };
+        
+        res.resultSetRecordbuild(sql);
+        
+    }
           }
           
-          public void selectJoinRange() {
-         
-         // TODO: 2020-12-08
-              //trzeba stworzyc metode filtrujaco baze przez wzglad na <x AND >x  <= => np suma wydatkow od 1.12 do 20.12
-         
-          }
+   
       }
 

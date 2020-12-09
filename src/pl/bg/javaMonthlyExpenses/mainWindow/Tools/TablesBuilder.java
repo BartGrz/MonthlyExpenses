@@ -1,5 +1,6 @@
 package pl.bg.javaMonthlyExpenses.mainWindow.Tools;
 
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 
@@ -95,5 +96,12 @@ public class TablesBuilder {
     public static void buildExpenseAdd(TableView tableView) {
         Tables.buildTable(new Tables<String,Record>("Kategoria","categoryName"),tableView);
         Tables.buildTable(new Tables<Double,Record>("Wydano","amount"),tableView);
+    }
+    public static void  buildCustom(String columnName, String field, TableView tableView) {
+        
+        Tables.buildTable(new Tables<String,Record>(columnName,field),tableView);
+        
+        
+        
     }
 }
