@@ -217,7 +217,7 @@ public class MainWindow extends Application implements Initializable {
         try {
             DateValidException.DateValidExceptionTimeRange.checkIfRangeValid(LocalDate.parse(dateFrom),LocalDate.parse(dateTo));
         } catch (DateValidException e) {
-            Logger.error("" + e.toString());
+            Logger.error("" + e);
         }
     
         Looper.forLoopChoseIndex(1, 3, i -> new Select.SelectJoin<>().sumJoinRange(dateFrom, dateTo, i));

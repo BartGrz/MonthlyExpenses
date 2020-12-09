@@ -13,14 +13,9 @@ public class DateValidException extends Exception {
     
     public String toString() {
         
-        return "[DATE INPUT INVALID : EXCEPTION TYPE : " ;
+        return "[DATE INPUT INVALID] { EXCEPTION TYPE } : DATE_FROM CANNOT BE BEFORE DATE_TO : SUMBYDATE FILTER ERROR POSSIBLE" ;
     }
     public static class DateValidExceptionTimeRange {
-        
-        @Override
-        public String toString() {
-            return super.toString() + " DATE_FROM CANNOT BE BEFORE DATE_TO : SUMBYDATE FILTER ERROR";
-        }
         
         public static void checkIfRangeValid(LocalDate date_1, LocalDate date_2) throws DateValidException{
             
