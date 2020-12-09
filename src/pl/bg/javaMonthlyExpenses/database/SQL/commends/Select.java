@@ -404,8 +404,6 @@ public static class SelectJoin<T, V>   {
                 + " AND e.date <= " + findTypeAndFormat(dateTo)
                 + " And e."+ fetchTablesID("Account") + " = " + id;
         
-        Logger.warn(""+sql);
-        
         ResultRecordBuild res = new ResultRecordBuild() {
             @Override
             public void resultSetRecordbuild(String sql) {
