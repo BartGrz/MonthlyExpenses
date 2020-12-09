@@ -47,7 +47,7 @@ public class MainWindow extends Application implements Initializable {
     @FXML
     private ComboBox comboBox_rangeFrom = new ComboBox(), comboBox_rangeTo = new ComboBox();
     @FXML
-    private Button button_filter = new Button(),button_refresh=new Button();
+    private Button button_filter = new Button();
     
     private List<String> list_columns = new ArrayList<>();
     private List<String> list_tables = new ArrayList<>();
@@ -215,7 +215,9 @@ public class MainWindow extends Application implements Initializable {
         String dateTo = comboBox_rangeTo.getValue().toString();
     
         try {
-            DateValidException.DateValidExceptionTimeRange.checkIfRangeValid(LocalDate.parse(dateFrom),LocalDate.parse(dateTo));
+           DateValidException.DateValidExceptionTimeRange
+                    .checkIfRangeValid(LocalDate.parse(dateFrom),LocalDate.parse(dateTo));
+           
         } catch (DateValidException e) {
             Logger.error("" + e);
         }
@@ -234,7 +236,6 @@ public class MainWindow extends Application implements Initializable {
     public void chooseRange() {
         
         ComboBoxTools.fillingComboBoxDate(list_dates, () -> comboBox_rangeTo.setItems(list_dates));
-       
         button_filter.setVisible(true);
   
     }
@@ -249,13 +250,13 @@ public class MainWindow extends Application implements Initializable {
         tableView_sumFromRange.getItems().clear();
         tableView_sumFromRange.getColumns().removeAll(tableView_sumFromRange.getColumns());
     
-
-        
-    button_filter.setText("FILTER");
-    button_filter.setOnAction(e->filterSumByTimeRange());
-        
         TablesBuilder.buildCustom("AccountName", "accountName", tableView_sumFromRange);
         TablesBuilder.buildCustom("SumFromTimeRange", "amount", tableView_sumFromRange);
+        
+        button_filter.setText("FILTER");
+        button_filter.setOnAction(e->filterSumByTimeRange());
+        
+        
         
     }
 }
