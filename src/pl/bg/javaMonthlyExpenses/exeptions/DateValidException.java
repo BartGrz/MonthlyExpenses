@@ -24,7 +24,7 @@ public class DateValidException extends Exception {
         
         public static void checkIfRangeValid(LocalDate date_1, LocalDate date_2) throws DateValidException{
             
-            if(date_1.isBefore(date_2)) {
+            if(date_1.isAfter(date_2)) {
                 throw new DateValidException(date_1,date_2);
                 
             } else {

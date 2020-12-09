@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.*;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
@@ -216,7 +217,7 @@ public class MainWindow extends Application implements Initializable {
         try {
             DateValidException.DateValidExceptionTimeRange.checkIfRangeValid(LocalDate.parse(dateFrom),LocalDate.parse(dateTo));
         } catch (DateValidException e) {
-            e.printStackTrace();
+            Logger.error("" + e.toString());
         }
     
         Looper.forLoopChoseIndex(1, 3, i -> new Select.SelectJoin<>().sumJoinRange(dateFrom, dateTo, i));
