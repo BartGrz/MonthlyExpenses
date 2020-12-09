@@ -23,10 +23,9 @@ public class ListException extends Exception {
             if (a > 2) {
                 throw new ListException(a);
             } else {
-                Logger.log(" INPUT OK ");
+            
             }
 
         }
-
     }
 }

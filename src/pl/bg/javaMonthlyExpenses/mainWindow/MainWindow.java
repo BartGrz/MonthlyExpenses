@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.*;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
+import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.DeleteRecord;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.RecordModify;
@@ -29,6 +30,7 @@ import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 public class MainWindow extends Application implements Initializable {
@@ -212,8 +214,13 @@ public class MainWindow extends Application implements Initializable {
         
         String dateFrom = comboBox_rangeFrom.getValue().toString();
         String dateTo = comboBox_rangeTo.getValue().toString();
-        
-        
+    
+        try {
+            DateValidException.DateValidExceptionTimeRange.checkIfRangeValid(LocalDate.parse(dateFrom),LocalDate.parse(dateTo));
+        } catch (DateValidException e) {
+            e.printStackTrace();
+        }
+    
         Looper.forLoopChoseIndex(1, 3, i -> new Select.SelectJoin<>().sumJoinRange(dateFrom, dateTo, i));
         Looper.forLoop(Record.list.size(), i -> tableView_sumFromRange.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
