@@ -111,7 +111,7 @@ public static class SelectJoin<T, V>   {
               private Object id;
               private String table_name;
 
-    public SelectJoin(String table_name) {
+         public SelectJoin(String table_name) {
                   this.table_name = table_name;
               }
 
@@ -129,7 +129,7 @@ public static class SelectJoin<T, V>   {
 
               private String sql;
 
-              public void joinMain() {
+         public void joinMain() {
 
                   sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
                           "join Account a on e.idAccount = a.idAccount "
@@ -157,7 +157,7 @@ public static class SelectJoin<T, V>   {
                   }
 
               }
-              public void joinMainCondition(int id ) {
+         public void joinMainCondition(int id ) {
                   
                   sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
                           "join Account a on e.idAccount = a.idAccount "
@@ -187,7 +187,7 @@ public static class SelectJoin<T, V>   {
     
 
 
-    public void selectJoinMainCondition(String byColumn, Object condition) {
+        public void selectJoinMainCondition(String byColumn, Object condition) {
 
                   if (findObjectType(condition).equals("String") || findObjectType(condition).equals("date")) {
 
@@ -234,7 +234,7 @@ public static class SelectJoin<T, V>   {
 
               }
 
-     public void sumJoin_partialStrings(String tableJoined, List<String> conditions) {
+         public void sumJoin_partialStrings(String tableJoined, List<String> conditions) {
 
 
                   try {
@@ -244,12 +244,13 @@ public static class SelectJoin<T, V>   {
                       Looper.forLoop(conditions.size(), i -> {
 
                           String columnJoined = getColumntypeName(tableJoined, findObjectType(conditions.get(i)));
+                          String foreignColumn = checkIfForeignColumn(table_name,columnJoined);
 
-                          sql = "Select Sum(Amount)" + ", b." + columnJoined + "  from  " + table_name +
+                          sql = "Select Sum(Amount)" + ", " +foreignColumn + "  from  " + table_name +
                                   " a join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined)
-                                  + " where b." + columnJoined + " like " + Formatter.PartialCondition(conditions.get(i));
+                                  + " where "  +foreignColumn + " like " + Formatter.PartialCondition(conditions.get(i));
 
-
+Logger.test(""+ sql);
 
                           ResultRecordBuild res = new ResultRecordBuild() {
                               @Override
@@ -282,7 +283,7 @@ public static class SelectJoin<T, V>   {
 
               }
 
-      public void sumJoin_mixConditions_AND(String tableJoined, T condition_1, V condition_2) {
+        public void sumJoin_mixConditions_AND(String tableJoined, T condition_1, V condition_2) {
 
 
                   StringBuilder stb = new StringBuilder();
@@ -321,7 +322,7 @@ public static class SelectJoin<T, V>   {
 
               }
               
-    public void sumJoin_mixConditions_OR(String tableJoined, T condition_1, V condition_2,int id) {
+        public void sumJoin_mixConditions_OR(String tableJoined, T condition_1, V condition_2,int id) {
         
         
         StringBuilder stb = new StringBuilder();

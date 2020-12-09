@@ -121,12 +121,9 @@ public class Record {
     
     @Override
     public String toString() {
-        
         return "Record{" +
-                "balance=" + balance +
-                ", debt=" + debt +
-                ", finalResult=" + finalResult +
-                ", accountName='" + accountName + '\'' +
+                "amount=" + amount +
+                ", categoryName='" + categoryName + '\'' +
                 '}';
     }
     
