@@ -40,22 +40,36 @@
           <AnchorPane layoutX="495.0" layoutY="40.0" minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="225.0" />
             <SplitPane dividerPositions="0.6273584905660378" layoutY="40.0" prefHeight="478.0" prefWidth="850.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="136.0">
                      <children>
                         <TableView fx:id="tableView_main" prefHeight="476.0" prefWidth="523.0" />
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="817.0">
                      <children>
-                        <TableView fx:id="tableView_balance" layoutX="1.0" prefHeight="76.0" prefWidth="361.0" snapToPixel="false" />
-                        <TableView fx:id="tableView_dog" layoutX="1.0" layoutY="76.0" prefHeight="76.0" prefWidth="361.0" />
-                        <TableView fx:id="tableView_addExpense" layoutX="1.0" layoutY="151.0" prefHeight="83.0" prefWidth="361.0" />
+                        <VBox layoutX="1.0">
+                           <children>
+                              <TableView fx:id="tableView_balance" prefHeight="76.0" prefWidth="361.0" snapToPixel="false" />
+                              <TableView fx:id="tableView_dog" prefHeight="76.0" prefWidth="361.0" />
+                              <TableView fx:id="tableView_addExpense" prefHeight="83.0" prefWidth="315.0" />
+                              <TableView prefHeight="95.0" prefWidth="361.0" />
+                              <TableView prefHeight="153.0" prefWidth="361.0" />
+                           </children>
+                        </VBox>
                         <TableView fx:id="tableView_sumFromRange" layoutX="362.0" layoutY="76.0" prefHeight="76.0" prefWidth="481.0" />
-                        <ComboBox fx:id="comboBox_rangeFrom" onAction="#chooseRange" layoutX="378.0" layoutY="38.0" prefHeight="25.0" prefWidth="176.0" />
+                        <ComboBox fx:id="comboBox_rangeFrom" layoutX="378.0" layoutY="38.0" onAction="#chooseRange" prefHeight="25.0" prefWidth="176.0" />
                         <ComboBox fx:id="comboBox_rangeTo" layoutX="584.0" layoutY="38.0" prefHeight="25.0" prefWidth="176.0" />
                         <Label layoutX="388.0" layoutY="15.0" text="FROM DATE" />
                         <Label layoutX="584.0" layoutY="15.0" text="TO DATE" />
-                        <Button fx:id="button_filter" onAction="#filterSumByTimeRange"  layoutX="776.0" layoutY="38.0" mnemonicParsing="false" text="FILTER" />
+                        <Button fx:id="button_filter" layoutX="776.0" layoutY="38.0" mnemonicParsing="false" onAction="#filterSumByTimeRange" text="FILTER" />
+                        <TableView layoutX="364.0" layoutY="238.0" prefHeight="95.0" prefWidth="489.0" />
+                        <Label layoutX="399.0" layoutY="162.0" text="MONTH" />
+                        <ComboBox layoutX="368.0" layoutY="186.0" prefWidth="150.0" />
+                        <Label layoutX="573.0" layoutY="162.0" text="CATEGORY" />
+                        <Label layoutX="732.0" layoutY="162.0" text="ACCOUNT" />
+                        <ComboBox layoutX="517.0" layoutY="186.0" prefWidth="150.0" />
+                        <ComboBox layoutX="685.0" layoutY="186.0" prefWidth="150.0" />
+                        <Button layoutX="558.0" layoutY="380.0" mnemonicParsing="false" text="Button" />
 
                      </children>
                   </AnchorPane>
