@@ -38,6 +38,7 @@ public class Connection {
         try {
             
             if (!statement.isClosed()) {
+            
             } else {
                 
                 setConnection();

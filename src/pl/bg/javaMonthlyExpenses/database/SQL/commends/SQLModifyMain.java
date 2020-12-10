@@ -35,7 +35,6 @@ public static class Insert extends SQLModifyMain {
                      " values " + Formatter.listFormatterValues(valueFormatter(values)) + ";";
 
          }
-         Logger.warn("" + sql);
             try {
                 statement.execute(sql);
             } catch (SQLException e) {
@@ -44,7 +43,6 @@ public static class Insert extends SQLModifyMain {
 
             Logger.success();
             list_names.removeAll(list_names);
-            Logger.end();
         }
     }
 
@@ -64,8 +62,6 @@ public static class Delete extends SQLModifyMain {
                 Logger.error("" + e);
             }
             Logger.success();
-            Logger.result("row deleted ");
-            Logger.end();
 
 
 
@@ -101,19 +97,19 @@ public static class Update extends SQLModifyMain {
                       + " where " + id_main + " = " + condition + ";";
           }
           
-                Logger.result("row [" + column + "] was updated to : " + changeTo);
+           //     Logger.result("row [" + column + "] was updated to : " + changeTo);
 
             try {
                 statement.execute(sql);
             } catch (SQLException e) {
                 Logger.error("" + e);
                 Logger.failure();
+                
             }
 
 
                 list_names.removeAll(list_names);
                 Logger.success();
-                Logger.end();
 
             }
         }

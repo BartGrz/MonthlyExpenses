@@ -101,6 +101,7 @@ public class MainWindow extends Application implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Select.setConnection();
         
         list_tables.add("Balance");
         list_tables.add("Account");
@@ -158,9 +159,8 @@ public class MainWindow extends Application implements Initializable {
     
     synchronized public void fillingTables() {
         
-        
-        Select.setConnection();
-        
+        Select.checkConnection();
+       
         
         TablesBuilder.buildMain(tableView_main);
         TablesBuilder.buildBalance(tableView_balance);
@@ -172,7 +172,6 @@ public class MainWindow extends Application implements Initializable {
            new Select.SelectJoin().joinMain();
            Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
            Record.list.removeAll(Record.list);
-          
            
         });
        
@@ -201,7 +200,7 @@ public class MainWindow extends Application implements Initializable {
         
         thread_first.start();
        
-        checkIfAllive(thread_first,()->{ thread_second.start(); });
+      checkIfAllive(thread_first,()->{ thread_second.start(); });
         
         checkIfAllive(thread_second,()->{ thread_third.start(); });
         
@@ -214,7 +213,6 @@ public class MainWindow extends Application implements Initializable {
     
         try {
             if (!thread.isAlive() && SQLTools.rs.isClosed()) {
-                Logger.log(" FINISHED ");
                 runnable.run();
                 
             } else {
@@ -243,8 +241,6 @@ public class MainWindow extends Application implements Initializable {
     public void filterSumByTimeRange() {
         
         Select.checkConnection();
-        
-        
         
         String dateFrom = comboBox_rangeFrom.getValue().toString();
         String dateTo = comboBox_rangeTo.getValue().toString();
@@ -285,8 +281,8 @@ public class MainWindow extends Application implements Initializable {
         tableView_sumFromRange.getItems().clear();
         tableView_sumFromRange.getColumns().removeAll(tableView_sumFromRange.getColumns());
     
-        TablesBuilder.buildCustom("AccountName", "accountName", tableView_sumFromRange);
-        TablesBuilder.buildCustom("SumFromTimeRange", "amount", tableView_sumFromRange);
+        TablesBuilder.buildCustom("Account", "accountName", tableView_sumFromRange);
+        TablesBuilder.buildCustom("Sum", "amount", tableView_sumFromRange);
         
         button_filter.setText("FILTER");
         button_filter.setOnAction(e->filterSumByTimeRange());

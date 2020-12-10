@@ -99,7 +99,7 @@ Record.list.removeAll(Record.list);
     }
         });
        
-        Logger.success();
+        Logger.end();
         
         }
     }
