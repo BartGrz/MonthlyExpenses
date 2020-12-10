@@ -89,9 +89,8 @@ public class MainWindow extends Application implements Initializable {
     
     public void updateSumTable() {
         
-        UpdateBalanceTool updBalTool = new UpdateBalanceTool();
-        updBalTool.sumBalance();
-        tableView_balance.refresh();
+      new UpdateBalanceTool().startTool();
+      
     }
     
     public void update() {
@@ -201,11 +200,6 @@ public class MainWindow extends Application implements Initializable {
             Record.list.removeAll(Record.list);
             
         });
-    
-        thread_first.setName("MainTableThread");
-        thread_second.setName("BalanceTableThread");
-        thread_third.setName("Category");
-        
         
         thread_first.start();
        
@@ -225,7 +219,7 @@ public class MainWindow extends Application implements Initializable {
     
         try {
             if (!thread.isAlive() && SQLTools.rs.isClosed()) {
-                Logger.log(thread.getName() + " FINISHED ");
+                Logger.log(" FINISHED ");
                 runnable.run();
                 
             } else {
@@ -234,21 +228,20 @@ public class MainWindow extends Application implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        Logger.success();
     }
     
     public void tableCategories() {
         
-        TableCategoriesWinController tabCatController = new TableCategoriesWinController();
-        tabCatController.start();
+         new TableCategoriesWinController().start();
         
     }
     
     
     public void tableShops() {
         
-        TableShopWinController tabShopController = new TableShopWinController();
-        tabShopController.start();
-        
+      new TableShopWinController().start();
+      
     }
     
     @FXML

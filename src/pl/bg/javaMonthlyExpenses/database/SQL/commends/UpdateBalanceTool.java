@@ -7,19 +7,19 @@ import pl.bg.javaMonthlyExpenses.holder.Record;
 import java.util.*;
 
 public class UpdateBalanceTool  {
-
-    public void sumBalance() {
+    
+    synchronized private void sumBalance() {
 
 
         Select.setConnection();
         Looper.forLoopChoseIndex(1,3,i-> new SQLModifyMain.Update("Balance")
                 .update("Balance", new Select("Expense").selectSumBasic(i), i));
         
-        sumDebt();
     }
-
-
-    private void sumDebt() {
+    
+    
+    synchronized private void sumDebt() {
+      
       //  for (int i = 1; i < 3; i++) {
 Looper.forLoopChoseIndex(1,3,i->{
     
@@ -43,11 +43,9 @@ Looper.forLoopChoseIndex(1,3,i->{
             }
 });
 
-        sumResult();
-
     }
 
-    private void sumResult() {
+   synchronized private  void sumResult() {
     
     
     
@@ -76,11 +74,33 @@ Looper.forLoopChoseIndex(1,3,i->{
         }
         });
         
-    Logger.result("UPDATE COMPLETED ");
-    Logger.end();
 
 Record.list.removeAll(Record.list);
 
+        }
+     public  void startTool() {
+        
+       List <Thread> list_Threads = Arrays.asList(
+                                                  new Thread (()-> { sumBalance(); }),
+                                                  new Thread(()->{ sumDebt(); }),
+                                                  new Thread(()->{ sumResult(); })
+                                                  );
+        
+      Looper.forLoop(list_Threads.size(),i->{
+           
+           list_Threads.get(i).start();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+    while (list_Threads.get(i).isAlive()) {
+    
+    }
+        });
+      
+        Logger.success();
+        
         }
     }
 

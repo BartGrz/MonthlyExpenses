@@ -411,7 +411,7 @@ public static class SelectJoin<T, V>   {
                     rs = statement.executeQuery(sql);
                     while(rs.next()) {
                         Record.list.add(new Record.Builder()
-                                .expense(round(rs.getDouble("Sum(e.Amount)")))
+                                .expense(rs.getDouble("Sum(e.Amount)"))
                                 .account(rs.getString("accountName"))
                                 .build());
                     }
