@@ -129,6 +129,8 @@ public class MainWindow extends Application implements Initializable {
     
     synchronized  public void refresh() {
         
+
+        
         tableView_main.getItems().clear();
         tableView_balance.getItems().clear();
         tableView_dog.getItems().clear();
@@ -171,6 +173,7 @@ public class MainWindow extends Application implements Initializable {
            new Select.SelectJoin().joinMain();
            Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
            Record.list.removeAll(Record.list);
+          
            
         });
        
@@ -199,44 +202,34 @@ public class MainWindow extends Application implements Initializable {
             
         });
     
-       thread_first.start();
+        thread_first.setName("MainTableThread");
+        thread_second.setName("BalanceTableThread");
+        thread_third.setName("Category");
+        
+        
+        thread_first.start();
        
-        checkIfAllive(thread_first,()->{
-            
-            thread_second.start();
-        });
+        checkIfAllive(thread_first,()->{ thread_second.start(); });
         
-        checkIfAllive(thread_second,()->{
+        checkIfAllive(thread_second,()->{ thread_third.start(); });
         
-            thread_third.start();
-        });
+        checkIfAllive(thread_third,()->{ thread_fourth.start(); });
         
-        checkIfAllive(thread_second,()->{
-        
-            thread_fourth.start();
-        });
-    
-    
-    
-    
-    
-    
-    
     
     }
     
     
-    public  void checkIfAllive(Thread thread,Runnable runnable) {
+    public void checkIfAllive(Thread thread,Runnable runnable) {
         
         while (thread.isAlive()) { }
     
         try {
             if (!thread.isAlive() && SQLTools.rs.isClosed()) {
-                
+                Logger.log(thread.getName() + " FINISHED ");
                 runnable.run();
                 
             } else {
-            
+            Logger.warn(thread.getName() + " STILL WORKING ");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

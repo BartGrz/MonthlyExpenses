@@ -249,8 +249,8 @@ public class SQLTools extends Connection {
     
     public static double round (double val) {
         
-        
-        return Math.round(val *100)/100;
+        return Math.round((val)*100)/100;
     }
     
+   
 }
