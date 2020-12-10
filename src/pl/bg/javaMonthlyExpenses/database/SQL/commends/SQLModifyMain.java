@@ -35,6 +35,7 @@ public static class Insert extends SQLModifyMain {
                      " values " + Formatter.listFormatterValues(valueFormatter(values)) + ";";
 
          }
+         Logger.warn("" + sql);
             try {
                 statement.execute(sql);
             } catch (SQLException e) {

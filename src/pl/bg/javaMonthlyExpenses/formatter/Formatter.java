@@ -24,7 +24,7 @@ public class Formatter {
 
  */
       
-        output.append(list.get(0) + ",");
+        output.append(list.get(0) );
         
 
         return ""+ output;

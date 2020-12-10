@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.*;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
+import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.DeleteRecord;
@@ -29,6 +30,7 @@ import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -125,7 +127,7 @@ public class MainWindow extends Application implements Initializable {
         deleteRecord.open();
     }
     
-    public void refresh() {
+    synchronized  public void refresh() {
         
         tableView_main.getItems().clear();
         tableView_balance.getItems().clear();
@@ -153,7 +155,7 @@ public class MainWindow extends Application implements Initializable {
         
     }
     
-    public void fillingTables() {
+    synchronized public void fillingTables() {
         
         
         Select.setConnection();
@@ -164,29 +166,81 @@ public class MainWindow extends Application implements Initializable {
         TablesBuilder.buildDog(tableView_dog);
         TablesBuilder.buildExpenseAdd(tableView_addExpense);
         
+       Thread thread_first = new Thread(()->  {
+           
+           new Select.SelectJoin().joinMain();
+           Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
+           Record.list.removeAll(Record.list);
+           
+        });
        
+        Thread thread_second = new Thread(()->  {
+            
+            Looper.forLoopChoseIndex(1, 3, i ->
+                    new Select.SelectJoin("Balance").selectJoinOneCond("Account", i));
+            Looper.forLoop(Record.list.size(), (i) -> tableView_balance.getItems().add(Record.list.get(i)));
+            Record.list.removeAll(Record.list);
+            
+        });
+    
+        Thread thread_third = new Thread(()->  {
+            
+            Looper.forLoopChoseIndex(1, 3, i -> new Select.SelectJoin<String, String>("Expense")
+                    .sumJoin_mixConditions_OR("Category", "Vet", "Pies", i));
+            Looper.forLoop(Record.list.size(), (i) -> tableView_dog.getItems().add(Record.list.get(i)));
+            Record.list.removeAll(Record.list);
+        });
+    
+        Thread thread_fourth = new Thread(()->  {
+            
+            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("swinsk", "napoj"));
+            Looper.forLoop(Record.list.size(), (i) -> tableView_addExpense.getItems().add(Record.list.get(i)));
+            Record.list.removeAll(Record.list);
+            
+        });
+    
+       thread_first.start();
+       
+        checkIfAllive(thread_first,()->{
+            
+            thread_second.start();
+        });
         
-        new Select.SelectJoin().joinMain();
-        Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
-        Record.list.removeAll(Record.list);
+        checkIfAllive(thread_second,()->{
         
+            thread_third.start();
+        });
         
-        Looper.forLoopChoseIndex(1, 3, i ->
-                new Select.SelectJoin("Balance").selectJoinOneCond("Account", i));
-        Looper.forLoop(Record.list.size(), (i) -> tableView_balance.getItems().add(Record.list.get(i)));
-        Record.list.removeAll(Record.list);
+        checkIfAllive(thread_second,()->{
         
-        Looper.forLoopChoseIndex(1, 3, i -> new Select.SelectJoin<String, String>("Expense")
-                .sumJoin_mixConditions_OR("Category", "Vet", "Pies", i));
+            thread_fourth.start();
+        });
+    
+    
+    
+    
+    
+    
+    
+    
+    }
+    
+    
+    public  void checkIfAllive(Thread thread,Runnable runnable) {
         
-        
-        Looper.forLoop(Record.list.size(), (i) -> tableView_dog.getItems().add(Record.list.get(i)));
-        Record.list.removeAll(Record.list);
-        
-        new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("swinsk", "napoj"));
-        Looper.forLoop(Record.list.size(), (i) -> tableView_addExpense.getItems().add(Record.list.get(i)));
-        Record.list.removeAll(Record.list);
-        
+        while (thread.isAlive()) { }
+    
+        try {
+            if (!thread.isAlive() && SQLTools.rs.isClosed()) {
+                
+                runnable.run();
+                
+            } else {
+            
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
     
     public void tableCategories() {
