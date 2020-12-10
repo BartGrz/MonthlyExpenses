@@ -98,7 +98,7 @@ Record.list.removeAll(Record.list);
     
     }
         });
-      
+       
         Logger.success();
         
         }

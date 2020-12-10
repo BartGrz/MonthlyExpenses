@@ -191,15 +191,13 @@ public class MainWindow extends Application implements Initializable {
                     .sumJoin_mixConditions_OR("Category", "Vet", "Pies", i));
             Looper.forLoop(Record.list.size(), (i) -> tableView_dog.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
-        });
     
-        Thread thread_fourth = new Thread(()->  {
-            
             new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("swinsk", "napoj"));
             Looper.forLoop(Record.list.size(), (i) -> tableView_addExpense.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
-            
         });
+    
+        
         
         thread_first.start();
        
@@ -207,9 +205,6 @@ public class MainWindow extends Application implements Initializable {
         
         checkIfAllive(thread_second,()->{ thread_third.start(); });
         
-        checkIfAllive(thread_third,()->{ thread_fourth.start(); });
-        
-    
     }
     
     
