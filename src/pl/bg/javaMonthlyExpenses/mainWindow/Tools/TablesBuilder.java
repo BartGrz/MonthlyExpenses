@@ -14,63 +14,59 @@ import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.ColumnsCreator;
 import java.util.List;
 
 class Tables <T,V> {
-
+    
     private static String columnName;
     private static String field;
-
-
+    
+    
     public Tables(String columnName, String field) {
-
-        this.columnName=columnName;
-        this.field=field;
+        
+        this.columnName = columnName;
+        this.field = field;
     }
-
-    private void  columnsCreator  (ColumnsCreator columnsCreator) {
-
+    
+    private void columnsCreator(ColumnsCreator columnsCreator) {
+        
         TableColumn<T, V> column = new TableColumn<>(columnName);
-
+        
         column.setCellValueFactory(new PropertyValueFactory<>(field));
         columnsCreator.columnsCreator(column);
-
+        
     }
-
+    
     public static void setTableView(Tables tables, TableView tableView) {
-
-        tables.columnsCreator((newColumn)->tableView.getColumns().add(newColumn));
-
+        
+        tables.columnsCreator((newColumn) -> tableView.getColumns().add(newColumn));
+        
     }
-
-
+    
+    
     public static void buildTable(Tables tables, TableView tableView) {
-
-        setTableView(getObject(tables),tableView);
+        
+        setTableView(getObject(tables), tableView);
     }
-
+    
+    
     public static Tables getObject(Tables tables) {
-
-
+        
+        
         return tables;
     }
-
-    @Override
-    public String toString() {
-        return "column names " + columnName + " pole "  + field ;
-    }
+    
+    
 }
-
-
 
 public class TablesBuilder {
 
     public static void buildMain(TableView tableView) {
 
         Tables.buildTable(new Tables<String, Record>("ID","main_id"),tableView);
-        Tables.buildTable(new Tables<String, Record>("Konto","accountName"),tableView);
-        Tables.buildTable(new Tables<Double,Record>("Kwota","amount"),tableView);
-        Tables.buildTable(new Tables<String,Record>("Data","date"),tableView);
-        Tables.buildTable(new Tables<String,Record>("Kategoria","categoryName"),tableView);
-        Tables.buildTable(new Tables<String,Record>("Sklep","shopName"),tableView);
-        Tables.buildTable(new Tables<String,Record>("Wspolne?","isCommon"),tableView);
+        Tables.buildTable(new Tables<String, Record>("Account","accountName"),tableView);
+        Tables.buildTable(new Tables<Double,Record>("Amount","amount"),tableView);
+        Tables.buildTable(new Tables<String,Record>("Date","date"),tableView);
+        Tables.buildTable(new Tables<String,Record>("Catgegory","categoryName"),tableView);
+        Tables.buildTable(new Tables<String,Record>("Shop","shopName"),tableView);
+        Tables.buildTable(new Tables<String,Record>("isCommon?","isCommon"),tableView);
     }
     public static void buildBalance(TableView tableView) {
 
@@ -79,24 +75,24 @@ public class TablesBuilder {
         Tables.buildTable(new Tables<Double,Record>("DlugoWspolne","debt"),tableView);
         Tables.buildTable(new Tables<Double,Record>("DlugDoOddania","finalResult"),tableView);
     }
-    public static void buildDog(TableView tableView) {
+    public static void buildForCategories(TableView tableView) {
+        
+        TablesBuilder.buildCustom("Category","categoryName",tableView);
+        TablesBuilder.buildCustom("Expense","amount",tableView);
+        
+        
 
-        Tables.buildTable(new Tables<String,Record>("Konto","accountName"),tableView);
-        Tables.buildTable(new Tables<Double,Record>("WydanoNaPsa","amount"),tableView);
     }
     public static void buildMainWithoutId(TableView tableView) {
-
-        Tables.buildTable(new Tables<String, Record>("Konto","accountName"),tableView);
-        Tables.buildTable(new Tables<Double,Record>("Kwota","amount"),tableView);
-        Tables.buildTable(new Tables<String,Record>("Data","date"),tableView);
-        Tables.buildTable(new Tables<String,Record>("Kategoria","categoryName"),tableView);
-        Tables.buildTable(new Tables<String,Record>("Sklep","shopName"),tableView);
-        Tables.buildTable(new Tables<String,Record>("Wspolne?","isCommon"),tableView);
+    
+        Tables.buildTable(new Tables<String, Record>("Account","accountName"),tableView);
+        Tables.buildTable(new Tables<Double,Record>("Amount","amount"),tableView);
+        Tables.buildTable(new Tables<String,Record>("Date","date"),tableView);
+        Tables.buildTable(new Tables<String,Record>("Catgegory","categoryName"),tableView);
+        Tables.buildTable(new Tables<String,Record>("Shop","shopName"),tableView);
+        Tables.buildTable(new Tables<String,Record>("isCommon?","isCommon"),tableView);
     }
-    public static void buildExpenseAdd(TableView tableView) {
-        Tables.buildTable(new Tables<String,Record>("Kategoria","categoryName"),tableView);
-        Tables.buildTable(new Tables<Double,Record>("Wydano","amount"),tableView);
-    }
+    
     public static void  buildCustom(String columnName, String field, TableView tableView) {
         
         Tables.buildTable(new Tables<String,Record>(columnName,field),tableView);

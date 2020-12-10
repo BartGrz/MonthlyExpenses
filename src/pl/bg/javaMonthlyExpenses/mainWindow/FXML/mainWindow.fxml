@@ -50,10 +50,9 @@
                         <VBox layoutX="1.0">
                            <children>
                               <TableView fx:id="tableView_balance" prefHeight="76.0" prefWidth="361.0" snapToPixel="false" />
-                              <TableView fx:id="tableView_dog" prefHeight="76.0" prefWidth="361.0" />
-                              <TableView fx:id="tableView_addExpense" prefHeight="83.0" prefWidth="315.0" />
-                              <TableView prefHeight="95.0" prefWidth="361.0" />
-                              <TableView prefHeight="153.0" prefWidth="361.0" />
+                              <TableView fx:id="tableView_dog" prefHeight="121.0" prefWidth="361.0" />
+                              <TableView  fx:id="tableView_homeExpense" prefHeight="138.0" prefWidth="361.0" />
+                              <TableView fx:id="tableView_addExpense" prefHeight="141.0" prefWidth="361.0" />
                            </children>
                         </VBox>
                         <TableView fx:id="tableView_sumFromRange" layoutX="362.0" layoutY="76.0" prefHeight="76.0" prefWidth="481.0" />

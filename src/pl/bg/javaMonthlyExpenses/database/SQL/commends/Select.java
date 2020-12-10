@@ -107,182 +107,173 @@ return list_results;
 
           }
 
-public static class SelectJoin<T, V>   {
-
-              private Object id;
-              private String table_name;
-
-         public SelectJoin(String table_name) {
-                  this.table_name = table_name;
-              }
-
-              public SelectJoin() {
-              }
-
-              public SelectJoin(Object id) {
-                  this.id = id;
-              }
-
-              public SelectJoin(Object id, String table_name) {
-                  this.id = id;
-                  this.table_name = table_name;
-              }
-
-              private String sql;
-
-         public void joinMain() {
-
-                  sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
-                          "join Account a on e.idAccount = a.idAccount "
-                          + "join Category c on e.idCategory = c.idCategory " +
-                          "Join Shop s on e.idShop=s.idShop" +
-                          " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
-
-
-                  try {
-                      rs = statement.executeQuery(sql);
-                      while (rs.next()) {
-                          Record.list.add(new Record.Builder()
-                                  .id(rs.getInt("idExpense"))
-                                  .account(rs.getString("accountName"))
-                                  .expense(rs.getDouble("amount"))
-                                  .category(rs.getString("categoryName"))
-                                  .date(rs.getString("date"))
-                                  .shop(rs.getString("shopName"))
-                                  .common(String.valueOf(rs.getBoolean("isCommon")))
-                                  .build());
-                      }
-
-                  } catch (SQLException e) {
-                      e.printStackTrace();
-                  }
-
-              }
-         public void joinMainCondition(int id ) {
-                  
-                  sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
-                          "join Account a on e.idAccount = a.idAccount "
-                          + "join Category c on e.idCategory = c.idCategory " +
-                          "Join Shop s on e.idShop=s.idShop" +
-                          " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount where idExpense =  " + id +  ";";
-              
-
+public static class SelectJoin<T, V> {
+    
+    private Object id;
+    private String table_name;
+    
+    public SelectJoin(String table_name) {
+        this.table_name = table_name;
+    }
+    
+    public SelectJoin() {
+    }
+    
+    public SelectJoin(Object id) {
+        this.id = id;
+    }
+    
+    public SelectJoin(Object id, String table_name) {
+        this.id = id;
+        this.table_name = table_name;
+    }
+    
+    private String sql;
+    
+    public void joinMain() {
+        
+        sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                "join Account a on e.idAccount = a.idAccount "
+                + "join Category c on e.idCategory = c.idCategory " +
+                "Join Shop s on e.idShop=s.idShop" +
+                " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
+        
+        
         try {
-        rs =statement.executeQuery(sql);
-        while (rs.next()) {
-            Record.list.add(new Record.Builder()
-                    .id(rs.getInt("idExpense"))
-                    .account(rs.getString("accountName"))
-                    .expense(rs.getDouble("amount"))
-                    .category(rs.getString("categoryName"))
-                    .date(rs.getString("date"))
-                    .shop(rs.getString("shopName"))
-                    .common(String.valueOf( rs.getBoolean("isCommon")))
-                    .build());
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                Record.list.add(new Record.Builder()
+                        .id(rs.getInt("idExpense"))
+                        .account(rs.getString("accountName"))
+                        .expense(rs.getDouble("amount"))
+                        .category(rs.getString("categoryName"))
+                        .date(rs.getString("date"))
+                        .shop(rs.getString("shopName"))
+                        .common(String.valueOf(rs.getBoolean("isCommon")))
+                        .build());
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         
-    } catch (SQLException e) {
-        e.printStackTrace();
     }
-}
     
-
-
-        public void selectJoinMainCondition(String byColumn, Object condition) {
-
-                  if (findObjectType(condition).equals("String") || findObjectType(condition).equals("date")) {
-
-                      sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
-                              "join Account a on e.idAccount = a.idAccount "
-                              + "join Category c on e.idCategory = c.idCategory " +
-                              "Join Shop s on e.idShop=s.idShop" +
-                              " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " like " + findTypeAndFormat(condition) + " ; ";
-
-                  } else {
-
-                      sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
-                              "join Account a on e.idAccount = a.idAccount "
-                              + "join Category c on e.idCategory = c.idCategory " +
-                              "Join Shop s on e.idShop=s.idShop" +
-                              " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " = " + condition + " ; ";
-
-                  }
-
-                  ResultRecordBuild res = new ResultRecordBuild() {
-                      @Override
-                      public void resultSetRecordbuild(String sql) {
-                          try {
-                              rs = statement.executeQuery(sql);
-                              while (rs.next()) {
-                                  Record.list.add(new Record.Builder()
-                                          .id(rs.getInt("idExpense"))
-                                          .account(rs.getString("accountName"))
-                                          .expense(rs.getDouble("amount"))
-                                          .category(rs.getString("categoryName"))
-                                          .date(rs.getString("date"))
-                                          .shop(rs.getString("shopName"))
-                                          .common(String.valueOf(rs.getBoolean("isCommon")))
-                                          .build());
-                              }
-
-                          } catch (SQLException e) {
-                              e.printStackTrace();
-                          }
-                      }
-                  };
-
-                  res.resultSetRecordbuild(sql);
-
-              }
-
-         public void sumJoin_partialStrings(String tableJoined, List<String> conditions) {
-
-
-                  try {
-                      ListException.ListExceptionSize.checkSize(conditions.size());
-
-
-                      Looper.forLoop(conditions.size(), i -> {
-
-                          String columnJoined = getColumntypeName(tableJoined, findObjectType(conditions.get(i)));
-                          String foreignColumn = checkIfForeignColumn(table_name,columnJoined);
-
-                          sql = "Select Sum(Amount)" + ", " +foreignColumn + "  from  " + table_name +
-                                  " a join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined)
-                                  + " where "  +foreignColumn + " like " + Formatter.PartialCondition(conditions.get(i));
-
-
-
-                          ResultRecordBuild res = new ResultRecordBuild() {
-                              @Override
-                              public void resultSetRecordbuild(String sql) {
-                                  try {
-                                      rs = statement.executeQuery(sql);
-                                      while (rs.next()) {
-
-                                          Record.list.add(new Record.Builder()
-                                                  .expense((double)Math.round(rs.getDouble("Sum(Amount)")*100)/100)
-                                                  .category(rs.getString(columnJoined))
-                                                  .build());
-
-                                      }
-                                  } catch (SQLException e) {
-                                      e.printStackTrace();
-                                  }
-
-
-                              }
-
-                          };
-                          res.resultSetRecordbuild(sql);
-                      });
-
-                  } catch (ListException e) {
-                      Logger.error("" + e);
-
-                  }
-
-              }
+    public void joinMainCondition(int id) {
+        
+        sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                "join Account a on e.idAccount = a.idAccount "
+                + "join Category c on e.idCategory = c.idCategory " +
+                "Join Shop s on e.idShop=s.idShop" +
+                " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount where idExpense =  " + id + ";";
+        
+        
+        try {
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                Record.list.add(new Record.Builder()
+                        .id(rs.getInt("idExpense"))
+                        .account(rs.getString("accountName"))
+                        .expense(rs.getDouble("amount"))
+                        .category(rs.getString("categoryName"))
+                        .date(rs.getString("date"))
+                        .shop(rs.getString("shopName"))
+                        .common(String.valueOf(rs.getBoolean("isCommon")))
+                        .build());
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public void selectJoinMainCondition(String byColumn, Object condition) {
+        
+        if (findObjectType(condition).equals("String") || findObjectType(condition).equals("date")) {
+            
+            sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                    "join Account a on e.idAccount = a.idAccount "
+                    + "join Category c on e.idCategory = c.idCategory " +
+                    "Join Shop s on e.idShop=s.idShop" +
+                    " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " like " + findTypeAndFormat(condition) + " ; ";
+            
+        } else {
+            
+            sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                    "join Account a on e.idAccount = a.idAccount "
+                    + "join Category c on e.idCategory = c.idCategory " +
+                    "Join Shop s on e.idShop=s.idShop" +
+                    " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " = " + condition + " ; ";
+            
+        }
+        
+        ResultRecordBuild res = new ResultRecordBuild() {
+            @Override
+            public void resultSetRecordbuild(String sql) {
+                try {
+                    rs = statement.executeQuery(sql);
+                    while (rs.next()) {
+                        Record.list.add(new Record.Builder()
+                                .id(rs.getInt("idExpense"))
+                                .account(rs.getString("accountName"))
+                                .expense(rs.getDouble("amount"))
+                                .category(rs.getString("categoryName"))
+                                .date(rs.getString("date"))
+                                .shop(rs.getString("shopName"))
+                                .common(String.valueOf(rs.getBoolean("isCommon")))
+                                .build());
+                    }
+                    
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        
+        res.resultSetRecordbuild(sql);
+        
+    }
+    
+    public void sumJoin_partialStrings(String tableJoined, List<String> conditions) {
+        
+        
+        Looper.forLoop(conditions.size(), i -> {
+            
+            String columnJoined = getColumntypeName(tableJoined, findObjectType(conditions.get(i)));
+            String foreignColumn = checkIfForeignColumn(table_name, columnJoined);
+            
+            sql = "Select Sum(Amount)" + ", " + foreignColumn + " from  " + table_name +
+                    " a join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined) +
+                    " where " + foreignColumn + " like " + Formatter.PartialCondition(conditions.get(i));
+            
+            
+            ResultRecordBuild res = new ResultRecordBuild() {
+                @Override
+                public void resultSetRecordbuild(String sql) {
+                    try {
+                        rs = statement.executeQuery(sql);
+                        while (rs.next()) {
+    
+                            Record.list.add(new Record.Builder()
+                                    .expense(round(rs.getDouble("Sum(Amount)")))
+                                    .category(rs.getString(columnJoined))
+                                    .build());
+    
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+    
+    
+                }
+                
+            };
+            res.resultSetRecordbuild(sql);
+        });
+        
+}
+        
 
         public void sumJoin_mixConditions_AND(String tableJoined, T condition_1, V condition_2) {
 

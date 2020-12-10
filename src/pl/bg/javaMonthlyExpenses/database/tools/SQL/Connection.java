@@ -33,11 +33,11 @@ public class Connection {
         Logger.conn_status("Disconnected");
     }
     
-    public static void checkConnection() { //connection
+    public static void checkConnection( ) { //connection
         
         try {
             
-            if (!statement.isClosed()) {
+            if (!getStatement(statement).isClosed()) {
             
             } else {
                 
@@ -48,6 +48,10 @@ public class Connection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static Statement getStatement(Statement statement) {
+        
+        return statement;
     }
     
 }

@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
@@ -46,6 +47,8 @@ public class MainWindow extends Application implements Initializable {
     private TableView tableView_addExpense = new TableView();
     @FXML
     private TableView tableView_sumFromRange = new TableView();
+    @FXML
+    private TableView tableView_homeExpense = new TableView();
     @FXML
     private ComboBox comboBox_rangeFrom = new ComboBox(), comboBox_rangeTo = new ComboBox();
     @FXML
@@ -117,8 +120,8 @@ public class MainWindow extends Application implements Initializable {
     button_filter.setVisible(false);
  
     
-        TablesBuilder.buildCustom("AccountName", "accountName", tableView_sumFromRange);
-        TablesBuilder.buildCustom("SumFromTimeRange", "amount", tableView_sumFromRange);
+        TablesBuilder.buildCustom("Account", "accountName", tableView_sumFromRange);
+        TablesBuilder.buildCustom("Sum", "amount", tableView_sumFromRange);
     }
     
     public void delete() {
@@ -135,6 +138,7 @@ public class MainWindow extends Application implements Initializable {
         tableView_balance.getItems().clear();
         tableView_dog.getItems().clear();
         tableView_addExpense.getItems().clear();
+        tableView_homeExpense.getItems().clear();
         
         
         list_tables.add("Balance");
@@ -145,6 +149,7 @@ public class MainWindow extends Application implements Initializable {
         tableView_main.getColumns().removeAll(tableView_main.getColumns());
         tableView_dog.getColumns().removeAll(tableView_dog.getColumns());
         tableView_addExpense.getColumns().removeAll(tableView_addExpense.getColumns());
+        tableView_homeExpense.getColumns().removeAll(tableView_homeExpense.getColumns());
         
         fillingTables();
         
@@ -152,6 +157,7 @@ public class MainWindow extends Application implements Initializable {
         tableView_main.refresh();
         tableView_addExpense.refresh();
         tableView_dog.refresh();
+        tableView_homeExpense.refresh();
         
         
         
@@ -164,10 +170,13 @@ public class MainWindow extends Application implements Initializable {
         
         TablesBuilder.buildMain(tableView_main);
         TablesBuilder.buildBalance(tableView_balance);
-        TablesBuilder.buildDog(tableView_dog);
-        TablesBuilder.buildExpenseAdd(tableView_addExpense);
-        
-       Thread thread_first = new Thread(()->  {
+        TablesBuilder.buildForCategories(tableView_dog);
+        TablesBuilder.buildForCategories(tableView_addExpense);
+        TablesBuilder.buildForCategories(tableView_homeExpense);
+    
+    
+    
+        Thread thread_first = new Thread(()->  {
            
            new Select.SelectJoin().joinMain();
            Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
@@ -185,15 +194,19 @@ public class MainWindow extends Application implements Initializable {
         });
     
         Thread thread_third = new Thread(()->  {
-            
-            Looper.forLoopChoseIndex(1, 3, i -> new Select.SelectJoin<String, String>("Expense")
-                    .sumJoin_mixConditions_OR("Category", "Vet", "Pies", i));
+   
+            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("Vet", "Pies","jedzenie[p"));
             Looper.forLoop(Record.list.size(), (i) -> tableView_dog.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
-    
-            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("swinsk", "napoj"));
+            
+            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("swinsk", "napoj","jedzenie","jedzenie[z"));
             Looper.forLoop(Record.list.size(), (i) -> tableView_addExpense.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
+    
+            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("dom", "kosmet"));
+            Looper.forLoop(Record.list.size(), (i) -> tableView_homeExpense.getItems().add(Record.list.get(i)));
+            Record.list.removeAll(Record.list);
+           
         });
     
         
