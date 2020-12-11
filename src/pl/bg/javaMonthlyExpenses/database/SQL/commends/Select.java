@@ -18,7 +18,8 @@ import static pl.bg.javaMonthlyExpenses.formatter.Formatter.findTypeAndFormat;
 
 
 public  class Select extends SQLTools {
-
+    
+          public static List<Object> list_results = new ArrayList<>();
           private static String table_name;
 
           public Select(String table_name) { this.table_name = table_name; }
@@ -40,36 +41,36 @@ public  class Select extends SQLTools {
               
             List<Object> list = findAndAdd(list_names, sql);
           List<Object> list_copy = findAndAdd(list_names,sql);
-    
-       while (!list_copy.isEmpty()) {
-             Record.list.add(new Record.Builder()
-                    .shop((String) SwitchFilter.switchBuildingRecord("Shop", "String", list_copy, (i) -> list_copy.remove(i))).build());
-        }
+          
             
               return list;
           }
 
     public static List<Object> selectSpecifyColumns(List<String> columns,Object condition) {
-
+    
         list_names.removeAll(list_names);
-       pragmaTable(table_name);
-       
-        List <Object > list_results = new ArrayList<>();
-
-       String columnCondition_name = getColumntypeName(table_name, findObjectType(condition));
-
-
-        sql = "Select "+ Formatter.listFormatterColumns(columns) + " from " + table_name + " where "
-                + columnCondition_name +" = "  +condition + " ;";
-
+        pragmaTable(table_name);
+    
+        
+    
+        if (condition != null) {
+        
+        
+        String columnCondition_name = getColumntypeName(table_name, findObjectType(condition));
+    
+        sql = "Select " + Formatter.listFormatterColumns(columns) + " from " + table_name + " where "
+                + columnCondition_name + " = " + condition + " ;";
+    }else{
+    
+            sql = "Select " + Formatter.listFormatterColumns(columns) + " from " + table_name + ";";
+    }
               Looper.forLoop(columns.size(),i-> {
 
                       try {
                           rs = statement.executeQuery(sql);
+                          
                           while (rs.next()) {
-                              results.add(rs.getObject( columns.get(i)));
-
-
+                              list_results.add(rs.getObject( columns.get(i)));
                           }
 
                       } catch (SQLException e) {

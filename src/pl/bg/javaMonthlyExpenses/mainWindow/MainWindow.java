@@ -64,7 +64,7 @@ public class MainWindow extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml")); //"FXML/mainWindow.fxml"
         Scene scene = new Scene(root, 840, 513);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Wydatki");
@@ -202,7 +202,7 @@ public class MainWindow extends Application implements Initializable {
             Looper.forLoop(Record.list.size(), (i) -> tableView_addExpense.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
     
-            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("dom", "kosmet"));
+            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("dom", "kosmet","leki","chem"));
             Looper.forLoop(Record.list.size(), (i) -> tableView_homeExpense.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
            
@@ -256,14 +256,22 @@ public class MainWindow extends Application implements Initializable {
     
     @FXML
     public void listShops () {
-        new ListView("Shop","Shop","shopName").start();
+       
+       ListView listView = new ListView();
+       ListView.columnName= "SHOP";
+       ListView.field ="shopName";
+       ListView.table_name ="Shop";
+       listView.start();
+       
     }
     @FXML
     public void listCategories() {
-        ListView listView = new ListView("Category","Category","categoryName");
-        listView.start();
-       
     
+        ListView listView = new ListView();
+        ListView.columnName= "CATEGORY";
+        ListView.field ="categoryName";
+        ListView.table_name ="Category";
+        listView.start();
     }
    
     

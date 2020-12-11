@@ -5,12 +5,14 @@ import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class UpdateBalanceTool  {
+    List <Object> result_debt;
+    
     
     synchronized private void sumBalance() {
-
-
+        
         Select.setConnection();
         Looper.forLoopChoseIndex(1,3,i-> new SQLModifyMain.Update("Balance")
                 .update("Balance", new Select("Expense").selectSumBasic(i), i));
@@ -49,16 +51,18 @@ Looper.forLoopChoseIndex(1,3,i->{
     
     
     
-        Looper.forLoopChoseIndex(1,3,i->{
-
-            new Select("Balance").selectSpecifyColumns(Arrays.asList("Balance", "debt"), i);
+       Looper.forLoopChoseIndex(1,3,i->{
+    
+        new Select("Balance").selectSpecifyColumns(Arrays.asList("Balance", "debt"), i);
+        
+        
         });
 
 
-    double balance_b = (double) Select.results.get(0);
-    double debt_b = (double) Select.results.get(1);
-    double balance_u = (double) Select.results.get(2);
-    double debt_u = (double) Select.results.get(3);
+    double balance_b = (double) Select.list_results.get(0);
+    double debt_b = (double) Select.list_results.get(1);
+    double balance_u = (double) Select.list_results.get(2);
+    double debt_u = (double) Select.list_results.get(3);
     
     
         Looper.forLoopChoseIndex(1,3,i->{
@@ -98,10 +102,12 @@ Record.list.removeAll(Record.list);
     
     }
         });
-       
+       Select.list_results.removeAll(Select.list_results);
         Logger.end();
         
         }
+        
+        
     }
 
 

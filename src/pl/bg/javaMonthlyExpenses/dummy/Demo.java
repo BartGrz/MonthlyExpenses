@@ -4,6 +4,7 @@ import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
+import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
 
@@ -78,22 +79,26 @@ while (thread_first.isAlive()) {
             thread_third.start();
         });
         */
+      List <Object> list =   new Select("Shop").selectSpecifyColumns(Arrays.asList("shopName"),null);
+      
+      
+    Looper.forLoop(list.size(),i->Record.list.add(new Record.Builder()
+            .shop((String)list.get(i))
+            .build()));
     
-        List list = new Select("Shop").selectBasic();
-        List list_cat = new Select("Category").selectBasic();
-    
-    
-        while (!list.isEmpty()) {
-            Record.list.add(new Record.Builder()
-                    .shop((String) SwitchFilter.switchBuildingRecord("Shop", "String", list, (i) -> list.remove(i))).build());
-            Looper.forLoop(Record.list.size(),i-> Logger.log(Record.list.get(i).toString()));
-        }
+     
+
+        
+        Looper.forLoop(Record.list.size(),i-> Logger.log(Record.list.get(i).toString()));
         Record.list.removeAll(Record.list);
+        /*
         while (!list_cat.isEmpty()) {
             Record.list.add(new Record.Builder()
                     .shop((String) SwitchFilter.switchBuildingRecord("Category", "String", list_cat, (i) -> list_cat.remove(i))).build());
             Looper.forLoop(Record.list.size(),i-> Logger.log(Record.list.get(i).toString()));
         }
+        
+         */
         
     }
 
