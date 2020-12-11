@@ -7,14 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
-import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.holder.Record;
-import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -29,9 +25,6 @@ public class ListView  implements Initializable {
     static Stage listView = new Stage();
     public static String columnName, field, table_name;
     
-    
-    public ListView() {
-    }
     
     public void start()  {
         

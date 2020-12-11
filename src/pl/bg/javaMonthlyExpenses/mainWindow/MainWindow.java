@@ -69,7 +69,8 @@ public class MainWindow extends Application implements Initializable {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Wydatki");
         primaryStage.show();
-        
+        primaryStage.maxHeightProperty().set(513);
+        primaryStage.maxWidthProperty().set(840);
         
     }
     @FXML
