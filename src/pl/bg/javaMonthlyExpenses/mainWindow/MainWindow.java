@@ -65,11 +65,11 @@ public class MainWindow extends Application implements Initializable {
     public void start(Stage primaryStage) throws Exception {
         
         Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml")); //"FXML/mainWindow.fxml"
-        Scene scene = new Scene(root, 840, 513);
+        Scene scene = new Scene(root, 840, 520);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Wydatki");
         primaryStage.show();
-        primaryStage.maxHeightProperty().set(513);
+        primaryStage.maxHeightProperty().set(530);
         primaryStage.maxWidthProperty().set(840);
         
     }

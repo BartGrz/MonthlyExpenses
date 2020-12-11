@@ -40,7 +40,7 @@
               </menus>
             </MenuBar>
           <AnchorPane layoutX="495.0" layoutY="40.0" minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="225.0" />
-            <SplitPane dividerPositions="0.6273584905660378" layoutY="40.0" prefHeight="478.0" prefWidth="850.0">
+            <SplitPane dividerPositions="0.6273584905660378" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="478.0" prefWidth="850.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="136.0">
                      <children>
