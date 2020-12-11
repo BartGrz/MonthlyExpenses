@@ -28,7 +28,6 @@ class Tables <T,V> {
     private void columnsCreator(ColumnsCreator columnsCreator) {
         
         TableColumn<T, V> column = new TableColumn<>(columnName);
-        
         column.setCellValueFactory(new PropertyValueFactory<>(field));
         columnsCreator.columnsCreator(column);
         
@@ -48,7 +47,6 @@ class Tables <T,V> {
     
     
     public static Tables getObject(Tables tables) {
-        
         
         return tables;
     }
@@ -70,10 +68,10 @@ public class TablesBuilder {
     }
     public static void buildBalance(TableView tableView) {
 
-        Tables.buildTable(new Tables<String,Record>("Konto","accountName"),tableView);
-        Tables.buildTable(new Tables<Double,Record>("Wydano","balance"),tableView);
-        Tables.buildTable(new Tables<Double,Record>("DlugoWspolne","debt"),tableView);
-        Tables.buildTable(new Tables<Double,Record>("DlugDoOddania","finalResult"),tableView);
+        Tables.buildTable(new Tables<String,Record>("Account","accountName"),tableView);
+        Tables.buildTable(new Tables<Double,Record>("Expense","balance"),tableView);
+        Tables.buildTable(new Tables<Double,Record>("CommonDebt","debt"),tableView);
+        Tables.buildTable(new Tables<Double,Record>("Balance","finalResult"),tableView);
     }
     public static void buildForCategories(TableView tableView) {
         

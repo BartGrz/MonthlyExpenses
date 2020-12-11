@@ -64,7 +64,7 @@ public class MainWindow extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("pl/bg/javaMonthlyExpenses/mainWindow/FXML/mainWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml"));
         Scene scene = new Scene(root, 840, 513);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Wydatki");
@@ -169,25 +169,21 @@ public class MainWindow extends Application implements Initializable {
     synchronized public void fillingTables() {
         
         Select.checkConnection();
-       
+        
+      
         
         TablesBuilder.buildMain(tableView_main);
         TablesBuilder.buildBalance(tableView_balance);
         TablesBuilder.buildForCategories(tableView_dog);
         TablesBuilder.buildForCategories(tableView_addExpense);
         TablesBuilder.buildForCategories(tableView_homeExpense);
-    
-    
-    
+        
         Thread thread_first = new Thread(()->  {
-           
-           new Select.SelectJoin().joinMain();
-           Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
-           Record.list.removeAll(Record.list);
-           
-        });
-       
-        Thread thread_second = new Thread(()->  {
+            
+            new Select.SelectJoin().joinMain();
+            Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
+            Record.list.removeAll(Record.list);
+     
             
             Looper.forLoopChoseIndex(1, 3, i ->
                     new Select.SelectJoin("Balance").selectJoinOneCond("Account", i));
@@ -196,7 +192,7 @@ public class MainWindow extends Application implements Initializable {
             
         });
     
-        Thread thread_third = new Thread(()->  {
+    Thread thread_second = new Thread(()->  {
    
             new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("Vet", "Pies","jedzenie[p"));
             Looper.forLoop(Record.list.size(), (i) -> tableView_dog.getItems().add(Record.list.get(i)));
@@ -216,39 +212,42 @@ public class MainWindow extends Application implements Initializable {
         
         thread_first.start();
        
-      checkIfAllive(thread_first,()->{ thread_second.start(); });
+        checkIfAllive(thread_first,()->{ thread_second.start(); });
         
-        checkIfAllive(thread_second,()->{ thread_third.start(); });
         
         
     }
     
     
     public void checkIfAllive(Thread thread,Runnable runnable) {
-        
-        while (thread.isAlive()) { }
     
-        try {
-            if (!thread.isAlive() && SQLTools.rs.isClosed()) {
-                runnable.run();
-                
-            } else {
-            Logger.warn(thread.getName() + " STILL WORKING ");
+    
+        while (thread.isAlive()) {}
+            try {
+                if (!thread.isAlive() && SQLTools.rs.isClosed()) {
+                    runnable.run();
+            
+                } else {
+                    Logger.warn(thread.getName() + " STILL WORKING ");
+                    Thread.sleep(500);
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        
         Logger.success();
     }
     
-    @FXML
+  
     public void tableCategories() {
         
          new TableCategoriesWinController().start();
         
     }
     
-    @FXML
+
     public void tableShops() {
         
       new TableShopWinController().start();

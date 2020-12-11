@@ -33,7 +33,6 @@ public class ListView  implements Initializable {
         this.table_name =table_name;
     }
     
-    @FXML
     public void start()  {
         
         Parent root = null;
@@ -55,10 +54,12 @@ public class ListView  implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
     
         Select.setConnection();
+        
+    
        List<Object> list_results=  new Select(table_name).selectBasic();
        
         TablesBuilder.buildCustom(columnName,field,tableView_list);
-    /*
+   
         while (!list_results.isEmpty()) {
             Record.list.add(new Record.Builder()
                     .shop((String) SwitchFilter.switchBuildingRecord(table_name, "String", list_results, (i) -> list_results.remove(i))).build());
@@ -68,7 +69,9 @@ public class ListView  implements Initializable {
         Looper.forLoop(Record.list.size(), i -> tableView_list.getItems().add(Record.list.get(i)));
         
         
-     */
+        
+        
+    
     }
 }
 
