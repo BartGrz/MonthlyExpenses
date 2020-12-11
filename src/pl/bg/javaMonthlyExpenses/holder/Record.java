@@ -121,10 +121,7 @@ public class Record {
     
     @Override
     public String toString() {
-        return "Record{" +
-                "amount=" + amount +
-                ", categoryName='" + categoryName + '\'' +
-                '}';
+        return "Record{" + "categoryName='" + categoryName  + ", shopName='" + shopName + '}';
     }
     
     public static void addToList(Record record) {

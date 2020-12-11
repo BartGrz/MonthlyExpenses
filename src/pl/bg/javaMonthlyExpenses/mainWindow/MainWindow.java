@@ -11,7 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Tab;
+
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
@@ -20,6 +20,8 @@ import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
 import pl.bg.javaMonthlyExpenses.holder.Record;
+
+import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.ListView;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.DeleteRecord;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.RecordModify;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.UpdateRecord;
@@ -62,7 +64,7 @@ public class MainWindow extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("pl/bg/javaMonthlyExpenses/mainWindow/FXML/mainWindow.fxml"));
         Scene scene = new Scene(root, 840, 513);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Wydatki");
@@ -70,32 +72,32 @@ public class MainWindow extends Application implements Initializable {
         
         
     }
-    
+    @FXML
     public void closeApp() {
         
         Platform.exit();
         System.exit(0);
         
     }
-    
+    @FXML
     public void filter() {
         
         Filter filter = new Filter();
         filter.startFilter();
     }
-    
+    @FXML
     public void add() {
         
         RecordModify recordModify = new RecordModify();
         recordModify.startModify();
     }
-    
+    @FXML
     public void updateSumTable() {
         
       new UpdateBalanceTool().startTool();
       
     }
-    
+    @FXML
     public void update() {
         
         new UpdateRecord().startModify();
@@ -123,12 +125,13 @@ public class MainWindow extends Application implements Initializable {
         TablesBuilder.buildCustom("Account", "accountName", tableView_sumFromRange);
         TablesBuilder.buildCustom("Sum", "amount", tableView_sumFromRange);
     }
-    
+    @FXML
     public void delete() {
         
         DeleteRecord deleteRecord = new DeleteRecord();
         deleteRecord.open();
     }
+    
     
     synchronized  public void refresh() {
         
@@ -217,6 +220,7 @@ public class MainWindow extends Application implements Initializable {
         
         checkIfAllive(thread_second,()->{ thread_third.start(); });
         
+        
     }
     
     
@@ -237,18 +241,32 @@ public class MainWindow extends Application implements Initializable {
         Logger.success();
     }
     
+    @FXML
     public void tableCategories() {
         
          new TableCategoriesWinController().start();
         
     }
     
-    
+    @FXML
     public void tableShops() {
         
       new TableShopWinController().start();
       
     }
+    
+    @FXML
+    public void listShops () {
+        new ListView("Shop","Shop","shopName").start();
+    }
+    @FXML
+    public void listCategories() {
+        ListView listView = new ListView("Category","Category","categoryName");
+        listView.start();
+       
+    
+    }
+   
     
     @FXML
     public void filterSumByTimeRange() {

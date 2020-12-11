@@ -26,11 +26,13 @@
                   <Menu mnemonicParsing="false" text="Categories">
                      <items>
                          <MenuItem mnemonicParsing="false" onAction="#tableCategories" text="Options" />
+                        <MenuItem mnemonicParsing="false" onAction="#listCategories" text="List" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Shops">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#tableShops" text="Options" />
+                        <MenuItem mnemonicParsing="false" onAction="#listShops" text="List" />
 
 
                      </items>
@@ -51,7 +53,7 @@
                            <children>
                               <TableView fx:id="tableView_balance" prefHeight="76.0" prefWidth="361.0" snapToPixel="false" />
                               <TableView fx:id="tableView_dog" prefHeight="121.0" prefWidth="361.0" />
-                              <TableView  fx:id="tableView_homeExpense" prefHeight="138.0" prefWidth="361.0" />
+                              <TableView fx:id="tableView_homeExpense" prefHeight="138.0" prefWidth="361.0" />
                               <TableView fx:id="tableView_addExpense" prefHeight="141.0" prefWidth="361.0" />
                            </children>
                         </VBox>

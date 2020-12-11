@@ -5,10 +5,13 @@ import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
+import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools.list_names;
 
 public class Demo {
     
@@ -76,9 +79,21 @@ while (thread_first.isAlive()) {
         });
         */
     
-        List list = Arrays.asList(4.95,"2020-12-09",1,10,4,1);
-        
-        new SQLModifyMain.Insert().insert("Expense",list);
+        List list = new Select("Shop").selectBasic();
+        List list_cat = new Select("Category").selectBasic();
+    
+    
+        while (!list.isEmpty()) {
+            Record.list.add(new Record.Builder()
+                    .shop((String) SwitchFilter.switchBuildingRecord("Shop", "String", list, (i) -> list.remove(i))).build());
+            Looper.forLoop(Record.list.size(),i-> Logger.log(Record.list.get(i).toString()));
+        }
+        Record.list.removeAll(Record.list);
+        while (!list_cat.isEmpty()) {
+            Record.list.add(new Record.Builder()
+                    .shop((String) SwitchFilter.switchBuildingRecord("Category", "String", list_cat, (i) -> list_cat.remove(i))).build());
+            Looper.forLoop(Record.list.size(),i-> Logger.log(Record.list.get(i).toString()));
+        }
         
     }
 

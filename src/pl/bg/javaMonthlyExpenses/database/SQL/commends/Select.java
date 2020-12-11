@@ -3,12 +3,12 @@ package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
-import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.ResultRecordBuild;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
-import pl.bg.javaMonthlyExpenses.exeptions.ListException;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 import pl.bg.javaMonthlyExpenses.holder.Record;
+import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +34,19 @@ public  class Select extends SQLTools {
               list_names.removeAll(list_names);
               pragmaTable(table_name);
 
+              
+              
               sql = "Select *from " + table_name + ";";
-
-              return findAndAdd(list_names, sql);
+              
+            List<Object> list = findAndAdd(list_names, sql);
+          List<Object> list_copy = findAndAdd(list_names,sql);
+    
+       while (!list_copy.isEmpty()) {
+             Record.list.add(new Record.Builder()
+                    .shop((String) SwitchFilter.switchBuildingRecord("Shop", "String", list_copy, (i) -> list_copy.remove(i))).build());
+        }
+            
+              return list;
           }
 
     public static List<Object> selectSpecifyColumns(List<String> columns,Object condition) {
