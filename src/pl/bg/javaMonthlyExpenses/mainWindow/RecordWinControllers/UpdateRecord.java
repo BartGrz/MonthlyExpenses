@@ -30,7 +30,7 @@ public class UpdateRecord implements Initializable {
     @FXML
     private TableView tableView_RecordNow, tableView_RecordWas = new TableView();
     @FXML
-    private Button check = new Button();
+    private Button button_check = new Button();
 
     private ObservableList<String> list_filterBy = FXCollections.observableArrayList("Account", "Expense","Date","Category","Shop","Common?");
     private ObservableList<Boolean> list_isCommon = FXCollections.observableArrayList(true,false);
@@ -53,15 +53,16 @@ public class UpdateRecord implements Initializable {
 
     }
     public void updateBy() {
-
-        check.setVisible(true);
+    
+        button_check.setVisible(true);
 
         SwitchFilter.switchFillingComboBox(comboBox_columnToUpdate.getValue().toString(),textField_amount,comboBox_updateTo);
 
 
     }
 public void check() {
-
+    
+    
     Select.checkConnection();
 
     TablesBuilder.buildMainWithoutId(tableView_RecordWas);
@@ -113,7 +114,7 @@ public void update() {
                 update(SwitchFilter.switchFilterGetColumn(comboBox_columnToUpdate)
                         , comboBox_updateTo.getValue(), Integer.valueOf(textField_id.getText()));
     }
-    check.setVisible(false);
+    button_check.setVisible(false);
 }
 public void clear() {
 
@@ -136,8 +137,8 @@ public void clear() {
 
     list_isCommon.add(true);
     list_isCommon.add(false);
-
-    check.setVisible(false);
+    
+    button_check.setVisible(false);
 }
 
 
@@ -149,7 +150,7 @@ public void clear() {
         list_isCommon.add(false);
 
         textField_amount.setVisible(false);
-        check.setVisible(false);
+        button_check.setVisible(false);
 
         comboBox_columnToUpdate.setItems(list_filterBy);
     }

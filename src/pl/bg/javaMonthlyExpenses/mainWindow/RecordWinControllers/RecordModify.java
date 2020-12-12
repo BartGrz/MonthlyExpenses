@@ -45,7 +45,7 @@ public class RecordModify implements Initializable {
     @FXML
     private TextField amount = new TextField();
     @FXML
-    Button okButton = new Button();
+    Button button_check = new Button();
 
     private ObservableList<String> list_date = FXCollections.observableArrayList();
     private ObservableList<String> list_accountName = FXCollections.observableArrayList();
@@ -87,15 +87,15 @@ public class RecordModify implements Initializable {
         comboBox_categoryName.setValue(null);
         comboBox_shopName.setValue(null);
         comboBox_isCommon.setValue(null);
-        okButton.setVisible(true);
+        button_check.setVisible(true);
     }
 
     public void showAdded() {
-
-okButton.setVisible(false);
+        
+        button_check.setVisible(false);
         values = new ArrayList();
 
-TablesBuilder.buildMainWithoutId(tableView_check);
+        TablesBuilder.buildMainWithoutId(tableView_check);
 
         Record record = new Record.Builder().expense(Double.valueOf(amount.getText()))
                 .date(comboBox_date.getValue().toString())
@@ -142,10 +142,10 @@ TablesBuilder.buildMainWithoutId(tableView_check);
 
         comboBox_isCommon.setItems(list_isCommon);
 
-        Logger.test("");
+        
         
     }
-//
+
 
 }
 

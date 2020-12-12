@@ -29,7 +29,7 @@
                         <ComboBox fx:id="comboBox_shopName" layoutX="424.0" layoutY="44.0" prefHeight="25.0" prefWidth="71.0" />
                         <ComboBox fx:id="comboBox_isCommon" layoutX="508.0" layoutY="44.0" prefHeight="25.0" prefWidth="78.0" />
                         <TextField fx:id="amount" layoutX="106.0" layoutY="44.0" prefHeight="25.0" prefWidth="115.0" />
-                        <Button fx:id="okButton" layoutX="275.0" layoutY="84.0" mnemonicParsing="false" onAction="#showAdded" text="Check" />
+                        <Button fx:id="button_check" layoutX="275.0" layoutY="84.0" mnemonicParsing="false" onAction="#showAdded" text="Check" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

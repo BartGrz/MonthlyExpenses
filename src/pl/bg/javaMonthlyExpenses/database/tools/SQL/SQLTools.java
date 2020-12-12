@@ -4,6 +4,7 @@ import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,11 +25,11 @@ public class SQLTools extends Connection {
     public static void pragmaTable(String table_name) { //sqlTool
         checkConnection();
         sql = "pragma table_info(" + table_name + ");";
-        
+    
         try {
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                
+    
                 if (rs.getString("type").contains("varchar")) {
                     list_types.add("string");
                     list_names.add(rs.getString("name"));
@@ -42,8 +43,63 @@ public class SQLTools extends Connection {
         } catch (SQLException e) {
             Logger.warn("" + e);
         }
+    }
+    /*
+        public static List<Object> getTableNames (String table_name) {  ///podzielic to wyzej na dwie czesci trzeba, zwrocic liste nazw, liste typow polaczonych w mapie z nazwami i metode dostepu do nich
+        
+            checkConnection();
+            sql = "pragma table_info(" + table_name + ");";
+        
+            try {
+                rs = statement.executeQuery(sql);
+                while (rs.next()) {
+                
+                    if (rs.getString("type").contains("varchar")) {
+                        
+                        list_names.add(rs.getString("name"));
+                      
+                    } else {
+                      
+                        list_names.add(rs.getString("name"));
+                       
+                    }
+                }
+            } catch (SQLException e) {
+                Logger.warn("" + e);
+            }
+        return list_names;
         
     }
+    
+    public static List<Object> getTableMap (String table_name) {  ///podzielic to wyzej na dwie czesci jakos
+        
+        checkConnection();
+        
+        sql = "pragma table_info(" + table_name + ");";
+        
+        try {
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                
+                if (rs.getString("type").contains("varchar")) {
+                    map.put(rs.getString("name"), "string");
+                } else {
+                    
+                    list_names.add(rs.getString("name"));
+                    map.put(rs.getString("name"), rs.getString("type"));
+                }
+            }
+        } catch (SQLException e) {
+            Logger.warn("" + e);
+        }
+        return list_names;
+        
+    }
+    
+    
+     */
+    
+    
     public static String fetchTablesID(String mainTable) {
         
         String idTables = null;

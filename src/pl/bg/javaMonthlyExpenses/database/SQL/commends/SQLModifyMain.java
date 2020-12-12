@@ -97,7 +97,7 @@ public static class Update extends SQLModifyMain {
                       + " where " + id_main + " = " + condition + ";";
           }
           
-           //     Logger.result("row [" + column + "] was updated to : " + changeTo);
+            //   Logger.result("row [" + column + "] was updated to : " + changeTo);
 
             try {
                 statement.execute(sql);

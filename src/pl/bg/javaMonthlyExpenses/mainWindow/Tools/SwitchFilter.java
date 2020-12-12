@@ -77,7 +77,7 @@ public class SwitchFilter  {
                 break;
 
             case "Expense":
-                result =  "amount";
+                result =  "Amount";
 
                 break;
 
