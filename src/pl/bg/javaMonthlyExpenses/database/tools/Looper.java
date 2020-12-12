@@ -52,4 +52,13 @@ public static void whileLoop(boolean condition, DoIt doIt) {
 
     }
 
+    public static void doWhileLoop(boolean condition , DoIt doIt) {
+        
+        do {
+            doIt.doIt();
+            
+        }while(condition);
+        
+    }
+    
 }
