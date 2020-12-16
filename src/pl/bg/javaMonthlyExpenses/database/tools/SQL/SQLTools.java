@@ -2,15 +2,13 @@ package pl.bg.javaMonthlyExpenses.database.tools.SQL;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
+import pl.bg.javaMonthlyExpenses.dummy.Demo;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
 import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class SQLTools extends Connection {
@@ -22,7 +20,7 @@ public class SQLTools extends Connection {
     public static HashMap<String, String> map = new HashMap<String, String>();
     
     
-    public static void pragmaTable(String table_name) { //sqlTool
+    public static void pragmaTable(String table_name) { //mozna dac iterator() na mape, dzieki temu lista nie bdzie potrzebna, w demo wszystko jest
         checkConnection();
         sql = "pragma table_info(" + table_name + ");";
     
@@ -44,61 +42,33 @@ public class SQLTools extends Connection {
             Logger.warn("" + e);
         }
     }
-    /*
-        public static List<Object> getTableNames (String table_name) {  ///podzielic to wyzej na dwie czesci trzeba, zwrocic liste nazw, liste typow polaczonych w mapie z nazwami i metode dostepu do nich
-        
-            checkConnection();
-            sql = "pragma table_info(" + table_name + ");";
-        
-            try {
-                rs = statement.executeQuery(sql);
-                while (rs.next()) {
-                
-                    if (rs.getString("type").contains("varchar")) {
-                        
-                        list_names.add(rs.getString("name"));
-                      
-                    } else {
-                      
-                        list_names.add(rs.getString("name"));
-                       
-                    }
-                }
-            } catch (SQLException e) {
-                Logger.warn("" + e);
-            }
-        return list_names;
-        
-    }
-    
-    public static List<Object> getTableMap (String table_name) {  ///podzielic to wyzej na dwie czesci jakos
-        
+    //test
+
+    public static HashMap<String,String> getMappedTable (String table_name) { //mozna dac iterator() na mape, dzieki temu lista nie bdzie potrzebna, w demo wszystko jest
         checkConnection();
         
-        sql = "pragma table_info(" + table_name + ");";
+        HashMap<String,String> mappedTable = new HashMap<>();
         
+        sql = "pragma table_info(" + table_name + ");";
+    Logger.warn("" + sql);
         try {
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                
+            
                 if (rs.getString("type").contains("varchar")) {
-                    map.put(rs.getString("name"), "string");
+    
+                    mappedTable.put(rs.getString("name"), "string");
                 } else {
-                    
-                    list_names.add(rs.getString("name"));
-                    map.put(rs.getString("name"), rs.getString("type"));
+    
+                    mappedTable.put(rs.getString("name"), rs.getString("type"));
                 }
             }
         } catch (SQLException e) {
             Logger.warn("" + e);
         }
-        return list_names;
-        
+        return mappedTable;
     }
-    
-    
-     */
-    
+    //koniec  testu
     
     public static String fetchTablesID(String mainTable) {
         
@@ -146,11 +116,12 @@ public class SQLTools extends Connection {
         List<String>  list_columnNames = new ArrayList<>();
         
         
+        
+        
         for (int i = 0; i < list_names.size(); i++) {
             
             if (map.get(list_names.get(i)).equals(type.toLowerCase())) {
                 list_columnNames.add(list_names.get(i).toString());
-                //  list_names.remove(i);
                 
             } else {
             
@@ -229,6 +200,7 @@ public class SQLTools extends Connection {
         //  list_names.removeAll(list_names);
         return columnTypeName;
     }
+
     
     public static String matchIdWithColumn(String column){ //sqlTool
         

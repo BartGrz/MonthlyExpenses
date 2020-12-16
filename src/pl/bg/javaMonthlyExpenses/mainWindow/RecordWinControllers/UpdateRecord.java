@@ -13,6 +13,7 @@ import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
+import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.PopUp;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
@@ -103,6 +104,9 @@ Record.list.removeAll(Record.list);
 }
 
 public void update() {
+    
+    new PopUp().popUp();
+    
     if(textField_amount.isVisible()) {
 
         new SQLModifyMain.Update("Expense").

@@ -65,12 +65,12 @@ public class MainWindow extends Application implements Initializable {
     public void start(Stage primaryStage) throws Exception {
         
         Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml")); //"FXML/mainWindow.fxml"
-        Scene scene = new Scene(root, 840, 520);
+        Scene scene = new Scene(root, 860, 520);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Wydatki");
         primaryStage.show();
         primaryStage.maxHeightProperty().set(530);
-        primaryStage.maxWidthProperty().set(840);
+        primaryStage.maxWidthProperty().set(860);
         
     }
     @FXML
@@ -195,7 +195,7 @@ public class MainWindow extends Application implements Initializable {
     
     Thread thread_second = new Thread(()->  {
    
-            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("Vet", "Pies","jedzenie[p"));
+            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("Vet", "Pies","jedzenie[p","UBER"));
             Looper.forLoop(Record.list.size(), (i) -> tableView_dog.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
             
@@ -206,6 +206,8 @@ public class MainWindow extends Application implements Initializable {
             new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("dom", "kosmet","leki","chem"));
             Looper.forLoop(Record.list.size(), (i) -> tableView_homeExpense.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
+            
+            
            
         });
     
