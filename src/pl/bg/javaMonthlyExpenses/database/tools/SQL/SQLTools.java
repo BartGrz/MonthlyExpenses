@@ -5,10 +5,12 @@ import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.dummy.Demo;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
-import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class SQLTools extends Connection {
@@ -116,6 +118,7 @@ public class SQLTools extends Connection {
         List<String>  list_columnNames = new ArrayList<>();
         
         
+      
         
         
         for (int i = 0; i < list_names.size(); i++) {
@@ -127,6 +130,24 @@ public class SQLTools extends Connection {
             
             }
         }
+        return list_columnNames;
+    }
+    public static List<String> fetchColumnsNamesByTypeDemo(String table_name, String type) {
+        
+        List<String>  list_columnNames = new ArrayList<>();
+        
+        
+        Demo.testITerator(table_name,(obj,mapa)->  {
+    
+            if (mapa.get(obj).equals(type.toLowerCase())) {
+                list_columnNames.add(obj.toString());
+        
+            } else {
+        
+            }
+            
+        });
+        
         return list_columnNames;
     }
     public static int matchWithId(String table_name, String val) {
@@ -200,8 +221,54 @@ public class SQLTools extends Connection {
         //  list_names.removeAll(list_names);
         return columnTypeName;
     }
-
     
+    public static String getColumntypeNameDemo(String table_name, String type) {
+        String columnTypeName = null;
+        List<String> listColumnName = new ArrayList<>();
+        
+        Demo.testITerator(table_name,(obj,mapa)->{
+     
+            
+            switch (type) {
+                case "String":
+    
+                    if (mapa.get(obj).equals("string")) {
+                        listColumnName.add(obj.toString());
+                        
+        
+                    }
+                case "date":
+    
+                    if (mapa.get(obj).equals("date")) {
+                        listColumnName.add(obj.toString());
+        
+                    }
+                case "Double":
+                    if (mapa.get(obj).equals("double")) {
+                        listColumnName.add(obj.toString());
+    
+                    }
+                case "Integer":
+    
+                    if (mapa.get(obj).equals(type.toLowerCase()) && obj.equals("idAccount")) {
+                        listColumnName.add(obj.toString());
+        
+                    }
+                    break;
+    
+                default:
+                    if (mapa.get(obj).equals(type.toLowerCase())) {
+                        listColumnName.add(obj.toString());
+    
+                    }
+            }
+        
+    });
+        
+        //  list_names.removeAll(list_names);
+        Logger.test("" + listColumnName);
+        return listColumnName.get(listColumnName.size()-1);
+    }
     public static String matchIdWithColumn(String column){ //sqlTool
         
         checkConnection();
@@ -223,6 +290,32 @@ public class SQLTools extends Connection {
         return null;
         
     }
+    
+    public static String matchIdWithColumnDemo( String column){ //sqlTool
+        
+        checkConnection();
+        
+        List<String> list_tables = Arrays.asList("Expense","CommonAccount","Account","Category","Shop","Balance");
+        
+        String [] resultTable = new String[1];
+        
+        for (int i = 0; i< list_tables.size();i++) {
+            
+            String table = list_tables.get(i);
+            
+            Demo.testITerator(table, (obj, mapa) -> {
+            
+                    if (obj.equals(column)) {
+                        resultTable[0] = table;
+                      
+                    }
+            });
+            
+        }
+    
+        return resultTable[0];
+        
+    }
     public  static String checkIfForeignColumn(String table_name, String columnJoined) {
         
         pragmaTable(table_name);
@@ -237,6 +330,24 @@ public class SQLTools extends Connection {
         }
         return null;
     }
+    
+    public  static String checkIfForeignColumnDemo(String table_name, String columnJoined) {
+        
+        String [] resultTable = new String[1];
+        
+       Demo.testITerator(table_name,(obj,mapa)-> {
+           
+           if (!obj.equals(columnJoined)) {
+    
+               resultTable[0] = "b." + columnJoined;
+    
+           }
+         
+       });
+        return resultTable[0];
+       
+    }
+    
     public static List findAndAdd(List list, String sql) { //do usuniecia na 90%
         
         checkConnection();
