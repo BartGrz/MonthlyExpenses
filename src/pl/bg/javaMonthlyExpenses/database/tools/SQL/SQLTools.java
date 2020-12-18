@@ -116,11 +116,7 @@ public class SQLTools extends Connection {
     public static List<String> fetchColumnsNamesByType(String type) {
         
         List<String>  list_columnNames = new ArrayList<>();
-        
-        
-      
-        
-        
+
         for (int i = 0; i < list_names.size(); i++) {
             
             if (map.get(list_names.get(i)).equals(type.toLowerCase())) {
@@ -266,7 +262,6 @@ public class SQLTools extends Connection {
     });
         
         //  list_names.removeAll(list_names);
-        Logger.test("" + listColumnName);
         return listColumnName.get(listColumnName.size()-1);
     }
     public static String matchIdWithColumn(String column){ //sqlTool
@@ -360,7 +355,6 @@ public class SQLTools extends Connection {
             while (rs.next()) {
                 
                 for (int i = 0; i < list.size(); i++) {
-                    
                     
                     if (map.get(list.get(i).toString()).equals("integer")) {
                         result.add(rs.getInt(list.get(i).toString()));

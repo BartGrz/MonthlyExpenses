@@ -45,7 +45,7 @@ public class RecordModify implements Initializable {
     @FXML
     private TextField amount = new TextField();
     @FXML
-    Button button_check = new Button();
+    private Button button_check = new Button();
 
     private ObservableList<String> list_date = FXCollections.observableArrayList();
     private ObservableList<String> list_accountName = FXCollections.observableArrayList();
@@ -78,7 +78,9 @@ public class RecordModify implements Initializable {
 
 
     public void clearView() {
+        button_check.setOnAction(e-> showAdded());
 
+        button_check.setVisible(true);
         tableView_check.getItems().clear();
         tableView_check.getColumns().clear();
         comboBox_accountName.setValue(null);
@@ -87,12 +89,21 @@ public class RecordModify implements Initializable {
         comboBox_categoryName.setValue(null);
         comboBox_shopName.setValue(null);
         comboBox_isCommon.setValue(null);
-        button_check.setVisible(true);
+
     }
 
     public void showAdded() {
         
-        button_check.setVisible(false);
+        button_check.setText("ADD");
+        button_check.setOnAction(e-> {
+
+        saveAll();
+
+        button_check.setText("CHECK");
+        button_check.setVisible(true);
+
+        });
+
         values = new ArrayList();
 
         TablesBuilder.buildMainWithoutId(tableView_check);
@@ -119,12 +130,14 @@ public class RecordModify implements Initializable {
 
     public void saveAll(){
 
+        clearView();
         SQLModifyMain.setConnection();
         new SQLModifyMain.Insert().insert("Expense",values );
 
         PopUp popup = new PopUp();
 
             popup.popUp();
+
     }
 
     @Override

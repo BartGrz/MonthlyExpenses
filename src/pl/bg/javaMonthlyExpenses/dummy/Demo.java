@@ -46,7 +46,7 @@ public class Demo {
        // Logger.log(""+SQLTools.fetchColumnsNamesByTypeDemo("Expense","Integer"));
         //Logger.log("" + SQLTools.getColumntypeNameDemo("Shop","String"));
         //Logger.test("" + matchIdWithColumnDemo("shopName"));
-        Logger.test("" + checkIfForeignColumnDemo("Expense","Amount"));
+       // Logger.test("" + checkIfForeignColumnDemo("Expense","Amount"));
     }
 
 }
