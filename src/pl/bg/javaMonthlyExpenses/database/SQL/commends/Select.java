@@ -32,15 +32,16 @@ public  class Select extends SQLTools {
 
      public static List<Object> selectBasic() {
 
-              list_names.removeAll(list_names);
-              pragmaTable(table_name);
+             // list_names.removeAll(list_names);
+             // pragmaTable(table_name);
 
               
               
               sql = "Select *from " + table_name + ";";
-              
+
+        // List<Object> list = findAndAddDemo(table_name, sql);
             List<Object> list = findAndAdd(list_names, sql);
-          List<Object> list_copy = findAndAdd(list_names,sql);
+        //  List<Object> list_copy = findAndAdd(list_names,sql);
           
             
               return list;

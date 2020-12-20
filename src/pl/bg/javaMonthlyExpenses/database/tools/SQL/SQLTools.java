@@ -379,7 +379,42 @@ public class SQLTools extends Connection {
         return result;
         
     }
-    
+    public static List findAndAddDemo(String table_name, String sql) { //do usuniecia na 90%
+
+        checkConnection();
+
+        List<Object> result = new ArrayList<>();
+        Demo.testITerator(table_name,((obj, mapa) -> {
+        try {
+            rs = statement.executeQuery(sql);
+
+    while (rs.next()) {
+
+        for (int i = 0; i < mapa.size(); i++) {
+            if (mapa.get(obj).equals("integer")) {
+                result.add(rs.getInt(obj.toString()));
+
+            } else if (mapa.get(obj).equals("double")) {
+                result.add(rs.getDouble(obj.toString()));
+
+            } else if (mapa.get(obj).equals("boolean")) {
+                result.add(rs.getBoolean(obj.toString()));
+            } else {
+                result.add(rs.getString((String) obj));
+
+            }
+        }
+    }
+
+            } catch (SQLException throwables) {
+            throwables.printStackTrace();
+                }
+
+        }));
+
+        return result;
+
+    }
     public static double round (double val) {
         
         return Math.round((val)*100)/100;

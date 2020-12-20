@@ -2,6 +2,7 @@ package pl.bg.javaMonthlyExpenses.dummy;
 
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
+import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class Demo {
         //Logger.log("" + SQLTools.getColumntypeNameDemo("Shop","String"));
         //Logger.test("" + matchIdWithColumnDemo("shopName"));
        // Logger.test("" + checkIfForeignColumnDemo("Expense","Amount"));
+
+        Logger.warn("lista " + new Select("Expense").selectBasic());
     }
 
 }
