@@ -32,8 +32,8 @@ public  class Select extends SQLTools {
 
      public static List<Object> selectBasic() {
 
-             // list_names.removeAll(list_names);
-             // pragmaTable(table_name);
+             list_names.removeAll(list_names);
+              pragmaTable(table_name);
 
               
               
@@ -41,9 +41,9 @@ public  class Select extends SQLTools {
 
         // List<Object> list = findAndAddDemo(table_name, sql);
             List<Object> list = findAndAdd(list_names, sql);
-        //  List<Object> list_copy = findAndAdd(list_names,sql);
+          List<Object> list_copy = findAndAdd(list_names,sql);
           
-            
+
               return list;
           }
 
@@ -170,7 +170,22 @@ public static class SelectJoin<T, V> {
         }
         
     }
-    
+    public List<Object> joinMainTest() {
+list_names.removeAll(list_names);
+pragmaTable(table_name);
+
+        sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                "join Account a on e.idAccount = a.idAccount "
+                + "join Category c on e.idCategory = c.idCategory " +
+                "Join Shop s on e.idShop=s.idShop" +
+                " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
+
+        List<Object> results=  findAndAdd(list_names,sql);
+
+
+return results;
+    }
+
     public void joinMainCondition(int id) {
         
         sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +

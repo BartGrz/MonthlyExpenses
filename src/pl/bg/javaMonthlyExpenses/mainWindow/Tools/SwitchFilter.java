@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
@@ -238,7 +239,7 @@ public class SwitchFilter  {
 
                 case "Integer":
 
-                    if (select.fetchTablesID(table_name).equals(list_columnsInt.get(0).toString())) {
+                    if (select.fetchTablesID(table_name).equals(list_columnsInt.get(0))) {
 
                        res=  results.get(i);
                     }
@@ -261,7 +262,10 @@ public class SwitchFilter  {
                               res = results.get(i).toString();
                               break;
 
+                          default:
+                              return null;
                       }
+
                    }
 
                    break;
