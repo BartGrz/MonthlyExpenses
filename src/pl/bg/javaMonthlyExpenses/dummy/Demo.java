@@ -44,7 +44,7 @@ public class Demo {
 
         SQLTools.setConnection();
 
-      List  mapaRes = new Select("Shop").selectBasicDemo();
+      List  mapaRes = new Select("Balance").selectBasicDemo();
 
 
    Looper.forLoop(mapaRes.size(),i-> Logger.test(""+mapaRes.get(i)));

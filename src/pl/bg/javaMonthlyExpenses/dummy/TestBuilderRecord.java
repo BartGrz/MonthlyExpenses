@@ -43,7 +43,7 @@ public class TestBuilderRecord extends Connection {
         this.fromList=builderList.fromList;
 
     }
-    public static List <TestBuilderRecord> matchWithTypeAndAdd (ResultSet rs , String table_name , String sql) {
+    public static List <TestBuilderRecord> matchWithTypeAndAdd (ResultSet rs , String table_name , String sql) { // problem z identyfikacja objektow tam gdzie sie dubluja typy - > double i int poki co (stringi nie test)
 
         HashMap <String,String> map = new SQLTools().getMappedTable(table_name);
 
@@ -53,11 +53,14 @@ public class TestBuilderRecord extends Connection {
 
         List<TestBuilderRecord> identyfiedObjects = new ArrayList<>();
         List <String> columnsWithDoubleType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Double");
+        List <String> columnsWith_IntType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Integer");
         Iterator<String> it = map.keySet().iterator();
 
         while (it.hasNext()) {
             columns.add(it.next());
         }
+        Logger.test("" + columnsWith_IntType);
+
 
         try {
             rs = statement.executeQuery(sql);
@@ -73,9 +76,19 @@ public class TestBuilderRecord extends Connection {
                     switch (map.get(val)) {
 
                         case "integer":
-                            identyfiedObjects.add(new TestBuilderRecord.BuilderList().fromList(rs.getInt(val.toString())).identifyColumn(Identify.MAIN_ID).build());
-                            break;
 
+                            for(int j= 0 ;j<columnsWith_IntType.size();j++) {
+
+                                if(columnsWith_IntType.get(j).equals("idAccount")) {
+                                    identyfiedObjects.add(new TestBuilderRecord.BuilderList().fromList(rs.getInt(val.toString())).identifyColumn(Identify.IDACCOUNT).build());
+                                    break;
+                                }else {
+                                    identyfiedObjects.add(new TestBuilderRecord.BuilderList().fromList(rs.getInt(val.toString())).identifyColumn(Identify.MAIN_ID).build());
+                                    break;
+                                }
+                            }
+
+                        break;
                         case "string":
 
                             if (table_name.equals("Shop")) {
@@ -100,26 +113,26 @@ public class TestBuilderRecord extends Connection {
 
                                     if (columnsWithDoubleType.get(j).equals("debt")) {
                                         identyfiedObjects.add(new TestBuilderRecord.BuilderList().fromList(rs.getDouble(val.toString())).identifyColumn(Identify.DEBT).build());
-                                        columnsWithDoubleType.remove(j);
+
                                         break;
-                                    } else if (columnsWithDoubleType.get(j).equals("balance")) {
+                                    } else if (columnsWithDoubleType.get(j).toLowerCase(Locale.ROOT).equals("balance")) {
                                         identyfiedObjects.add(new TestBuilderRecord.BuilderList().fromList(rs.getDouble(val.toString())).identifyColumn(Identify.BALANCE).build());
-                                        columnsWithDoubleType.remove(j);
+                                       // columnsWithDoubleType.remove(j);
                                         break;
-                                    } else if (columnsWithDoubleType.get(i).equals("finalResult")) {
+                                    } else if (columnsWithDoubleType.get(j).equals("result")) {
                                         identyfiedObjects.add(new TestBuilderRecord.BuilderList().fromList(rs.getDouble(val.toString())).identifyColumn(Identify.FINALRESULT).build());
-                                        columnsWithDoubleType.remove(j);
+                                       // columnsWithDoubleType.remove(j);
                                         break;
                                     }
-
+                                   // columnsWithDoubleType.remove(j);
                                 }
-
+                                        break;
                             } else {
                                 identyfiedObjects.add(new TestBuilderRecord.BuilderList().fromList(rs.getDouble(val.toString())).identifyColumn(Identify.AMOUNT).build());
 
                                 break;
                             }
-                            break;
+
                     }
 
                 }
@@ -146,7 +159,7 @@ public class TestBuilderRecord extends Connection {
     }
     public static enum Identify {
 
-        SHOPNAME, CATEGORYNAME, ISCOMMON, DATE, ACCOUNTNAME, DEBT, AMOUNT, BALANCE, FINALRESULT, MAIN_ID;
+        SHOPNAME, CATEGORYNAME, ISCOMMON, DATE, ACCOUNTNAME, DEBT, AMOUNT, BALANCE, FINALRESULT, MAIN_ID,IDACCOUNT;
 
 
     }
@@ -159,7 +172,7 @@ public class TestBuilderRecord extends Connection {
     public static void main(String[] args) {
 
         setConnection();
-        List<TestBuilderRecord> wynik = new Select("Shop").selectBasicDemo();
+        List<TestBuilderRecord> wynik = new Select("Balance").selectBasicDemo();
         Looper.forLoop(wynik.size(),i-> Logger.test(""+wynik.get(i).fromList + " identiefied as " + wynik.get(i).identified ));
     }
 
