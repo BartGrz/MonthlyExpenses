@@ -130,13 +130,18 @@ public class Record  {
     public double getDebt() { return debt; }
 
     public double getFinalResult() { return finalResult; }
-    
-    
+
+
     @Override
     public String toString() {
-        return "Record{" + "main id='" + main_id  + ", shopName='" + shopName + '}';
+        return "Record{" +
+                "main_id=" + main_id +
+                ", balance=" + balance +
+                ", debt=" + debt +
+                ", finalResult=" + finalResult +
+                '}';
     }
-    
+
     public static void addToList(Record record) {
 
         list.add(record);

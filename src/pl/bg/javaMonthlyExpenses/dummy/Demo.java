@@ -44,12 +44,15 @@ public class Demo {
 
         SQLTools.setConnection();
 
-      List  mapaRes = new Select("Balance").selectBasicDemo();
+        List<TestBuilderRecord> wynik = new Select("Balance").selectBasicDemo();
+        Looper.forLoop(wynik.size(), i -> {
+
+            if (wynik.get(i).id == 1 && wynik.get(i).identified.equals(TestBuilderRecord.Identify.FINALRESULT) || wynik.get(i).id == 2 && wynik.get(i).identified.equals(TestBuilderRecord.Identify.FINALRESULT)) {
+                Logger.test("" + wynik.get(i).toString());
+            }
 
 
-   Looper.forLoop(mapaRes.size(),i-> Logger.test(""+mapaRes.get(i)));
-      }
-
-
+        });
+    }
 
 }
