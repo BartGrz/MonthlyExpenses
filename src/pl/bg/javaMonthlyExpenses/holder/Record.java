@@ -1,15 +1,21 @@
 package pl.bg.javaMonthlyExpenses.holder;
 
-import java.util.ArrayList;
-import java.util.List;
+import pl.bg.javaMonthlyExpenses.dummy.Demo;
 
-public class Record {
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+
+public class Record  {
     
     public  static List<Record> list = new ArrayList<>();
     public  int main_id;
      public  double amount,balance,debt,finalResult;
      public  String accountName, date,categoryName,shopName;
      public  String isCommon;
+    public Set<Identify> identifySet = EnumSet.allOf(Identify.class);
+    public Identify identify;
 
     public static class Builder {
 
@@ -17,6 +23,8 @@ public class Record {
         public double amount,balance,debt,finalResult;
         public String accountName, date,categoryName,shopName;
         public String isCommon;
+        public Set<Identify> identifySet = EnumSet.allOf(Identify.class);
+        public Identify identify;
 
         public Builder id (int val) {
             main_id = val;
@@ -25,6 +33,10 @@ public class Record {
 
         public Builder expense(double val) {
             amount = val;
+            return this;
+        }
+        public Builder identifyColumn(Identify val) {
+            identify = val;
             return this;
         }
         public Builder balance(double val) {
@@ -79,6 +91,7 @@ public class Record {
         this.debt=builder.debt;
         this.finalResult=builder.finalResult;
         this.balance=builder.balance;
+        this.identify=builder.identify;
     }
 
 
@@ -121,12 +134,21 @@ public class Record {
     
     @Override
     public String toString() {
-        return "Record{" + "categoryName='" + categoryName  + ", shopName='" + shopName + '}';
+        return "Record{" + "main id='" + main_id  + ", shopName='" + shopName + '}';
     }
     
     public static void addToList(Record record) {
 
         list.add(record);
     }
+
+    public static enum Identify {
+
+        SHOPNAME, CATEGORYNAME, ISCOMMON, DATE, ACCOUNTNAME, DEBT, AMOUNT, BALANCE, FINALRESULT, MAIN_ID;
+
+
+
+    }
+
 }
 

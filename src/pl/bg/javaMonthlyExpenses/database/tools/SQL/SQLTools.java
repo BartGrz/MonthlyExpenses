@@ -52,7 +52,6 @@ public class SQLTools extends Connection {
         HashMap<String,String> mappedTable = new HashMap<>();
         
         sql = "pragma table_info(" + table_name + ");";
-    Logger.warn("" + sql);
         try {
             rs = statement.executeQuery(sql);
             while (rs.next()) {

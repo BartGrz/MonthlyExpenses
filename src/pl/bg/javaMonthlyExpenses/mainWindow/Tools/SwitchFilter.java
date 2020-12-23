@@ -215,10 +215,11 @@ public class SwitchFilter  {
                 comboBox.setItems(list_isCommon);
                 break;
 
-        }
+            }
 
         }
     public static Object switchBuildingRecord (String table_name,String type,List<Object> results,Loop loop) {
+
 
 
         Select select = new Select();
@@ -228,10 +229,7 @@ public class SwitchFilter  {
         List list_columnsDouble =select.fetchColumnsNamesByType("Double");
         List list_columnsInt = select.fetchColumnsNamesByType("Integer");
 
-
-
       Object res = null;
-
 
         for (int i = 0; i < results.size(); i++) {
 
@@ -242,9 +240,11 @@ public class SwitchFilter  {
                     if (select.fetchTablesID(table_name).equals(list_columnsInt.get(0))) {
 
                        res=  results.get(i);
+                       break;
+                    } else {
+                        res = results.get(i);
+                        break;
                     }
-
-                 break;
 
                 case "String":
                    for(int j = 0 ; j < list_columnsStings.size();j++) {
@@ -300,12 +300,14 @@ public class SwitchFilter  {
 
             }
             loop.loop(i);
-return res;
+            list_columnsStings.removeAll(list_columnsStings);
+            list_columnsInt.removeAll(list_columnsInt);
+            list_columnsDouble.removeAll(list_columnsDouble);
+        return res;
+
         }
 
 return  null;
-
-
 
     }
     private static void checkIfVisible(TextField textField, DoIt doIt) {
