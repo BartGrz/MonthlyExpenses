@@ -136,9 +136,10 @@ public class Record  {
     public String toString() {
         return "Record{" +
                 "main_id=" + main_id +
-                ", balance=" + balance +
-                ", debt=" + debt +
-                ", finalResult=" + finalResult +
+                ", accountName='" + accountName + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", shopName='" + shopName + '\'' +
+                ", isCommon='" + isCommon + '\'' +
                 '}';
     }
 

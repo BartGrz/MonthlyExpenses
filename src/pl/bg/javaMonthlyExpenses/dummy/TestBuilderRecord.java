@@ -108,9 +108,7 @@ public class TestBuilderRecord extends Connection {
                                         columnsWith_IntType_copyOf.remove(j);
                                         break;
                                 }
-
                             }
-
                         break;
 
                         case "string":
@@ -135,6 +133,10 @@ public class TestBuilderRecord extends Connection {
                         case "date":
                             identyfiedObjects.add(new BuilderList().
                                     fromList(rs.getString(val.toString())).identifyColumn(Identify.DATE).id(id[0]).table(identifyTable(table_name)).build());
+                            break;
+                        case "boolean":
+                            identyfiedObjects.add(new BuilderList().
+                                    fromList(rs.getString(val.toString())).identifyColumn(Identify.ISCOMMON).id(id[0]).table(identifyTable(table_name)).build());
                             break;
                         case "double":
                             if (table_name.equals("Balance")) {
