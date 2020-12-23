@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
+import pl.bg.javaMonthlyExpenses.dummy.TestBuilderRecord;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
 import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.FilterResult;
@@ -218,7 +219,7 @@ public class SwitchFilter  {
             }
 
         }
-    public static Object switchBuildingRecord (String table_name,String type,List<Object> results,Loop loop) {
+    public static Object switchBuildingRecord (String table_name, String type, List<TestBuilderRecord> results, Loop loop) {
 
 
 

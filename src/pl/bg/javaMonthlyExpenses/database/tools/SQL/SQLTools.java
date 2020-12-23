@@ -3,6 +3,7 @@ package pl.bg.javaMonthlyExpenses.database.tools.SQL;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.dummy.Demo;
+import pl.bg.javaMonthlyExpenses.dummy.TestBuilderRecord;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
 import java.sql.ResultSet;
@@ -97,11 +98,12 @@ public class SQLTools extends Connection {
         return null;
         
     }
-    public static String onlyNames(List list) {
+    public static String onlyNames(List<TestBuilderRecord> list) {
         String name;
         for (int i = 0; i < list.size(); i++) {
-            if (ObjectTools.findObjectType(list.get(i)).equals("String")) {
-                name = list.get(i).toString();
+
+            if (ObjectTools.findObjectType(list.get(i).fromList).equals("String")) {
+                name = list.get(i).fromList.toString();
                 list.remove(i);
                 return name;
                 

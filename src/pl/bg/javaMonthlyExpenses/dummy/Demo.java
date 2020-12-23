@@ -44,7 +44,7 @@ public class Demo {
 
         SQLTools.setConnection();
 
-        List<TestBuilderRecord> wynik = new Select("Balance").selectBasicDemo();
+        List<TestBuilderRecord> wynik = new Select("Balance").selectBasic();
         Looper.forLoop(wynik.size(), i -> {
 
             if (wynik.get(i).id == 1 && wynik.get(i).identified.equals(TestBuilderRecord.Identify.FINALRESULT) || wynik.get(i).id == 2 && wynik.get(i).identified.equals(TestBuilderRecord.Identify.FINALRESULT)) {

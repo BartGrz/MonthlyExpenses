@@ -1,10 +1,14 @@
 package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
+import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import static pl.bg.javaMonthlyExpenses.formatter.Formatter.valueFormatter;
@@ -17,10 +21,10 @@ public class SQLModifyMain extends SQLTools {
 public static class Insert extends SQLModifyMain {
 
      public void insert(String table_name, List values) {
-         
+list_names.removeAll(list_names);
          pragmaTable(table_name);
          list_names.remove(0); //usuwa ID z listy nazw po komendzie pragma tableinfo();
-         
+
          if(values.size()==1) {
 
              Object value = values.get(0);
@@ -35,6 +39,7 @@ public static class Insert extends SQLModifyMain {
                      " values " + Formatter.listFormatterValues(valueFormatter(values)) + ";";
 
          }
+         Logger.warn("from insert " + sql);
             try {
                 statement.execute(sql);
             } catch (SQLException e) {

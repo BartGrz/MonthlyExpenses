@@ -65,6 +65,7 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
 
             records.get(index).main_id = (int) fromIdentifyList(identifiedResults).fromList;
             break;
+
             case "shopname" :
 
                 records.get(index).shopName = (String) fromIdentifyList(identifiedResults).fromList;
@@ -92,7 +93,7 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
 
         Select.setConnection();
 
-        List<TestBuilderRecord> wynik = new Select("CommonAccount").selectBasicDemo();
+        List<TestBuilderRecord> wynik = new Select("Shop").selectBasic();
 
         Record.list = new ArrayList<>(records(wynik));
         Looper.forLoop(Record.list.size(), i -> Logger.warn(Record.list.get(i).toString()));

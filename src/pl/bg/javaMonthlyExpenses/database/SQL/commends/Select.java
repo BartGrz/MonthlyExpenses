@@ -35,6 +35,7 @@ public  class Select extends SQLTools {
     public static List<Object> results = new ArrayList<>();
     static double sumResult;
 
+    /*
     public static List<Object> selectBasic() {
 
         list_names.removeAll(list_names);
@@ -50,7 +51,9 @@ public  class Select extends SQLTools {
 
         return list;
     }
-    public static List<TestBuilderRecord> selectBasicDemo() {
+
+     */
+    public static List<TestBuilderRecord> selectBasic() {
 
         sql = "Select *from " + table_name + ";";
 

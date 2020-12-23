@@ -102,7 +102,8 @@ public class TestBuilderRecord extends Connection {
                                                 fromList(rs.getInt(val.toString())).identifyColumn(Identify.IDACCOUNT).id(id[0]).table(identifyTable(table_name)).build());
                                         columnsWith_IntType_copyOf.remove(j);
                                         break;
-                                    default:
+
+                                    default :
                                         identyfiedObjects.add(new TestBuilderRecord.BuilderList().
                                                 fromList(rs.getInt(val.toString())).identifyColumn(Identify.MAIN_ID).id(id[0]).table(identifyTable(table_name)).build());
                                         columnsWith_IntType_copyOf.remove(j);
@@ -181,7 +182,8 @@ public class TestBuilderRecord extends Connection {
 
     public  enum Identify {
 
-        SHOPNAME, CATEGORYNAME, ISCOMMON, DATE, ACCOUNTNAME, DEBT, AMOUNT, BALANCE, FINALRESULT, MAIN_ID,IDACCOUNT;
+        SHOPNAME, CATEGORYNAME, ISCOMMON, DATE, ACCOUNTNAME, DEBT, AMOUNT, BALANCE,
+        FINALRESULT, MAIN_ID,IDACCOUNT;
 
     }
     public  enum Table {
@@ -193,7 +195,7 @@ public class TestBuilderRecord extends Connection {
 
         setConnection();
 
-        List<TestBuilderRecord> wynik = new Select("Balance").selectBasicDemo();
+        List<TestBuilderRecord> wynik = new Select("Balance").selectBasic();
         Looper.forLoop(wynik.size(),i-> {
 
             if(wynik.get(i).id==1 && wynik.get(i).identified.equals(Identify.IDACCOUNT) || wynik.get(i).id==2 && wynik.get(i).identified.equals(Identify.IDACCOUNT)) {
