@@ -39,6 +39,9 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
         }else if(k==5 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("balance")) {
             records.add( new Record.Builder().build());
             index+=1;
+        }else if(k==7 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("expense")){
+            records.add( new Record.Builder().build());
+            index+=1;
         }
 
     String cond = identifiedResults.get(0).identified.toString().toLowerCase(Locale.ROOT);
@@ -93,7 +96,7 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
 
         Select.setConnection();
 
-        List<TestBuilderRecord> wynik = new Select("Shop").selectBasic();
+        List<TestBuilderRecord> wynik = new Select("Expense").selectBasic();
 
         Record.list = new ArrayList<>(records(wynik));
         Looper.forLoop(Record.list.size(), i -> Logger.warn(Record.list.get(i).toString()));
