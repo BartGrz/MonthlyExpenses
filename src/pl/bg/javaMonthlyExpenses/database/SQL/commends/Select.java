@@ -210,6 +210,33 @@ public  class Select extends SQLTools {
             new ResultRecordBuild().recordBuildMain(sql, rs);
 
         }
+        public List<TestBuilderRecord> selectJoinMainConditionDemo(String byColumn, Object condition) {
+
+            List <TestBuilderRecord> results = new ArrayList<>();
+
+            if (findObjectType(condition).equals("String") || findObjectType(condition).equals("date")) {
+
+                sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                        "join Account a on e.idAccount = a.idAccount "
+                        + "join Category c on e.idCategory = c.idCategory " +
+                        "Join Shop s on e.idShop=s.idShop" +
+                        " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " like " + findTypeAndFormat(condition) + " ; ";
+
+            } else {
+
+                sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                        "join Account a on e.idAccount = a.idAccount "
+                        + "join Category c on e.idCategory = c.idCategory " +
+                        "Join Shop s on e.idShop=s.idShop" +
+                        " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " = " + condition + " ; ";
+
+            }
+
+            new ResultRecordBuild().recordBuildMain(sql, rs);
+
+            return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
+        }
+
 
         public void sumJoin_partialStrings(String tableJoined, List<String> conditions) {
 

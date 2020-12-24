@@ -43,7 +43,7 @@ public class Demo {
         list_names1.add("idAccount");
 
         SQLTools.setConnection();
-
+/*
         List<TestBuilderRecord> wynik = new Select("Balance").selectBasic();
         Looper.forLoop(wynik.size(), i -> {
 
@@ -53,6 +53,9 @@ public class Demo {
 
 
         });
+
+ */
+        SQLTools.getMappedTable("Expense");
     }
 
 }

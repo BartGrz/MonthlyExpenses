@@ -21,7 +21,8 @@ public class SQLModifyMain extends SQLTools {
 public static class Insert extends SQLModifyMain {
 
      public void insert(String table_name, List values) {
-list_names.removeAll(list_names);
+
+         list_names.removeAll(list_names);
          pragmaTable(table_name);
          list_names.remove(0); //usuwa ID z listy nazw po komendzie pragma tableinfo();
 
@@ -39,7 +40,7 @@ list_names.removeAll(list_names);
                      " values " + Formatter.listFormatterValues(valueFormatter(values)) + ";";
 
          }
-         Logger.warn("from insert " + sql);
+
             try {
                 statement.execute(sql);
             } catch (SQLException e) {

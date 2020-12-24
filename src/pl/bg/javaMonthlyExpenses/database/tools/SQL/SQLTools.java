@@ -1,6 +1,7 @@
 package pl.bg.javaMonthlyExpenses.database.tools.SQL;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
+import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.dummy.Demo;
 import pl.bg.javaMonthlyExpenses.dummy.TestBuilderRecord;
@@ -8,10 +9,7 @@ import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 public class SQLTools extends Connection {
@@ -51,23 +49,57 @@ public class SQLTools extends Connection {
         checkConnection();
         
         HashMap<String,String> mappedTable = new HashMap<>();
-        
-        sql = "pragma table_info(" + table_name + ");";
-        try {
-            rs = statement.executeQuery(sql);
-            while (rs.next()) {
-            
-                if (rs.getString("type").contains("varchar")) {
-    
-                    mappedTable.put(rs.getString("name"), "string");
-                } else {
-    
-                    mappedTable.put(rs.getString("name"), rs.getString("type"));
+        List<String> joinColumns = Arrays.asList("Expense","Shop","Category","CommonAccount","Account");
+
+        if(table_name.equals("Expense")){
+
+            Looper.forLoop(joinColumns.size(),i-> {
+
+             sql = "pragma table_info(" + joinColumns.get(i)+ ");";
+
+                try {
+                    rs = statement.executeQuery(sql);
+                    while (rs.next()) {
+
+                        if (rs.getString("type").contains("varchar")) {
+
+                            mappedTable.put(rs.getString("name"), "string");
+                        } else if (rs.getString("name").toLowerCase(Locale.ROOT).equals("idexpense")) {
+
+                            mappedTable.put(rs.getString("name"), rs.getString("type"));
+                        } else {
+                            if (rs.getString("name").toLowerCase(Locale.ROOT).contains("id")) {
+
+                            } else {
+                                mappedTable.put(rs.getString("name"), rs.getString("type"));
+                            }
+                        }
+                    }
+                } catch (SQLException e) {
+                    Logger.warn("" + e);
                 }
+            });
+
+        }else {
+
+            sql = "pragma table_info(" + table_name + ");";
+            try {
+                rs = statement.executeQuery(sql);
+                while (rs.next()) {
+
+                    if (rs.getString("type").contains("varchar")) {
+
+                        mappedTable.put(rs.getString("name"), "string");
+                    } else {
+
+                        mappedTable.put(rs.getString("name"), rs.getString("type"));
+                    }
+                }
+            } catch (SQLException e) {
+                Logger.warn("" + e);
             }
-        } catch (SQLException e) {
-            Logger.warn("" + e);
         }
+        Logger.warn("" + mappedTable);
         return mappedTable;
     }
     //koniec  testu
@@ -114,6 +146,7 @@ public class SQLTools extends Connection {
         }
         return null;
     }
+
     public static List<String> fetchColumnsNamesByType(String type) {
         
         List<String>  list_columnNames = new ArrayList<>();

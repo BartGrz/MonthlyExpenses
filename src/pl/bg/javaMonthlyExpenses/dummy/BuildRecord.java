@@ -35,42 +35,61 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
 
         switch (cond) {
 
+
+
             case "main_id":
             records.get(index[0]).main_id = (int)fromIdentifyList(identifiedResults).fromList;
+            Logger.log("main_id = " + records.get(index[0]).main_id);
                 break;
 
             case "debt":
             records.get(index[0]).debt = (double) fromIdentifyList(identifiedResults).fromList;
+                Logger.log("" + records.get(index[0]).debt);
                 break;
-
+            case "amount":
+                records.get(index[0]).amount= (double) fromIdentifyList(identifiedResults).fromList;
+                Logger.log("amount=" + records.get(index[0]).amount);
+                break;
             case "finalresult":
                  records.get(index[0]).finalResult = (double) fromIdentifyList(identifiedResults).fromList;
+                Logger.log("" + records.get(index[0]).finalResult);
                 break;
 
             case "balance":
                  records.get(index[0]).balance = (double)fromIdentifyList(identifiedResults).fromList;
+                Logger.log("balance =" + records.get(index[0]).balance);
                 break;
 
             case "idaccount" :
 
                  records.get(index[0]).main_id = (int) fromIdentifyList(identifiedResults).fromList;
+                Logger.log("idaccount =" + records.get(index[0]).main_id);
                 break;
 
             case "shopname" :
 
                 records.get(index[0]).shopName = (String) fromIdentifyList(identifiedResults).fromList;
+                Logger.log("shopname =" + records.get(index[0]).shopName);
+                break;
+            case "date" :
+
+                records.get(index[0]).date = (String) fromIdentifyList(identifiedResults).fromList;
+                Logger.log("date =" + records.get(index[0]).date);
                 break;
             case "categoryname" :
 
                 records.get(index[0]).categoryName = (String) fromIdentifyList(identifiedResults).fromList;
+                Logger.log("categoryname =" + records.get(index[0]).categoryName);
                 break;
             case "accountname" :
 
                 records.get(index[0]).accountName = (String) fromIdentifyList(identifiedResults).fromList;
+                Logger.log("accountname =" + records.get(index[0]).accountName);
                 break;
             case "iscommon" :
 
                 records.get(index[0]).isCommon = String.valueOf( fromIdentifyList(identifiedResults).fromList);
+                Logger.log("isCommon = " + records.get(index[0]).isCommon);
                 break;
         }
         k+=1;
@@ -83,7 +102,8 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
 
         Select.setConnection();
 
-        List<TestBuilderRecord> wynik = new Select("Account").selectBasic();
+        List<TestBuilderRecord> wynik = new Select.SelectJoin().selectJoinMainConditionDemo("amount",4.0);
+          // List<TestBuilderRecord> wynik = new Select("Shop").selectBasic();
 
         Record.list = new ArrayList<>(records(wynik));
         Looper.forLoop(Record.list.size(), i -> Logger.warn(Record.list.get(i).toString()));
@@ -107,7 +127,8 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
           //  iterator[0]+=1;
             return true;
 
-        } else if (index%2==0 && !identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("balance")){
+        } else if (index%2==0 && !identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("balance")
+        && !identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("expense")){
             iterator[0]+=1;
             return true;
 
@@ -117,7 +138,7 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
             return true;
 
 
-        }else if(index==7 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("expense")){
+        }else if(index%7==0 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("expense")){
             iterator[0]+=1;
             return true;
 
