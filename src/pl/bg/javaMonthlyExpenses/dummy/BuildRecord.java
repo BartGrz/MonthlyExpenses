@@ -4,6 +4,8 @@ import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
+import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -23,67 +25,52 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
         List <Record> records = new ArrayList<>();
 
         int k =0 ;
-        int index =0;
+        int [] index = new int[1];
 
     while (!identifiedResults.isEmpty()) {
 
-        if(k==0 ){
+        add(k,index,identifiedResults,()->records.add(new Record.Builder().build()));
 
-        records.add( new Record.Builder().build());
-
-        } else if (k%2==0 && !identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("balance")){
-
-        records.add( new Record.Builder().build());
-        index+=1;
-
-        }else if(k==5 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("balance")) {
-            records.add( new Record.Builder().build());
-            index+=1;
-        }else if(k==7 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("expense")){
-            records.add( new Record.Builder().build());
-            index+=1;
-        }
-
-    String cond = identifiedResults.get(0).identified.toString().toLowerCase(Locale.ROOT);
+        String cond = identifiedResults.get(0).identified.toString().toLowerCase(Locale.ROOT);
 
         switch (cond) {
 
             case "main_id":
-            records.get(index).main_id = (int)fromIdentifyList(identifiedResults).fromList;
-            break;
+            records.get(index[0]).main_id = (int)fromIdentifyList(identifiedResults).fromList;
+                break;
 
             case "debt":
-            records.get(index).debt = (double) fromIdentifyList(identifiedResults).fromList;
-            break;
+            records.get(index[0]).debt = (double) fromIdentifyList(identifiedResults).fromList;
+                break;
 
             case "finalresult":
-            records.get(index).finalResult = (double) fromIdentifyList(identifiedResults).fromList;
-            break;
+                 records.get(index[0]).finalResult = (double) fromIdentifyList(identifiedResults).fromList;
+                break;
 
             case "balance":
-            records.get(index).balance = (double)fromIdentifyList(identifiedResults).fromList;
-            break;
+                 records.get(index[0]).balance = (double)fromIdentifyList(identifiedResults).fromList;
+                break;
 
             case "idaccount" :
 
-            records.get(index).main_id = (int) fromIdentifyList(identifiedResults).fromList;
-            break;
+                 records.get(index[0]).main_id = (int) fromIdentifyList(identifiedResults).fromList;
+                break;
 
             case "shopname" :
 
-                records.get(index).shopName = (String) fromIdentifyList(identifiedResults).fromList;
+                records.get(index[0]).shopName = (String) fromIdentifyList(identifiedResults).fromList;
                 break;
             case "categoryname" :
 
-                records.get(index).categoryName = (String) fromIdentifyList(identifiedResults).fromList;
+                records.get(index[0]).categoryName = (String) fromIdentifyList(identifiedResults).fromList;
                 break;
             case "accountname" :
 
-                records.get(index).accountName = (String) fromIdentifyList(identifiedResults).fromList;
+                records.get(index[0]).accountName = (String) fromIdentifyList(identifiedResults).fromList;
                 break;
             case "iscommon" :
 
-                records.get(index).isCommon = String.valueOf( fromIdentifyList(identifiedResults).fromList);
+                records.get(index[0]).isCommon = String.valueOf( fromIdentifyList(identifiedResults).fromList);
                 break;
         }
         k+=1;
@@ -96,7 +83,7 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
 
         Select.setConnection();
 
-        List<TestBuilderRecord> wynik = new Select("Expense").selectBasic();
+        List<TestBuilderRecord> wynik = new Select("Account").selectBasic();
 
         Record.list = new ArrayList<>(records(wynik));
         Looper.forLoop(Record.list.size(), i -> Logger.warn(Record.list.get(i).toString()));
@@ -108,10 +95,44 @@ public static List<TestBuilderRecord> show (List<TestBuilderRecord> identifiedRe
 
         for (int i = 0; i<list.size();i++) {
            val = list.get(i);
-
             list.remove(i);
             return val;
         }
        return null;
+    }
+
+    public static boolean addIfNedded (int index,int [] iterator, List<TestBuilderRecord> identifiedResults ){
+
+        if(index==0 ){
+          //  iterator[0]+=1;
+            return true;
+
+        } else if (index%2==0 && !identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("balance")){
+            iterator[0]+=1;
+            return true;
+
+
+        }else if(index==5 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("balance")) {
+            iterator[0]+=1;
+            return true;
+
+
+        }else if(index==7 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("expense")){
+            iterator[0]+=1;
+            return true;
+
+        }
+
+    return false;
+    }
+
+    public static void add(int index,int [] iterator, List<TestBuilderRecord>identifiedResults, DoIt doIt ) {
+
+    if(addIfNedded(index,iterator,identifiedResults)) {
+        doIt.doIt();
+    }else {
+
+    }
+
     }
 }
