@@ -99,7 +99,7 @@ public class SQLTools extends Connection {
                 Logger.warn("" + e);
             }
         }
-        Logger.warn("" + mappedTable);
+
         return mappedTable;
     }
     //koniec  testu

@@ -1,12 +1,10 @@
 package pl.bg.javaMonthlyExpenses.dummy;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
-import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
-import pl.bg.javaMonthlyExpenses.holder.Record;
-import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
+
 
 
 import java.sql.ResultSet;
@@ -58,6 +56,7 @@ public class TestBuilderRecord extends Connection {
 
     }
     public static List <TestBuilderRecord> matchWithTypeAndAdd (ResultSet rs , String table_name , String sql) {
+
         HashMap<String, String> map = new SQLTools().getMappedTable(table_name);
         List<Object> columns = new ArrayList<>();
 
@@ -71,6 +70,7 @@ public class TestBuilderRecord extends Connection {
         List <String> columnsWithDoubleType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Double");
         List <String> columnsWith_IntType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Integer");
         List <String> columnsWith_StringType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"String");
+
         int [] id = new int[1];
 
         try {
@@ -80,6 +80,7 @@ public class TestBuilderRecord extends Connection {
 
                 id[0] = rs.getInt("id"+table_name);
 
+                List <String> copy_of = new ArrayList<>(columnsWith_StringType);
                 List <String> columnsWithDoubleType_copyOf = new ArrayList<>(columnsWithDoubleType);
                 List <String> columnsWith_IntType_copyOf =  new ArrayList<>(columnsWith_IntType);
 
@@ -110,46 +111,45 @@ public class TestBuilderRecord extends Connection {
                         break;
 
                         case "string":
-                            for(int j=0;j<columnsWith_StringType.size();j++) {
-                                switch (columnsWith_StringType.get(j)) {
-                                    // if (table_name.equals("Shop") || table_name.equals("Expense")) {
+                            for(int j=0;j<copy_of.size();j++) {
+                                switch (copy_of.get(j)) {
                                     case "shopName":
                                         identyfiedObjects.add(new BuilderList().
                                                 fromList(rs.getString(val.toString())).identifyColumn(Identify.SHOPNAME).id(id[0]).table(identifyTable(table_name)).build());
-                                        Logger.log("from test builder Record shopname = " + rs.getString(val.toString()));
                                         if (table_name.equals("Expense")) {
-                                            columnsWith_StringType.remove(j);
+                                            copy_of.remove(j);
+
                                         }
                                         break;
                                     case "categoryName":
-                                        // } else if (table_name.equals("Category") || table_name.equals("Expense")) {
                                         identyfiedObjects.add(new BuilderList().
                                                 fromList(rs.getString(val.toString())).identifyColumn(Identify.CATEGORYNAME).id(id[0]).table(identifyTable(table_name)).build());
-                                        Logger.log("from test builder Record category = " + rs.getString(val.toString()));
                                         if (table_name.equals("Expense")) {
-                                            columnsWith_StringType.remove(j);
+                                            copy_of.remove(j);
+
                                         }
                                         break;
                                     case "accountName":
-                                        //  } else if (table_name.equals("Account") || table_name.equals("Expense")) {
+
                                         identyfiedObjects.add(new BuilderList().
                                                 fromList(rs.getString(val.toString())).identifyColumn(Identify.ACCOUNTNAME).id(id[0]).table(identifyTable(table_name)).build());
-                                        Logger.log("from test builder Record account  = " + rs.getString(val.toString()));
+
                                         if (table_name.equals("Expense")) {
-                                            columnsWith_StringType.remove(j);
+                                            copy_of.remove(j);
+
                                         }
-                                        break;
+                                    break;
                                     case "isCommon":
-                                        //   } else if (table_name.equals("CommonAccount") || table_name.equals("Expense")) {
+
                                         identyfiedObjects.add(new BuilderList().
                                                 fromList(rs.getString(val.toString())).identifyColumn(Identify.ISCOMMON).id(id[0]).table(identifyTable(table_name)).build());
-                                        Logger.log("from test builder Record isCommon = " + rs.getString(val.toString()));
                                         if (table_name.equals("Expense")) {
-                                            columnsWith_StringType.remove(j);
+                                            copy_of.remove(j);
+
                                         }
                                         break;
                                 }
-                            break;
+                                break;
                             }
                         break;
                         case "date":
@@ -199,6 +199,15 @@ public class TestBuilderRecord extends Connection {
             e.printStackTrace();
         }
 
+        Looper.forLoop(identyfiedObjects.size(),
+                i-> {
+            if(identyfiedObjects.get(i).fromList.equals(null) || identyfiedObjects.get(i).fromList.equals(0)){
+                Logger.log("" + identyfiedObjects.get(i).fromList + " identify as " + identyfiedObjects.get(i).identified);
+            }else {
+
+            }
+                });
+
         return identyfiedObjects;
 
         }
@@ -214,18 +223,6 @@ public class TestBuilderRecord extends Connection {
         BALANCE, SHOP, CATEGORY, COMMONACCOUNT, EXPENSE, ACCOUNT;
     }
 
-    public static void main(String[] args) {
-
-        setConnection();
-
-        List<TestBuilderRecord> wynik = new Select.SelectJoin().selectJoinMainConditionDemo("amount",4.0);
-        Looper.forLoop(wynik.size(),i-> {
-
-            if(wynik.get(i).id==1 && wynik.get(i).identified.equals(Identify.IDACCOUNT) || wynik.get(i).id==2 && wynik.get(i).identified.equals(Identify.IDACCOUNT)) {
-                Logger.test("" + wynik.get(i).toString());
-            }
-        });
-    }
 
     public static Table identifyTable(String table_name) {
 

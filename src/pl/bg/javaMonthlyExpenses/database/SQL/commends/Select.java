@@ -173,6 +173,20 @@ public  class Select extends SQLTools {
 
             return results;
         }
+        public List<TestBuilderRecord> joinMainTestDemo() {
+
+
+
+            sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
+                    "join Account a on e.idAccount = a.idAccount "
+                    + "join Category c on e.idCategory = c.idCategory " +
+                    "Join Shop s on e.idShop=s.idShop" +
+                    " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
+
+
+
+            return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
+        }
 
         public void joinMainCondition(int id) {
 
@@ -187,6 +201,7 @@ public  class Select extends SQLTools {
         }
 
 
+/*
         public void selectJoinMainCondition(String byColumn, Object condition) {
 
             if (findObjectType(condition).equals("String") || findObjectType(condition).equals("date")) {
@@ -210,9 +225,9 @@ public  class Select extends SQLTools {
             new ResultRecordBuild().recordBuildMain(sql, rs);
 
         }
-        public List<TestBuilderRecord> selectJoinMainConditionDemo(String byColumn, Object condition) {
 
-            List <TestBuilderRecord> results = new ArrayList<>();
+ */
+        public List<TestBuilderRecord> selectJoinMainCondition(String byColumn, Object condition) {
 
             if (findObjectType(condition).equals("String") || findObjectType(condition).equals("date")) {
 
@@ -232,7 +247,7 @@ public  class Select extends SQLTools {
 
             }
 
-            new ResultRecordBuild().recordBuildMain(sql, rs);
+          //  new ResultRecordBuild().recordBuildMain(sql, rs);
 
             return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
         }

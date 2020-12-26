@@ -12,7 +12,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
+import pl.bg.javaMonthlyExpenses.dummy.BuildRecord;
 import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
@@ -21,6 +23,8 @@ import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Filter implements Initializable {
@@ -72,17 +76,20 @@ public void search() {
 
     if(amount.isVisible()){
         Double  filteredBy = Double.valueOf(amount.getText());
-       SwitchFilter.switchFilter(comboBox_filterBy,(a)->new Select.SelectJoin().selectJoinMainCondition((String) a,filteredBy));
+        Record.list = BuildRecord.records(
+                new Select.SelectJoin().selectJoinMainCondition(SwitchFilter.switchFilterGetColumn(comboBox_filterBy),filteredBy));
+
     }else {
         Object filteredBy = comboBox_filtered.getValue();
-        SwitchFilter.switchFilter(comboBox_filterBy,(a)->new Select.SelectJoin().selectJoinMainCondition((String) a,filteredBy));
+        Record.list=  BuildRecord.records(
+                new Select.SelectJoin().selectJoinMainCondition(SwitchFilter.switchFilterGetColumn(comboBox_filterBy),filteredBy));
+
     }
 
-
     TablesBuilder.buildMain(tableView_Search);
+    Logger.log(" size " + Record.list.size());
     Looper.forLoop(Record.list.size(),(i)->tableView_Search.getItems().add(Record.list.get(i)));
     Record.list.removeAll(Record.list);
-
 
 }
     @Override
@@ -96,15 +103,6 @@ public void search() {
         search.setVisible(false);
         comboBox_filterBy.setItems(list_filterBy);
 
-    }
-    private void checkIfVisible(TextField textField, DoIt doIt) {
-
-        if(textField.isVisible()) {
-            textField.setVisible(false);
-            doIt.doIt();
-        }else {
-        doIt.doIt();
-        }
     }
     public void clear() {
 
@@ -127,5 +125,5 @@ public void search() {
         Filter.stage.close();
     }
 
-    //
+
 }

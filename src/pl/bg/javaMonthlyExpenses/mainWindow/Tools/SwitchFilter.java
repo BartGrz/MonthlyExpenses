@@ -71,7 +71,7 @@ public class SwitchFilter  {
         }
     }
     public static String switchFilterGetColumn(ComboBox comboBox ) {
-
+      //  Logger.log(" result = " +comboBox.getValue().toString());
         switch (comboBox.getValue().toString()) {
             case "Account":
                 result =  "accountName";
@@ -79,14 +79,14 @@ public class SwitchFilter  {
                 break;
 
             case "Expense":
-                result =  "Amount";
-
-                break;
+               result =  "amount";
+                return (String)result;
+               // break;
 
             case "Date":
                 result =  "date";
-
-                break;
+                return (String)result;
+              //  break;
 
             case "Category":
                 result =  "categoryName";
@@ -105,6 +105,7 @@ public class SwitchFilter  {
 
 
         }
+
         return (String)result;
     }
 
