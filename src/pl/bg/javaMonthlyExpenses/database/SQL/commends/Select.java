@@ -35,24 +35,7 @@ public  class Select extends SQLTools {
     public static List<Object> results = new ArrayList<>();
     static double sumResult;
 
-    /*
-    public static List<Object> selectBasic() {
 
-        list_names.removeAll(list_names);
-        pragmaTable(table_name);
-
-
-        sql = "Select *from " + table_name + ";";
-
-        // List<Object> list = findAndAddDemo(table_name, sql);
-        List<Object> list = findAndAdd(list_names, sql);
-        List<Object> list_copy = findAndAdd(list_names, sql);
-
-
-        return list;
-    }
-
-     */
     public static List<TestBuilderRecord> selectBasic() {
 
         sql = "Select *from " + table_name + ";";
@@ -144,7 +127,8 @@ public  class Select extends SQLTools {
 
         private String sql;
 
-        public void joinMain() {
+
+        public List<TestBuilderRecord> joinMainTest() {
 
             sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
                     "join Account a on e.idAccount = a.idAccount "
@@ -152,28 +136,10 @@ public  class Select extends SQLTools {
                     "Join Shop s on e.idShop=s.idShop" +
                     " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
 
-            new ResultRecordBuild().recordBuildMain(sql, rs);
+
+            return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
         }
-
-
-        public List<Object> joinMainTest() {
-
-            list_names.removeAll(list_names);
-            pragmaTable(table_name);
-
-            sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
-                    "join Account a on e.idAccount = a.idAccount "
-                    + "join Category c on e.idCategory = c.idCategory " +
-                    "Join Shop s on e.idShop=s.idShop" +
-                    " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
-
-            List<Object> results = findAndAdd(list_names, sql);
-
-            new ResultRecordBuild().recordBuildMain(sql, rs);
-
-            return results;
-        }
-        public List<TestBuilderRecord> joinMainTestDemo() {
+        public List<TestBuilderRecord> joinMain() {
 
 
 
@@ -182,13 +148,12 @@ public  class Select extends SQLTools {
                     + "join Category c on e.idCategory = c.idCategory " +
                     "Join Shop s on e.idShop=s.idShop" +
                     " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
-
 
 
             return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
         }
 
-        public void joinMainCondition(int id) {
+        public List <TestBuilderRecord> joinMainCondition(int id) {
 
             sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
                     "join Account a on e.idAccount = a.idAccount "
@@ -197,36 +162,9 @@ public  class Select extends SQLTools {
                     " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount where idExpense =  " + id + ";";
 
 
-            new ResultRecordBuild().recordBuildMain(sql, rs);
+            return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
         }
 
-
-/*
-        public void selectJoinMainCondition(String byColumn, Object condition) {
-
-            if (findObjectType(condition).equals("String") || findObjectType(condition).equals("date")) {
-
-                sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
-                        "join Account a on e.idAccount = a.idAccount "
-                        + "join Category c on e.idCategory = c.idCategory " +
-                        "Join Shop s on e.idShop=s.idShop" +
-                        " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " like " + findTypeAndFormat(condition) + " ; ";
-
-            } else {
-
-                sql = " Select idExpense, a.accountName , amount,date,c.categoryName,s.shopName,ca.isCommon from Expense e " +
-                        "join Account a on e.idAccount = a.idAccount "
-                        + "join Category c on e.idCategory = c.idCategory " +
-                        "Join Shop s on e.idShop=s.idShop" +
-                        " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount  where " + byColumn + " = " + condition + " ; ";
-
-            }
-
-            new ResultRecordBuild().recordBuildMain(sql, rs);
-
-        }
-
- */
         public List<TestBuilderRecord> selectJoinMainCondition(String byColumn, Object condition) {
 
             if (findObjectType(condition).equals("String") || findObjectType(condition).equals("date")) {
@@ -247,7 +185,6 @@ public  class Select extends SQLTools {
 
             }
 
-          //  new ResultRecordBuild().recordBuildMain(sql, rs);
 
             return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
         }

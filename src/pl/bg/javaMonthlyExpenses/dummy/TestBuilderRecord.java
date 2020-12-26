@@ -158,7 +158,7 @@ public class TestBuilderRecord extends Connection {
                             break;
                         case "boolean":
                             identyfiedObjects.add(new BuilderList().
-                                    fromList(rs.getString(val.toString())).identifyColumn(Identify.ISCOMMON).id(id[0]).table(identifyTable(table_name)).build());
+                                    fromList(rs.getBoolean(val.toString())).identifyColumn(Identify.ISCOMMON).id(id[0]).table(identifyTable(table_name)).build());
                             break;
                         case "double":
                             if (table_name.equals("Balance")) {
@@ -215,7 +215,7 @@ public class TestBuilderRecord extends Connection {
     public  enum Identify {
 
         SHOPNAME, CATEGORYNAME, ISCOMMON, DATE, ACCOUNTNAME, DEBT, AMOUNT, BALANCE,
-        FINALRESULT, MAIN_ID,IDACCOUNT;
+        FINALRESULT, MAIN_ID,IDACCOUNT,SUM;
 
     }
     public  enum Table {

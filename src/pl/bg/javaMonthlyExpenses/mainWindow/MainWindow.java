@@ -18,6 +18,7 @@ import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.*;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
+import pl.bg.javaMonthlyExpenses.dummy.BuildRecord;
 import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 
@@ -181,7 +182,7 @@ public class MainWindow extends Application implements Initializable {
         
         Thread thread_first = new Thread(()->  {
             
-            new Select.SelectJoin().joinMain();
+          Record.list = BuildRecord.records(new Select.SelectJoin().joinMain());
             Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
      
