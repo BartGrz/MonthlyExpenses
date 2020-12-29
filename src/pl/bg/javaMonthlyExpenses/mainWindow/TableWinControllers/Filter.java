@@ -14,8 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
-import pl.bg.javaMonthlyExpenses.dummy.BuildRecord;
-import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
+import pl.bg.javaMonthlyExpenses.holder.BuildRecord;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
@@ -23,8 +22,6 @@ import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Filter implements Initializable {

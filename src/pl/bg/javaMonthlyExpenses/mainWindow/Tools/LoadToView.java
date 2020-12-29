@@ -1,11 +1,10 @@
 package pl.bg.javaMonthlyExpenses.mainWindow.Tools;
 
 import javafx.scene.control.TableView;
-import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
-import pl.bg.javaMonthlyExpenses.dummy.BuildRecord;
+import pl.bg.javaMonthlyExpenses.holder.BuildRecord;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
 

@@ -2,7 +2,7 @@ package pl.bg.javaMonthlyExpenses.mainWindow.Tools;
 
 import javafx.collections.ObservableList;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
-import pl.bg.javaMonthlyExpenses.dummy.TestBuilderRecord;
+import pl.bg.javaMonthlyExpenses.holder.TestBuilderRecord;
 import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 

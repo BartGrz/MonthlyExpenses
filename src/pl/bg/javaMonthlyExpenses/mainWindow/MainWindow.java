@@ -18,7 +18,7 @@ import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.*;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
-import pl.bg.javaMonthlyExpenses.dummy.BuildRecord;
+import pl.bg.javaMonthlyExpenses.holder.BuildRecord;
 import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 

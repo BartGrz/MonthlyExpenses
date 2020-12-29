@@ -5,16 +5,11 @@ package pl.bg.javaMonthlyExpenses.dummy;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
-import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
+import pl.bg.javaMonthlyExpenses.holder.BuildRecord;
 import pl.bg.javaMonthlyExpenses.holder.Record;
-import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
-import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.Loop;
 
 import java.util.*;
-
-import static pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools.checkIfForeignColumnDemo;
-import static pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools.rs;
 
 public class Demo {
 

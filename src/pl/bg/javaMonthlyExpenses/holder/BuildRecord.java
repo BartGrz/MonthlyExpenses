@@ -1,14 +1,9 @@
-package pl.bg.javaMonthlyExpenses.dummy;
+package pl.bg.javaMonthlyExpenses.holder;
 
-import pl.bg.javaMonthlyExpenses.Logger.Logger;
-import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
-import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
-import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 

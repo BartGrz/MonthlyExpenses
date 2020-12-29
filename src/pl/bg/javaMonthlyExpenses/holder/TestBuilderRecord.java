@@ -1,6 +1,5 @@
-package pl.bg.javaMonthlyExpenses.dummy;
+package pl.bg.javaMonthlyExpenses.holder;
 
-import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 

@@ -3,17 +3,13 @@ package pl.bg.javaMonthlyExpenses.database.SQL.commends;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
-import pl.bg.javaMonthlyExpenses.database.tools.SQL.ResultRecordBuild;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
-import pl.bg.javaMonthlyExpenses.dummy.TestBuilderRecord;
+import pl.bg.javaMonthlyExpenses.holder.TestBuilderRecord;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 import pl.bg.javaMonthlyExpenses.holder.Record;
-import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools.findObjectType;
