@@ -21,10 +21,7 @@ public class LoadToView extends Connection {
         Looper.forLoop(cond.size(), i -> list_records.add(
                 BuildRecord.records(new Select.SelectJoin(main_table).sumJoin_partialStrings(table_name, cond.get(i)))));
 
-        for (int i = 0; i < list_records.size(); i++) {
-
-            Record.list.add(list_records.get(i).get(0));
-        }
+        Looper.forLoop(list_records.size(),i-> Record.list.add(list_records.get(i).get(0)));
 
         Looper.forLoop(Record.list.size(), (i) -> tableView.getItems().add(Record.list.get(i)));
         if (!Record.list.isEmpty()) {
@@ -39,15 +36,12 @@ public class LoadToView extends Connection {
         final String table_name = "Balance";
         final String tableJoined = "Account";
 
-        List <List<Record>> lista = new ArrayList<>();
+        List <List<Record>> list_records = new ArrayList<>();
 
-        Looper.forLoopChoseIndex(1,3,i-> lista.add( BuildRecord.records(new Select.SelectJoin(table_name).
+        Looper.forLoopChoseIndex(1,3,i-> list_records.add( BuildRecord.records(new Select.SelectJoin(table_name).
                 selectJoinOneCond(tableJoined,i))));
 
-        for(int i = 0;i<lista.size();i++) {
-            Record.list.add(lista.get(i).get(0));
-        }
-
+       Looper.forLoop(list_records.size(),i-> Record.list.add(list_records.get(i).get(0)));
         Looper.forLoop(Record.list.size(), (i) -> tableView.getItems().add(Record.list.get(i)));
 
         if (!Record.list.isEmpty()) {

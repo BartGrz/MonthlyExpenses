@@ -126,7 +126,7 @@ public class MainWindow extends Application implements Initializable {
  
     
         TablesBuilder.buildCustom("Account", "accountName", tableView_sumFromRange);
-        TablesBuilder.buildCustom("Sum", "amount", tableView_sumFromRange);
+        TablesBuilder.buildCustom("Sum", "sum", tableView_sumFromRange);
     }
     @FXML
     public void delete() {
@@ -278,13 +278,7 @@ public class MainWindow extends Application implements Initializable {
         } catch (DateValidException e) {
             Logger.error("" + e);
         }
-            /*
-        Looper.forLoopChoseIndex(1, 3, i -> new Select.SelectJoin<>().sumJoinRange(dateFrom, dateTo, i));
-        Looper.forLoop(Record.list.size(), i -> tableView_sumFromRange.getItems().add(Record.list.get(i)));
-        Record.list.removeAll(Record.list);
 
-
-             */
         List <List<Record>> lista = new ArrayList<>();
         Looper.forLoopChoseIndex(1,3,i->
                 lista.add( BuildRecord.records(
@@ -318,7 +312,7 @@ public class MainWindow extends Application implements Initializable {
         tableView_sumFromRange.getColumns().removeAll(tableView_sumFromRange.getColumns());
     
         TablesBuilder.buildCustom("Account", "accountName", tableView_sumFromRange);
-        TablesBuilder.buildCustom("Sum", "amount", tableView_sumFromRange);
+        TablesBuilder.buildCustom("Sum", "sum", tableView_sumFromRange);
         
         button_filter.setText("FILTER");
         button_filter.setOnAction(e->filterSumByTimeRange());
