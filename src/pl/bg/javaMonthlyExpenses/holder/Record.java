@@ -11,7 +11,7 @@ public class Record  {
     
     public  static List<Record> list = new ArrayList<>();
     public  int main_id;
-     public  double amount,balance,debt,finalResult;
+     public  double amount,balance,debt,finalResult,sum;
      public  String accountName, date,categoryName,shopName;
      public  String isCommon;
     public Set<Identify> identifySet = EnumSet.allOf(Identify.class);
@@ -20,7 +20,7 @@ public class Record  {
     public static class Builder {
 
         public int main_id;
-        public double amount,balance,debt,finalResult;
+        public double amount,balance,debt,finalResult,sum;
         public String accountName, date,categoryName,shopName;
         public String isCommon;
         public Set<Identify> identifySet = EnumSet.allOf(Identify.class);
@@ -45,6 +45,10 @@ public class Record  {
         }
         public Builder debt (double val) {
             debt= val;
+            return this;
+        }
+        public Builder sum (double val) {
+            sum= val;
             return this;
         }
         public Builder result (double val) {
@@ -92,6 +96,7 @@ public class Record  {
         this.finalResult=builder.finalResult;
         this.balance=builder.balance;
         this.identify=builder.identify;
+        this.sum=builder.sum;
     }
 
 
@@ -140,6 +145,7 @@ public class Record  {
                 ", categoryName='" + categoryName + '\'' +
                 ", shopName='" + shopName + '\'' +
                 ", isCommon='" + isCommon + '\'' +
+                ", sum(amount)='" + sum + '\'' +
                 '}';
     }
 

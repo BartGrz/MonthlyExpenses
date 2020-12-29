@@ -150,7 +150,7 @@ public  class Select extends SQLTools {
                     " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
 
 
-            return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
+            return  new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.REGULAR).build().matchWithTypeAndAdd(rs,"Expense",sql);
         }
 
         public List <TestBuilderRecord> joinMainCondition(int id) {
@@ -221,6 +221,21 @@ public  class Select extends SQLTools {
             });
 
         }
+
+        public List<TestBuilderRecord> sumJoin_partialStringsDemo(String tableJoined, String condition) {
+
+                String columnJoined = getColumntypeName(tableJoined, findObjectType(condition));
+                String foreignColumn = checkIfForeignColumn(table_name, columnJoined);
+
+                sql = "Select Sum(Amount)" + ", b.IdCategory, " + foreignColumn + " from  " + table_name +
+                        " a join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined) +
+                        " where " + foreignColumn + " like " + Formatter.PartialCondition(condition);
+
+
+                return  new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.WITH_SUM)
+                        .build().matchWithTypeAndAdd(rs,tableJoined,sql);
+            }
+
 
 
         public void sumJoin_mixConditions_AND(String tableJoined, T condition_1, V condition_2) {

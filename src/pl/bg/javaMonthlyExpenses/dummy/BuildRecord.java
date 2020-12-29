@@ -1,10 +1,13 @@
 package pl.bg.javaMonthlyExpenses.dummy;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
+import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
+import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,6 +27,7 @@ public class BuildRecord {
         int[] index = new int[1];
 
 
+
         while (!identifiedResults.isEmpty()) {
 
             add(k, index, identifiedResults, () -> records.add(new Record.Builder().build()));
@@ -39,6 +43,10 @@ public class BuildRecord {
 
                 case "debt":
                     records.get(index[0]).debt = (double) fromIdentifyList(identifiedResults);
+                    // Logger.log("" + records.get(index[0]).debt);
+                    break;
+                case "sum":
+                    records.get(index[0]).sum = (double) fromIdentifyList(identifiedResults);
                     // Logger.log("" + records.get(index[0]).debt);
                     break;
                 case "amount":
@@ -92,11 +100,12 @@ public class BuildRecord {
             k += 1;
 
         }
+        /*
         if (records.get(index[0]).main_id == 0) {
             Logger.result("" + records.get(index[0]).toString());
             records.remove(index[0]);
         }
-
+*/
         return records;
     }
 
@@ -111,26 +120,25 @@ public class BuildRecord {
     }
 
     public static boolean addIfNedded(int index, int[] iterator, List<TestBuilderRecord> identifiedResults) {
-
-        String table_name = identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT);
-
-
+       String table_name = identifiedResults.get(0).table.toString();
     if (index == 0) {
+        return true;
 
-           return true;
+       }else if (index % 2 == 0 && !TestBuilderRecord.flag.toString().equals("WITH_SUM") &&  !table_name.equals("EXPENSE")){
 
-       }else if (index % 2 == 0 && table_name.equals("shop") || index % 2 == 0&& table_name.equals("category")
-                ||index % 2 == 0&& table_name.equals("account")){
-            iterator[0] += 1;
-            return true;
+        iterator[0] += 1;
+        return true;
 
+       }else if (index % 3 ==0&& TestBuilderRecord.flag.toString().equals("WITH_SUM") ) {
+        iterator[0] += 1;
+        return true;
 
         } else if (index == 5 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("balance")) {
             iterator[0] += 1;
             return true;
 
 
-        } else if (index % 7 == 0 && identifiedResults.get(0).table.toString().toLowerCase(Locale.ROOT).equals("expense")) {
+        } else if (index % 7 == 0 && identifiedResults.get(0).table.toString().equals("EXPENSE")) {
             iterator[0] += 1;
             return true;
 
@@ -147,5 +155,35 @@ public class BuildRecord {
 
         }
 
+    }
+
+    public static void main(String[] args) {
+
+        Select.setConnection();
+/*
+        List<String> cond = new ArrayList<>(Arrays.asList("Vet", "Pies", "jedzenie[p", "UBER", "swinsk", "napoj", "jedzenie", "jedzenie[z"));
+
+        List<List<Record>> lista = new ArrayList<>();
+
+        Looper.forLoop(cond.size(), i -> lista.add(
+                records(new Select.SelectJoin("Expense").sumJoin_partialStringsDemo("Category", cond.get(i)))));
+
+
+for(int i = 0;i< lista.size();i++) {
+
+  Record.list.add(lista.get(i).get(0));
+}
+        Looper.forLoop(Record.list.size(),j->Logger.log(""+Record.list.get(j).toString()));
+
+/*
+List <Record> lis = records(new Select("Shop").selectBasic());
+Looper.forLoop(lis.size(),i->Logger.log(lis.get(i).toString()));
+
+ */
+
+        Record.list = records(new Select.SelectJoin().joinMain());
+        Logger.warn("" + Record.list.size());
+
+        Looper.forLoop(Record.list.size(),i->Record.list.get(i).toString());
     }
 }
