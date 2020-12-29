@@ -41,8 +41,8 @@ public class LoadToView extends Connection {
 
         List <List<Record>> lista = new ArrayList<>();
 
-        Looper.forLoopChoseIndex(1,3,i-> lista.add( BuildRecord.records( new Select.SelectJoin(table_name).
-                selectJoinOneCondDemo(tableJoined,i))));
+        Looper.forLoopChoseIndex(1,3,i-> lista.add( BuildRecord.records(new Select.SelectJoin(table_name).
+                selectJoinOneCond(tableJoined,i))));
 
         for(int i = 0;i<lista.size();i++) {
             Record.list.add(lista.get(i).get(0));

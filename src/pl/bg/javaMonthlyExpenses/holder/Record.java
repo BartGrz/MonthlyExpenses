@@ -143,9 +143,11 @@ public class Record  {
         return "Record{" +
                 "main_id=" + main_id +
                 ", accountName='" + accountName + '\'' +
+                ", date='" + date + '\'' +
                 ", debt='" + debt + '\'' +
                 ", balance='" + balance + '\'' +
                 ", finalresult='" + finalResult + '\'' +
+                ", sum(Amount)='" + sum + '\'' +
                 '}';
     }
 

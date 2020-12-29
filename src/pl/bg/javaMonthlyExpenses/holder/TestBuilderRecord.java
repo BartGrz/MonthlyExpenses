@@ -1,5 +1,6 @@
 package pl.bg.javaMonthlyExpenses.holder;
 
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 
@@ -67,7 +68,9 @@ public class TestBuilderRecord extends Connection {
         List <String> columnsWith_StringType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"String");
 
         HashMap<String, String> map = new SQLTools().getMappedTable(table_name);
-        if(flag.toString().equals("WITH_SUM")){
+        map = validateMap(map);
+/*
+        if(flag.toString().equals("WITH_SUM")){ //te sprawdzanie trzeba opakowac w metode bo jest burdel, nie dziala dla sum bo usuwaja sie wyniki z listy, zrobic metode bedzie dzialac
 
             map.put("Sum(Amount)","double");
             columnsWithDoubleType.add("Sum(amount)");
@@ -76,8 +79,22 @@ public class TestBuilderRecord extends Connection {
             map.put("accountName","string");
             columnsWith_StringType.add("accountName");
 
+        }else if (flag.toString().equals("SUM_RANGE")) {
+
+            map = new HashMap<>();
+            map.put("accountName","string");
+            map.put("Sum(amount)","double");
+
+
+            columnsWithDoubleType.removeAll(columnsWithDoubleType);
+            columnsWith_StringType.removeAll(columnsWith_StringType);
+
+            columnsWithDoubleType.add("Sum(amount)");
+            columnsWith_StringType.add("accountName");
         }
 
+
+ */
         List<Object> columns = new ArrayList<>();
 
         List<TestBuilderRecord> identyfiedObjects = new ArrayList<>();
@@ -87,8 +104,6 @@ public class TestBuilderRecord extends Connection {
             columns.add(it.next());
         }
 
-
-
         int [] id = new int[1];
 
         try {
@@ -96,10 +111,14 @@ public class TestBuilderRecord extends Connection {
 
             while (rs.next()) {
 
-                id[0]=rs.getInt("id"+table_name);
+                if(flag.toString().equals("SUM_RANGE")){
+                    id[0]=0;
+                }else {
+                    id[0] = rs.getInt("id" + table_name);
+                }
 
-                List <String> copy_of = new ArrayList<>(columnsWith_StringType);
-                List <String> columnsWithDoubleType_copyOf = new ArrayList<>(columnsWithDoubleType);
+                List <String> copy_of = new ArrayList<>(validateStringColumns(columnsWith_StringType));
+                List <String> columnsWithDoubleType_copyOf = new ArrayList<>(validateDoubleColumns(columnsWithDoubleType));
                 List <String> columnsWith_IntType_copyOf =  new ArrayList<>(columnsWith_IntType);
 
                 for(int i = 0; i<columns.size();i++) {
@@ -119,8 +138,6 @@ public class TestBuilderRecord extends Connection {
                                                 fromList(rs.getInt(val.toString())).identifyColumn(Identify.IDACCOUNT).id(id[0]).table(identifyTable(table_name)).build());
                                         columnsWith_IntType_copyOf.remove(j);
                                         break;
-
-
 
                                     default :
                                         identyfiedObjects.add(new TestBuilderRecord.BuilderList().
@@ -174,8 +191,10 @@ public class TestBuilderRecord extends Connection {
                             }
                         break;
                         case "date":
+                            Logger.log(val.toString());
                             identyfiedObjects.add(new BuilderList().
                                     fromList(rs.getString(val.toString())).identifyColumn(Identify.DATE).id(id[0]).table(identifyTable(table_name)).build());
+
                             break;
                         case "boolean":
                             identyfiedObjects.add(new BuilderList().
@@ -224,6 +243,7 @@ public class TestBuilderRecord extends Connection {
                                             break;
                                     }
                                 }
+                                break;
                             }
                         break;
                     }
@@ -250,7 +270,7 @@ public class TestBuilderRecord extends Connection {
     }
     public  enum Flag {
 
-        REGULAR,WITH_SUM,IRREGULAR;
+        REGULAR,WITH_SUM,IRREGULAR,SUM_RANGE;
     }
 
 
@@ -270,4 +290,54 @@ public class TestBuilderRecord extends Connection {
         return val;
     }
 
+    public static List<String> validateDoubleColumns (List<String> columnsWithDoubleType) {
+
+
+        if (flag.toString().equals("WITH_SUM")) {
+
+            columnsWithDoubleType.add("Sum(amount)");
+
+        } else if (flag.toString().equals("SUM_RANGE")) {
+
+            columnsWithDoubleType.removeAll(columnsWithDoubleType);
+            columnsWithDoubleType.add("Sum(amount)");
+
+        }
+        return columnsWithDoubleType;
+    }
+    public static List<String> validateStringColumns (List<String> columnsWith_StringType) {
+
+     if (flag.toString().equals("IRREGULAR")) {
+
+            columnsWith_StringType.add("accountName");
+
+        } else if (flag.toString().equals("SUM_RANGE")) {
+
+            columnsWith_StringType.removeAll(columnsWith_StringType);
+            columnsWith_StringType.add("accountName");
+        }
+
+
+        return columnsWith_StringType;
+    }
+
+    public static HashMap<String,String> validateMap(HashMap<String,String> map ) {
+
+        if (flag.toString().equals("WITH_SUM")) {
+
+            map.put("Sum(Amount)", "double");
+
+        } else if (flag.toString().equals("IRREGULAR")) {
+            map.put("accountName", "string");
+
+        } else if (flag.toString().equals("SUM_RANGE")) {
+
+            map = new HashMap<>();
+            map.put("accountName", "string");
+            map.put("Sum(amount)", "double");
+
+    }
+
+        return map;
+    }
 }

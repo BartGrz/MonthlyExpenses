@@ -41,14 +41,18 @@ public class Demo {
 
         List <List<Record>> lista = new ArrayList<>();
 
-        Looper.forLoopChoseIndex(1,3,i-> lista.add( BuildRecord.records( new Select.SelectJoin("Balance").
-                selectJoinOneCondDemo("Account",i))));
+      for(int i = 1;i<3;i++) {
+          lista.add( BuildRecord.records(
+                  new Select.SelectJoin("Expense").sumJoinRangeDemo("2020-12-10","2020-12-20",i)));
+      }
 
-
+   //  Looper.forLoop(lista.size(),i->Record.list.add(lista.get(i).get(0)));
         for(int i = 0;i<lista.size();i++) {
             Record.list.add(lista.get(i).get(0));
         }
-       Looper.forLoop(Record.list.size(),i->Logger.log(Record.list.get(i).toString()));
+Logger.warn(""+Record.list.size());
+
+        Looper.forLoop(Record.list.size(),i->Logger.log(Record.list.get(i).toString()));
     }
 
 }

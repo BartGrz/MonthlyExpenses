@@ -172,9 +172,7 @@ public class MainWindow extends Application implements Initializable {
     synchronized public void fillingTables() {
         
         Select.checkConnection();
-        
-      
-        
+
         TablesBuilder.buildMain(tableView_main);
         TablesBuilder.buildBalance(tableView_balance);
         TablesBuilder.buildForCategories(tableView_dog);
@@ -186,15 +184,7 @@ public class MainWindow extends Application implements Initializable {
           Record.list = BuildRecord.records(new Select.SelectJoin().joinMain());
             Looper.forLoopChoseIndex(Record.list.size() - 30, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
-     
-            /*
-            Looper.forLoopChoseIndex(1, 3, i ->
-                    new Select.SelectJoin("Balance").selectJoinOneCond("Account", i));
-            Looper.forLoop(Record.list.size(), (i) -> tableView_balance.getItems().add(Record.list.get(i)));
-            Record.list.removeAll(Record.list);
 
-
-             */
             LoadToView.loadBalanceReview(tableView_balance,()->Record.list.removeAll(Record.list));
         });
     
@@ -214,15 +204,12 @@ public class MainWindow extends Application implements Initializable {
         thread_first.start();
 
         checkIfAllive(thread_first,()->{ thread_second.start(); });
-        
-        
-        
+
     }
     
     
     public void checkIfAllive(Thread thread,Runnable runnable) {
-    
-    
+
         while (thread.isAlive()) {}
             try {
                 if (!thread.isAlive() && SQLTools.rs.isClosed()) {

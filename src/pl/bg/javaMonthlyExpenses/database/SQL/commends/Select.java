@@ -158,7 +158,8 @@ public  class Select extends SQLTools {
                     " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount where idExpense =  " + id + ";";
 
 
-            return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
+            return  new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.IRREGULAR).build()
+                    .matchWithTypeAndAdd(rs,"Expense",sql);
         }
 
         public List<TestBuilderRecord> selectJoinMainCondition(String byColumn, Object condition) {
@@ -182,10 +183,9 @@ public  class Select extends SQLTools {
             }
 
 
-            return  TestBuilderRecord.matchWithTypeAndAdd(rs,"Expense",sql);
+            return new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.IRREGULAR).build()
+                    .matchWithTypeAndAdd(rs,"Expense",sql);
         }
-
-
 
 
         public List<TestBuilderRecord> sumJoin_partialStrings(String tableJoined, String condition) {
@@ -272,41 +272,15 @@ public  class Select extends SQLTools {
         }
 
 
-        public void selectJoinOneCond(String tableJoined, Object condition) {
+        public List<TestBuilderRecord> selectJoinOneCond(String tableJoined, Object condition) {
 
             sql = "Select " + checkIfForeignColumn(table_name, getColumntypeName(tableJoined, "String"))
                     + ", * from " + table_name + " a Join " + tableJoined + " b  on a." + fetchTablesID(tableJoined)
                     + " = b." + fetchTablesID(tableJoined) + "  where a." + fetchTablesID(tableJoined) + " = " + condition;
 
 
-            try {
-                rs = statement.executeQuery(sql);
-                while (rs.next()) {
-
-                    Record.list.add(new Record.Builder()
-                            .balance(Math.round(rs.getDouble("Balance") * 100) / 100)
-                            .account(rs.getString("accountName"))
-                            .debt(Math.round(rs.getDouble("debt") * 100) / 100)
-                            .result(Math.round(rs.getDouble("result") * 100) / 100)
-                            .build());
-
-                }
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
-
-        }
-        public List<TestBuilderRecord> selectJoinOneCondDemo(String tableJoined, Object condition) {
-
-            sql = "Select " + checkIfForeignColumn(table_name, getColumntypeName(tableJoined, "String"))
-                    + ", * from " + table_name + " a Join " + tableJoined + " b  on a." + fetchTablesID(tableJoined)
-                    + " = b." + fetchTablesID(tableJoined) + "  where a." + fetchTablesID(tableJoined) + " = " + condition;
-
-
-
-            return new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.REGULAR).build().matchWithTypeAndAdd(rs,table_name,sql);
+            return new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.IRREGULAR).build()
+                    .matchWithTypeAndAdd(rs,table_name,sql);
 
         }
         public void sumJoinRange(String dateFrom, String dateTo, int id) {
@@ -332,6 +306,18 @@ public  class Select extends SQLTools {
             }
 
 
+        }
+        public List<TestBuilderRecord> sumJoinRangeDemo(String dateFrom, String dateTo, int id) {
+
+            sql = "Select Sum(amount) , b.accountName from Expense e " +
+                    "Join Account b on e." + fetchTablesID("Account") + " = b." + fetchTablesID("Account")
+                    + " where e.date >= " + findTypeAndFormat(dateFrom)
+                    + " AND e.date <= " + findTypeAndFormat(dateTo)
+                    + " And e." + fetchTablesID("Account") + " = " + id;
+
+
+
+            return new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.SUM_RANGE).build().matchWithTypeAndAdd(rs,table_name,sql);
         }
     }
 }
