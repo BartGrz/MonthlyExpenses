@@ -69,32 +69,7 @@ public class TestBuilderRecord extends Connection {
 
         HashMap<String, String> map = new SQLTools().getMappedTable(table_name);
         map = validateMap(map);
-/*
-        if(flag.toString().equals("WITH_SUM")){ //te sprawdzanie trzeba opakowac w metode bo jest burdel, nie dziala dla sum bo usuwaja sie wyniki z listy, zrobic metode bedzie dzialac
 
-            map.put("Sum(Amount)","double");
-            columnsWithDoubleType.add("Sum(amount)");
-
-        }else if (table_name.equals("Balance")) {
-            map.put("accountName","string");
-            columnsWith_StringType.add("accountName");
-
-        }else if (flag.toString().equals("SUM_RANGE")) {
-
-            map = new HashMap<>();
-            map.put("accountName","string");
-            map.put("Sum(amount)","double");
-
-
-            columnsWithDoubleType.removeAll(columnsWithDoubleType);
-            columnsWith_StringType.removeAll(columnsWith_StringType);
-
-            columnsWithDoubleType.add("Sum(amount)");
-            columnsWith_StringType.add("accountName");
-        }
-
-
- */
         List<Object> columns = new ArrayList<>();
 
         List<TestBuilderRecord> identyfiedObjects = new ArrayList<>();
@@ -191,7 +166,6 @@ public class TestBuilderRecord extends Connection {
                             }
                         break;
                         case "date":
-                            Logger.log(val.toString());
                             identyfiedObjects.add(new BuilderList().
                                     fromList(rs.getString(val.toString())).identifyColumn(Identify.DATE).id(id[0]).table(identifyTable(table_name)).build());
 
@@ -316,7 +290,6 @@ public class TestBuilderRecord extends Connection {
             columnsWith_StringType.removeAll(columnsWith_StringType);
             columnsWith_StringType.add("accountName");
         }
-
 
         return columnsWith_StringType;
     }
