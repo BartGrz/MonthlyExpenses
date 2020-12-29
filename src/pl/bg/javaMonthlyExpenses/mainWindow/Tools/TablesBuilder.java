@@ -76,7 +76,7 @@ public class TablesBuilder {
     public static void buildForCategories(TableView tableView) {
         
         TablesBuilder.buildCustom("Category","categoryName",tableView);
-        TablesBuilder.buildCustom("Expense","amount",tableView);
+        TablesBuilder.buildCustom("Expense","sum",tableView);
         
         
 

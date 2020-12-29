@@ -43,19 +43,17 @@ public class Demo {
         list_names1.add("idAccount");
 
         SQLTools.setConnection();
-/*
-        List<TestBuilderRecord> wynik = new Select("Balance").selectBasic();
-        Looper.forLoop(wynik.size(), i -> {
 
-            if (wynik.get(i).id == 1 && wynik.get(i).identified.equals(TestBuilderRecord.Identify.FINALRESULT) || wynik.get(i).id == 2 && wynik.get(i).identified.equals(TestBuilderRecord.Identify.FINALRESULT)) {
-                Logger.test("" + wynik.get(i).toString());
-            }
+        List <List<Record>> lista = new ArrayList<>();
+
+        Looper.forLoopChoseIndex(1,3,i-> lista.add( BuildRecord.records( new Select.SelectJoin("Balance").
+                selectJoinOneCondDemo("Account",i))));
 
 
-        });
-
- */
-        SQLTools.getMappedTable("Expense");
+        for(int i = 0;i<lista.size();i++) {
+            Record.list.add(lista.get(i).get(0));
+        }
+       Looper.forLoop(Record.list.size(),i->Logger.log(Record.list.get(i).toString()));
     }
 
 }

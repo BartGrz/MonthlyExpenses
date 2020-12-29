@@ -128,7 +128,8 @@ public class Record  {
     public String getIsCommon() {
         return isCommon;
     }
-    
+
+    public double getSum() { return sum; }
 
     public double getBalance() { return balance; }
 
@@ -142,10 +143,9 @@ public class Record  {
         return "Record{" +
                 "main_id=" + main_id +
                 ", accountName='" + accountName + '\'' +
-                ", categoryName='" + categoryName + '\'' +
-                ", shopName='" + shopName + '\'' +
-                ", isCommon='" + isCommon + '\'' +
-                ", sum(amount)='" + sum + '\'' +
+                ", debt='" + debt + '\'' +
+                ", balance='" + balance + '\'' +
+                ", finalresult='" + finalResult + '\'' +
                 '}';
     }
 

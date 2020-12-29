@@ -1,8 +1,6 @@
 package pl.bg.javaMonthlyExpenses.dummy;
 
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
-import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
-import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 
@@ -65,9 +63,20 @@ public class TestBuilderRecord extends Connection {
     }
     public static List <TestBuilderRecord> matchWithTypeAndAdd (ResultSet rs , String table_name , String sql) {
 
+        List <String> columnsWithDoubleType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Double");
+        List <String> columnsWith_IntType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Integer");
+        List <String> columnsWith_StringType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"String");
+
         HashMap<String, String> map = new SQLTools().getMappedTable(table_name);
         if(flag.toString().equals("WITH_SUM")){
+
             map.put("Sum(Amount)","double");
+            columnsWithDoubleType.add("Sum(amount)");
+
+        }else if (table_name.equals("Balance")) {
+            map.put("accountName","string");
+            columnsWith_StringType.add("accountName");
+
         }
 
         List<Object> columns = new ArrayList<>();
@@ -79,12 +88,6 @@ public class TestBuilderRecord extends Connection {
             columns.add(it.next());
         }
 
-        List <String> columnsWithDoubleType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Double");
-
-            columnsWithDoubleType.add("Sum(amount)");
-
-        List <String> columnsWith_IntType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Integer");
-        List <String> columnsWith_StringType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"String");
 
 
         int [] id = new int[1];
@@ -94,14 +97,11 @@ public class TestBuilderRecord extends Connection {
 
             while (rs.next()) {
 
-
                 id[0]=rs.getInt("id"+table_name);
-
 
                 List <String> copy_of = new ArrayList<>(columnsWith_StringType);
                 List <String> columnsWithDoubleType_copyOf = new ArrayList<>(columnsWithDoubleType);
                 List <String> columnsWith_IntType_copyOf =  new ArrayList<>(columnsWith_IntType);
-
 
                 for(int i = 0; i<columns.size();i++) {
 
@@ -114,7 +114,7 @@ public class TestBuilderRecord extends Connection {
                             for(int j= 0 ;j<columnsWith_IntType_copyOf.size();j++) {
 
                                 switch (columnsWith_IntType_copyOf.get(j)) {
-                                /*
+
                                     case "idAccount" :
                                         identyfiedObjects.add(new TestBuilderRecord.BuilderList().
                                                 fromList(rs.getInt(val.toString())).identifyColumn(Identify.IDACCOUNT).id(id[0]).table(identifyTable(table_name)).build());
@@ -122,7 +122,7 @@ public class TestBuilderRecord extends Connection {
                                         break;
 
 
-                                 */
+
                                     default :
                                         identyfiedObjects.add(new TestBuilderRecord.BuilderList().
                                                 fromList(rs.getInt(val.toString())).identifyColumn(Identify.MAIN_ID).id(id[0]).table(identifyTable(table_name)).build());
@@ -206,6 +206,8 @@ public class TestBuilderRecord extends Connection {
                                             break;
                                     }
 
+                                break;
+
                                 }
                             } else  {
                                 for(int j =0; j<columnsWithDoubleType_copyOf.size();j++) {
@@ -269,22 +271,4 @@ public class TestBuilderRecord extends Connection {
         return val;
     }
 
-    public static void main(String[] args) {
-
-        Select.setConnection();
-//Arrays.asList("VET","UBER")
-       List<TestBuilderRecord> lista = new Select.SelectJoin("Expense").sumJoin_partialStringsDemo("Category","VET" );
-
-       Looper.forLoop(lista.size(),i->Logger.log(""+lista.toString()));
-    }
-
-    @Override
-    public String toString() {
-        return "TestBuilderRecord{" +
-                ", identified=" + identified +
-                ", fromList=" + fromList +
-                ", id=" + id +
-                ", table=" + table +
-                '}';
-    }
 }

@@ -30,6 +30,7 @@ import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.Filter;
 import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableCategoriesWinController;
 import pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableShopWinController;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.ComboBoxTools;
+import pl.bg.javaMonthlyExpenses.mainWindow.Tools.LoadToView;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 
@@ -183,50 +184,35 @@ public class MainWindow extends Application implements Initializable {
         Thread thread_first = new Thread(()->  {
             
           Record.list = BuildRecord.records(new Select.SelectJoin().joinMain());
-            Looper.forLoopChoseIndex(Record.list.size() - 20, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
+            Looper.forLoopChoseIndex(Record.list.size() - 30, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
      
-            
+            /*
             Looper.forLoopChoseIndex(1, 3, i ->
                     new Select.SelectJoin("Balance").selectJoinOneCond("Account", i));
             Looper.forLoop(Record.list.size(), (i) -> tableView_balance.getItems().add(Record.list.get(i)));
             Record.list.removeAll(Record.list);
-            
+
+
+             */
+            LoadToView.loadBalanceReview(tableView_balance,()->Record.list.removeAll(Record.list));
         });
     
     Thread thread_second = new Thread(()->  {
-   
-            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("Vet", "Pies","jedzenie[p","UBER"));
-            Looper.forLoop(Record.list.size(), (i) -> tableView_dog.getItems().add(Record.list.get(i)));
-            Record.list.removeAll(Record.list);
-            /*
-            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("swinsk", "napoj","jedzenie","jedzenie[z"));
-            Looper.forLoop(Record.list.size(), (i) -> tableView_addExpense.getItems().add(Record.list.get(i)));
-            Record.list.removeAll(Record.list);
-             */
 
-        List<String> cond = Arrays.asList("swinsk", "napoj","jedzenie","jedzenie[z");
-        List<List<Record>> list_records = new ArrayList<>();
+        LoadToView.loadCategoriesAndSum("Category",Arrays.asList("swinsk", "napoj","jedzenie","jedzenie[z"),
+                tableView_addExpense,()->Record.list.removeAll(Record.list));
 
-        Looper.forLoop(cond.size(), i -> list_records.add(
-                BuildRecord.records(new Select.SelectJoin("Expense").sumJoin_partialStringsDemo("Category", cond.get(i)))));
+        LoadToView.loadCategoriesAndSum("Category",Arrays.asList("Vet", "Pies","jedzenie[p","UBER"),
+                tableView_dog,()->Record.list.removeAll(Record.list));
 
-        for(int i = 0;i< list_records.size();i++) {
-            Record.list.add(list_records.get(i).get(0));
-            Logger.log(Record.list.get(i).toString());
-        }
-
-        Looper.forLoop(Record.list.size(), (i) -> tableView_addExpense.getItems().add(Record.list.get(i)));
-        Record.list.removeAll(Record.list);
-
-            new Select.SelectJoin<>("Expense").sumJoin_partialStrings("Category", Arrays.asList("dom", "kosmet","leki","chem"));
-            Looper.forLoop(Record.list.size(), (i) -> tableView_homeExpense.getItems().add(Record.list.get(i)));
-            Record.list.removeAll(Record.list);
+        LoadToView.loadCategoriesAndSum("Category", Arrays.asList("dom", "kosmet","leki","chem"),
+                tableView_homeExpense,()->Record.list.removeAll(Record.list));
 
         });
 
         thread_first.start();
-       
+
         checkIfAllive(thread_first,()->{ thread_second.start(); });
         
         

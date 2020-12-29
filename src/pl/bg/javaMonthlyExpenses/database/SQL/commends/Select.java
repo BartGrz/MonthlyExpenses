@@ -150,7 +150,7 @@ public  class Select extends SQLTools {
                     " join CommonAccount ca on e.idCommonAccount=ca.idCommonAccount ;";
 
 
-            return  new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.REGULAR).build().matchWithTypeAndAdd(rs,"Expense",sql);
+            return  new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.IRREGULAR).build().matchWithTypeAndAdd(rs,"Expense",sql);
         }
 
         public List <TestBuilderRecord> joinMainCondition(int id) {
@@ -190,39 +190,9 @@ public  class Select extends SQLTools {
         }
 
 
-        public void sumJoin_partialStrings(String tableJoined, List<String> conditions) {
 
 
-            Looper.forLoop(conditions.size(), i -> {
-
-                String columnJoined = getColumntypeName(tableJoined, findObjectType(conditions.get(i)));
-                String foreignColumn = checkIfForeignColumn(table_name, columnJoined);
-
-                sql = "Select Sum(Amount)" + ", " + foreignColumn + " from  " + table_name +
-                        " a join " + tableJoined + " b on a." + fetchTablesID(tableJoined) + " = b." + fetchTablesID(tableJoined) +
-                        " where " + foreignColumn + " like " + Formatter.PartialCondition(conditions.get(i));
-
-
-                try {
-                    rs = statement.executeQuery(sql);
-                    while (rs.next()) {
-
-                        Record.list.add(new Record.Builder()
-                                .expense(round(rs.getDouble("Sum(Amount)")))
-                                .category(rs.getString(columnJoined))
-                                .build());
-
-                    }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-
-                }
-            });
-
-        }
-
-        public List<TestBuilderRecord> sumJoin_partialStringsDemo(String tableJoined, String condition) {
+        public List<TestBuilderRecord> sumJoin_partialStrings(String tableJoined, String condition) {
 
                 String columnJoined = getColumntypeName(tableJoined, findObjectType(condition));
                 String foreignColumn = checkIfForeignColumn(table_name, columnJoined);
@@ -332,7 +302,17 @@ public  class Select extends SQLTools {
 
 
         }
+        public List<TestBuilderRecord> selectJoinOneCondDemo(String tableJoined, Object condition) {
 
+            sql = "Select " + checkIfForeignColumn(table_name, getColumntypeName(tableJoined, "String"))
+                    + ", * from " + table_name + " a Join " + tableJoined + " b  on a." + fetchTablesID(tableJoined)
+                    + " = b." + fetchTablesID(tableJoined) + "  where a." + fetchTablesID(tableJoined) + " = " + condition;
+
+
+
+            return new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.REGULAR).build().matchWithTypeAndAdd(rs,table_name,sql);
+
+        }
         public void sumJoinRange(String dateFrom, String dateTo, int id) {
 
             sql = "Select Sum(e.Amount) , b.accountName from Expense e " +
