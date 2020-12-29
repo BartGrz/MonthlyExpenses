@@ -278,12 +278,22 @@ public class MainWindow extends Application implements Initializable {
         } catch (DateValidException e) {
             Logger.error("" + e);
         }
-    
+            /*
         Looper.forLoopChoseIndex(1, 3, i -> new Select.SelectJoin<>().sumJoinRange(dateFrom, dateTo, i));
         Looper.forLoop(Record.list.size(), i -> tableView_sumFromRange.getItems().add(Record.list.get(i)));
         Record.list.removeAll(Record.list);
-        
-        
+
+
+             */
+        List <List<Record>> lista = new ArrayList<>();
+        Looper.forLoopChoseIndex(1,3,i->
+                lista.add( BuildRecord.records(
+                        new Select.SelectJoin("Expense").sumJoinRange(dateFrom,dateTo,i))));
+
+        Looper.forLoop(lista.size(),i->Record.list.add(lista.get(i).get(0)));
+        Looper.forLoop(Record.list.size(), i -> tableView_sumFromRange.getItems().add(Record.list.get(i)));
+        Record.list.removeAll(Record.list);
+
         button_filter.setText("REFRESH");
         button_filter.setOnAction(e->refreshTimeRangeFilter());
      

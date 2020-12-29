@@ -283,31 +283,8 @@ public  class Select extends SQLTools {
                     .matchWithTypeAndAdd(rs,table_name,sql);
 
         }
-        public void sumJoinRange(String dateFrom, String dateTo, int id) {
 
-            sql = "Select Sum(e.Amount) , b.accountName from Expense e " +
-                    "Join Account b on e." + fetchTablesID("Account") + " = b." + fetchTablesID("Account")
-                    + " where e.date >= " + findTypeAndFormat(dateFrom)
-                    + " AND e.date <= " + findTypeAndFormat(dateTo)
-                    + " And e." + fetchTablesID("Account") + " = " + id;
-
-
-            try {
-                rs = statement.executeQuery(sql);
-                while (rs.next()) {
-
-                    Record.list.add(new Record.Builder()
-                            .expense(rs.getDouble("Sum(e.Amount)"))
-                            .account(rs.getString("accountName"))
-                            .build());
-                }
-            } catch (SQLException throwables) {
-                Logger.error("" + throwables);
-            }
-
-
-        }
-        public List<TestBuilderRecord> sumJoinRangeDemo(String dateFrom, String dateTo, int id) {
+        public List<TestBuilderRecord> sumJoinRange(String dateFrom, String dateTo, int id) {
 
             sql = "Select Sum(amount) , b.accountName from Expense e " +
                     "Join Account b on e." + fetchTablesID("Account") + " = b." + fetchTablesID("Account")

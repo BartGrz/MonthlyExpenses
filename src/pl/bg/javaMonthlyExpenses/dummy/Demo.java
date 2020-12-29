@@ -14,45 +14,13 @@ import java.util.*;
 public class Demo {
 
     static List<String> list_names1 = new ArrayList<>();
-    static HashMap<String, String> mapa = new HashMap<>();
 
 
-    public static void testITerator(String table_name, TestResult testResult) {
 
-        mapa = new SQLTools().getMappedTable(table_name);
-        Iterator<String> it = mapa.keySet().iterator();
-
-        while (it.hasNext()) {
-
-            Object obj = it.next();
-
-            testResult.testResult(obj, mapa);
-        }
-
-    }
 
 
     public static void main(String[] args) {
 
-        list_names1.add("accountName");
-        list_names1.add("idAccount");
-
-        SQLTools.setConnection();
-
-        List <List<Record>> lista = new ArrayList<>();
-
-      for(int i = 1;i<3;i++) {
-          lista.add( BuildRecord.records(
-                  new Select.SelectJoin("Expense").sumJoinRangeDemo("2020-12-10","2020-12-20",i)));
-      }
-
-   //  Looper.forLoop(lista.size(),i->Record.list.add(lista.get(i).get(0)));
-        for(int i = 0;i<lista.size();i++) {
-            Record.list.add(lista.get(i).get(0));
-        }
-Logger.warn(""+Record.list.size());
-
-        Looper.forLoop(Record.list.size(),i->Logger.log(Record.list.get(i).toString()));
     }
 
 }

@@ -4,6 +4,7 @@ import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
 import pl.bg.javaMonthlyExpenses.dummy.Demo;
+import pl.bg.javaMonthlyExpenses.dummy.TestResult;
 import pl.bg.javaMonthlyExpenses.holder.TestBuilderRecord;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;
 
@@ -45,7 +46,7 @@ public class SQLTools extends Connection {
     }
     //test
 
-    public static HashMap<String,String> getMappedTable (String table_name) { //mozna dac iterator() na mape, dzieki temu lista nie bdzie potrzebna, w demo wszystko jest
+    public static HashMap<String,String> getMappedTable (String table_name) {
         checkConnection();
         
         HashMap<String,String> mappedTable = new HashMap<>();
@@ -102,7 +103,7 @@ public class SQLTools extends Connection {
 
         return mappedTable;
     }
-    //koniec  testu
+
     
     public static String fetchTablesID(String mainTable) {
         
@@ -165,9 +166,9 @@ public class SQLTools extends Connection {
     public static List<String> fetchColumnsNamesByTypeDemo(String table_name, String type) {
         
         List<String>  list_columnNames = new ArrayList<>();
-        
-        
-        Demo.testITerator(table_name,(obj,mapa)->  {
+
+
+        columnITerator(table_name,(obj,mapa)->  {
     
             if (mapa.get(obj).equals(type.toLowerCase())) {
                 list_columnNames.add(obj.toString());
@@ -248,56 +249,10 @@ public class SQLTools extends Connection {
             
             
         }
-        //  list_names.removeAll(list_names);
         return columnTypeName;
     }
     
-    public static String getColumntypeNameDemo(String table_name, String type) {
-        String columnTypeName = null;
-        List<String> listColumnName = new ArrayList<>();
-        
-        Demo.testITerator(table_name,(obj,mapa)->{
-     
-            
-            switch (type) {
-                case "String":
-    
-                    if (mapa.get(obj).equals("string")) {
-                        listColumnName.add(obj.toString());
-                        
-        
-                    }
-                case "date":
-    
-                    if (mapa.get(obj).equals("date")) {
-                        listColumnName.add(obj.toString());
-        
-                    }
-                case "Double":
-                    if (mapa.get(obj).equals("double")) {
-                        listColumnName.add(obj.toString());
-    
-                    }
-                case "Integer":
-    
-                    if (mapa.get(obj).equals(type.toLowerCase()) && obj.equals("idAccount")) {
-                        listColumnName.add(obj.toString());
-        
-                    }
-                    break;
-    
-                default:
-                    if (mapa.get(obj).equals(type.toLowerCase())) {
-                        listColumnName.add(obj.toString());
-    
-                    }
-            }
-        
-    });
-        
-        //  list_names.removeAll(list_names);
-        return listColumnName.get(listColumnName.size()-1);
-    }
+
     public static String matchIdWithColumn(String column){ //sqlTool
         
         checkConnection();
@@ -331,8 +286,8 @@ public class SQLTools extends Connection {
         for (int i = 0; i< list_tables.size();i++) {
             
             String table = list_tables.get(i);
-            
-            Demo.testITerator(table, (obj, mapa) -> {
+
+            columnITerator(table, (obj, mapa) -> {
             
                     if (obj.equals(column)) {
                         resultTable[0] = table;
@@ -363,8 +318,8 @@ public class SQLTools extends Connection {
     public  static String checkIfForeignColumnDemo(String table_name, String columnJoined) {
         
         String [] resultTable = new String[1];
-        
-       Demo.testITerator(table_name,(obj,mapa)-> {
+
+        columnITerator(table_name,(obj,mapa)-> {
            
            if (!obj.equals(columnJoined)) {
     
@@ -377,82 +332,25 @@ public class SQLTools extends Connection {
        
     }
     
-    public static List findAndAdd(List list, String sql) { //do usuniecia na 90%
-        
-        checkConnection();
-        
-        List<Object> result = new ArrayList<>();
-        
-        try {
-            rs = statement.executeQuery(sql);
-            
-            while (rs.next()) {
-                
-                for (int i = 0; i < list.size(); i++) {
-                    
-                    if (map.get(list.get(i).toString()).equals("integer")) {
-                        result.add(rs.getInt(list.get(i).toString()));
-                        
-                    } else if (map.get(list.get(i).toString()).equals("double")) {
-                        result.add(rs.getDouble(list.get(i).toString()));
-                        
-                    } else if (map.get(list.get(i).toString()).equals("boolean")) {
-                        result.add(rs.getBoolean(list.get(i).toString()));
-                        
-                    } else {
-                        result.add(rs.getString((String) list.get(i)));
-                        
-                    }
-                }
-            }
-            list_names.removeAll(list_names);
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-        
-    }
-    public static List findAndAddDemo(String table_name, String sql) { //do usuniecia na 90%
 
-        checkConnection();
-
-        List<Object> result = new ArrayList<>();
-        Demo.testITerator(table_name,((obj, mapa) -> {
-        try {
-            rs = statement.executeQuery(sql);
-
-    while (rs.next()) {
-
-        for (int i = 0; i < mapa.size(); i++) {
-            if (mapa.get(obj).equals("integer")) {
-                result.add(rs.getInt(obj.toString()));
-
-            } else if (mapa.get(obj).equals("double")) {
-                result.add(rs.getDouble(obj.toString()));
-
-            } else if (mapa.get(obj).equals("boolean")) {
-                result.add(rs.getBoolean(obj.toString()));
-            } else {
-                result.add(rs.getString((String) obj));
-
-            }
-        }
-    }
-
-            } catch (SQLException throwables) {
-            throwables.printStackTrace();
-                }
-
-        }));
-
-        return result;
-
-    }
     public static double round (double val) {
         
         return Math.round((val)*100)/100;
     }
-    
+
+    public static void columnITerator(String table_name, TestResult testResult) {
+
+         HashMap<String, String> mapa = new SQLTools().getMappedTable(table_name);
+
+        Iterator<String> it = mapa.keySet().iterator();
+
+        while (it.hasNext()) {
+
+            Object obj = it.next();
+
+            testResult.testResult(obj, mapa);
+        }
+
+    }
    
 }

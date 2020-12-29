@@ -9,11 +9,6 @@ import java.util.Locale;
 
 public class BuildRecord {
 
-    public static List<TestBuilderRecord> show(List<TestBuilderRecord> identifiedResults) {
-
-
-        return identifiedResults;
-    }
 
     public static List<Record> records(List<TestBuilderRecord> identifiedResults) {
 
@@ -96,12 +91,7 @@ public class BuildRecord {
             k += 1;
 
         }
-        /*
-        if (records.get(index[0]).main_id == 0) {
-            Logger.result("" + records.get(index[0]).toString());
-            records.remove(index[0]);
-        }
-*/
+
         return records;
     }
 
