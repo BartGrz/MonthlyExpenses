@@ -17,8 +17,6 @@ public class LoadToView extends Connection {
 
     public static boolean loadMain(int showRecords,TableView tableView, DoIt doIt){
 
-
-
         Record.list = BuildRecord.records(new Select.SelectJoin().joinMain());
         final int showMax = Record.list.size();
 

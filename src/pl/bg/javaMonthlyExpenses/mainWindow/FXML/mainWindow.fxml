@@ -40,14 +40,14 @@
               </menus>
             </MenuBar>
           <AnchorPane layoutX="495.0" layoutY="40.0" minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="225.0" />
-            <SplitPane dividerPositions="0.6273584905660378" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="478.0" prefWidth="850.0">
+            <SplitPane dividerPositions="0.6202830188679245" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="478.0" prefWidth="850.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="136.0">
                      <children>
                         <TableView fx:id="tableView_main" prefHeight="476.0" prefWidth="523.0" />
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="817.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="613.0">
                      <children>
                         <VBox layoutX="1.0">
                            <children>
@@ -63,14 +63,6 @@
                         <Label layoutX="388.0" layoutY="15.0" text="FROM DATE" />
                         <Label layoutX="584.0" layoutY="15.0" text="TO DATE" />
                         <Button fx:id="button_filter" layoutX="776.0" layoutY="38.0" mnemonicParsing="false" onAction="#filterSumByTimeRange" text="FILTER" />
-                        <TableView layoutX="364.0" layoutY="238.0" prefHeight="95.0" prefWidth="489.0" />
-                        <Label layoutX="399.0" layoutY="162.0" text="MONTH" />
-                        <ComboBox layoutX="368.0" layoutY="186.0" prefWidth="150.0" />
-                        <Label layoutX="573.0" layoutY="162.0" text="CATEGORY" />
-                        <Label layoutX="732.0" layoutY="162.0" text="ACCOUNT" />
-                        <ComboBox layoutX="517.0" layoutY="186.0" prefWidth="150.0" />
-                        <ComboBox layoutX="685.0" layoutY="186.0" prefWidth="150.0" />
-                        <Button layoutX="558.0" layoutY="380.0" mnemonicParsing="false" text="Button" />
 
                      </children>
                   </AnchorPane>
