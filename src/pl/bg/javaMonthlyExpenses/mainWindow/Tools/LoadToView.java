@@ -14,6 +14,28 @@ import java.util.List;
 
 public class LoadToView extends Connection {
 
+
+    public static boolean loadMain(int showRecords,TableView tableView, DoIt doIt){
+
+
+
+        Record.list = BuildRecord.records(new Select.SelectJoin().joinMain());
+        final int showMax = Record.list.size();
+
+        if(showRecords>=showMax){
+            showRecords =showMax;
+        }
+
+        Looper.forLoopChoseIndex(showMax - showRecords, showMax, (i) -> tableView.getItems().add(Record.list.get(i)));
+
+        if (!Record.list.isEmpty()) {
+            doIt.doIt();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static boolean loadCategoriesAndSum(String table_name, List<String> cond, TableView tableView, DoIt doIt) {
 
         final String main_table = "Expense";

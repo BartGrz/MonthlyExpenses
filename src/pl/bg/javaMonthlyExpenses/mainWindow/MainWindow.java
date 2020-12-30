@@ -180,10 +180,8 @@ public class MainWindow extends Application implements Initializable {
         TablesBuilder.buildForCategories(tableView_homeExpense);
         
         Thread thread_first = new Thread(()->  {
-            
-          Record.list = BuildRecord.records(new Select.SelectJoin().joinMain());
-            Looper.forLoopChoseIndex(Record.list.size() - 30, Record.list.size(), (i) -> tableView_main.getItems().add(Record.list.get(i)));
-            Record.list.removeAll(Record.list);
+
+            LoadToView.loadMain(20,tableView_main,()->Record.list.removeAll(Record.list));
 
             LoadToView.loadBalanceReview(tableView_balance,()->Record.list.removeAll(Record.list));
         });
