@@ -13,6 +13,7 @@ import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.PopUp;
+import pl.bg.javaMonthlyExpenses.mainWindow.Tools.LoadToView;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 import java.io.IOException;
@@ -31,21 +32,20 @@ public class  DeleteRecord {
 
 
     public void check() {
+
         Select.checkConnection();
-        int id_delete = Integer.valueOf(id.getText());
-        new Select.SelectJoin<>().joinMainCondition(id_delete);
 
+       final int id_delete = Integer.valueOf(id.getText());
 
-        TablesBuilder.buildMainWithoutId(tableView_delete);
+        LoadToView.loadMainByID(tableView_delete,id_delete,()->Record.list.removeAll(Record.list));
 
-        Looper.forLoop(Record.list.size(),(i)->tableView_delete.getItems().add(Record.list.get(i)));
-        Record.list.removeAll(Record.list);
         check.setVisible(false);
     }
 
     public void delete() {
 
         SQLModifyMain.setConnection();
+
         new SQLModifyMain.Delete().delete("Expense",Integer.valueOf(id.getText()));
 
         popUp();

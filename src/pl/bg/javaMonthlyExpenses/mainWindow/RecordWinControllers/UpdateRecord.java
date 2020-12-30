@@ -67,10 +67,19 @@ public class UpdateRecord implements Initializable {
 
     }
 public void check() {
+
     Select.checkConnection();
 
-    final Object updateTo = comboBox_updateTo.getValue();
-    final int id = Integer.valueOf(textField_id.getText());
+    final Object updateTo;
+    final int id =Integer.valueOf(textField_id.getText());
+
+    if(textField_amount.isVisible()) {
+
+        updateTo =Double.valueOf( textField_amount.getText());
+
+    }else{
+        updateTo = comboBox_updateTo.getValue();
+    }
 
     LoadToView.loadChangeComparison(tableView_RecordWas,tableView_RecordNow,comboBox_columnToUpdate,updateTo,id,
                                     ()->Record.list.removeAll(Record.list));

@@ -103,4 +103,24 @@ public class LoadToView extends Connection {
         }
 
     }
+    public static boolean loadMainByID(TableView tableView,int id, DoIt doIt) {
+
+        final String table_name = "Expense", byColumn ="idExpense";
+
+        TablesBuilder.buildMain(tableView);
+
+        Record.list = BuildRecord.records(
+                new Select.SelectJoin(table_name).selectJoinMainCondition(byColumn, id));
+
+        tableView.getItems().add(Record.list.get(0));
+
+        if (!Record.list.isEmpty()) {
+            doIt.doIt();
+            return true;
+        } else {
+            return false;
+        }
+
+
+    }
 }
