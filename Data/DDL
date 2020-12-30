@@ -1,0 +1,59 @@
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2020-12-30 22:47:41.185
+
+-- tables
+-- Table: Account
+CREATE TABLE Account (
+    idAccount integer NOT NULL CONSTRAINT Account_pk PRIMARY KEY AUTOINCREMENT,
+    accountName integer NOT NULL
+);
+
+-- Table: Balance
+CREATE TABLE Balance (
+    idBalance integer NOT NULL CONSTRAINT Balance_pk PRIMARY KEY AUTOINCREMENT,
+    Balance double NOT NULL,
+    idAccount integer NOT NULL,
+    debt double NOT NULL,
+    CONSTRAINT Balance_Account FOREIGN KEY (idAccount)
+    REFERENCES Account (idAccount)
+);
+
+-- Table: Category
+CREATE TABLE Category (
+    IdCategory integer NOT NULL CONSTRAINT Category_pk PRIMARY KEY AUTOINCREMENT,
+    categoryName varchar(20) NOT NULL
+);
+
+-- Table: CommonAccount
+CREATE TABLE CommonAccount (
+    idCommonAccount integer NOT NULL CONSTRAINT CommonAccount_pk PRIMARY KEY,
+    isCommon boolean NOT NULL
+);
+
+-- Table: Expense
+CREATE TABLE Expense (
+    IdExpense integer NOT NULL CONSTRAINT Expense_pk PRIMARY KEY AUTOINCREMENT,
+    Amount double NOT NULL,
+    date date NOT NULL,
+    dAccount integer NOT NULL,
+    IdCategory integer NOT NULL,
+    idShop integer NOT NULL,
+    idCommonAccount integer NOT NULL,
+    CONSTRAINT Expense_Account FOREIGN KEY (dAccount)
+    REFERENCES Account (idAccount),
+    CONSTRAINT Expense_Category FOREIGN KEY (IdCategory)
+    REFERENCES Category (IdCategory),
+    CONSTRAINT Expense_Shop FOREIGN KEY (idShop)
+    REFERENCES Shop (idShop),
+    CONSTRAINT Expense_CommonAccount FOREIGN KEY (idCommonAccount)
+    REFERENCES CommonAccount (idCommonAccount)
+);
+
+-- Table: Shop
+CREATE TABLE Shop (
+    idShop integer NOT NULL CONSTRAINT Shop_pk PRIMARY KEY AUTOINCREMENT,
+    Name varchar(100) NOT NULL
+);
+
+-- End of file.
+

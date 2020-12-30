@@ -15,7 +15,7 @@ public class Connection {
     public static java.sql.Connection connection;
     public static Statement statement;
     
-    public static void setConnection() { //connection
+    public static void setConnection() {
 
         try {
             connection = DriverManager.getConnection(url);
@@ -26,7 +26,7 @@ public class Connection {
         }
     }
     
-    public void disconnect() { //connection
+    public void disconnect() {
         try {
             statement.getConnection().close();
         } catch (SQLException e) {
@@ -35,7 +35,7 @@ public class Connection {
         Logger.conn_status("Disconnected");
     }
     
-    public static void checkConnection( ) { //connection
+    public static void checkConnection( ) {
         
         try {
             
