@@ -9,16 +9,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
+import pl.bg.javaMonthlyExpenses.holder.BuildRecord;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.PopUp;
+import pl.bg.javaMonthlyExpenses.mainWindow.Tools.LoadToView;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.SwitchFilter;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UpdateRecord implements Initializable {
@@ -62,45 +67,13 @@ public class UpdateRecord implements Initializable {
 
     }
 public void check() {
-    
-    
     Select.checkConnection();
 
-    TablesBuilder.buildMainWithoutId(tableView_RecordWas);
+    final Object updateTo = comboBox_updateTo.getValue();
+    final int id = Integer.valueOf(textField_id.getText());
 
-    SwitchFilter.switchFilter(comboBox_columnToUpdate,(a)->new Select.SelectJoin().selectJoinMainCondition("idExpense",textField_id.getText()));
-
-    Looper.forLoop(Record.list.size(),i-> {
-
-        tableView_RecordWas.getItems().add(Record.list.get(i));
-
-    });
-
-Record.list.removeAll(Record.list);
-
-    SwitchFilter.switchFilter(comboBox_columnToUpdate,(a)->new Select.SelectJoin().selectJoinMainCondition("idExpense",textField_id.getText()));
-
-    TablesBuilder.buildMainWithoutId(tableView_RecordNow);
-
-    Looper.forLoop(Record.list.size(),i-> {
-
-    if(textField_amount.isVisible()) {
-
-        tableView_RecordNow.getItems().add( SwitchFilter.switchFilterUpdateColumn
-                (comboBox_columnToUpdate,Double.valueOf(textField_amount.getText()),Record.list).get(i));
-    }else {
-
-        SwitchFilter.switchFilterUpdateColumn(comboBox_columnToUpdate,comboBox_updateTo.getValue(),Record.list);
-
-         tableView_RecordNow.getItems().add( SwitchFilter.switchFilterUpdateColumn
-                 (comboBox_columnToUpdate,comboBox_updateTo.getValue(),Record.list).get(i));
-    }
-
-
-    });
-
-    Record.list.removeAll(Record.list);
-
+    LoadToView.loadChangeComparison(tableView_RecordWas,tableView_RecordNow,comboBox_columnToUpdate,updateTo,id,
+                                    ()->Record.list.removeAll(Record.list));
 }
 
 public void update() {

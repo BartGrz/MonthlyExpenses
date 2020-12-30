@@ -1,5 +1,6 @@
 package pl.bg.javaMonthlyExpenses.mainWindow.Tools;
 
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
@@ -50,5 +51,56 @@ public class LoadToView extends Connection {
         } else {
             return false;
         }
+    }
+    public static boolean loadSumRange(String dateFrom, String dateTo, TableView tableView, DoIt doIt) {
+
+        final String main_table = "Expense";
+        List <List<Record>> list_records = new ArrayList<>();
+
+        Looper.forLoopChoseIndex(1,3,i->
+                list_records.add( BuildRecord.records(new Select.SelectJoin(main_table).sumJoinRange(dateFrom,dateTo,i))));
+
+        Looper.forLoop(list_records.size(),i->Record.list.add(list_records.get(i).get(0)));
+        Looper.forLoop(Record.list.size(), i -> tableView.getItems().add(Record.list.get(i)));
+
+        if (!Record.list.isEmpty()) {
+            doIt.doIt();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean loadChangeComparison(TableView oldRecord, TableView newRecord, ComboBox toUpdate,Object updatedTo, int id , DoIt doIt){
+
+        final String byColumn = "idExpense", table_name = "Expense";
+
+        TablesBuilder.buildMain(oldRecord);
+        TablesBuilder.buildMain(newRecord);
+
+        Record.list = BuildRecord.records(
+                new Select.SelectJoin(table_name).selectJoinMainCondition(byColumn, id));
+
+        oldRecord.getItems().add(Record.list.get(0));
+
+        if (!Record.list.isEmpty()) {
+            doIt.doIt();
+        }
+
+        Record.list = BuildRecord.records(
+                new Select.SelectJoin(table_name).selectJoinMainCondition(byColumn, id));
+
+        Record.list= SwitchFilter.switchFilterUpdateColumn(toUpdate,updatedTo,Record.list);
+
+        newRecord.getItems().add(Record.list.get(0));
+
+
+        if (!Record.list.isEmpty()) {
+            doIt.doIt();
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

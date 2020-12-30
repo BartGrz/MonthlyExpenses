@@ -66,10 +66,10 @@ public class MainWindow extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml")); //"FXML/mainWindow.fxml"
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml"));
         Scene scene = new Scene(root, 860, 520);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Wydatki");
+        primaryStage.setTitle("MonthlyExpenses");
         primaryStage.show();
         primaryStage.maxHeightProperty().set(530);
         primaryStage.maxWidthProperty().set(860);
@@ -279,14 +279,7 @@ public class MainWindow extends Application implements Initializable {
             Logger.error("" + e);
         }
 
-        List <List<Record>> lista = new ArrayList<>();
-        Looper.forLoopChoseIndex(1,3,i->
-                lista.add( BuildRecord.records(
-                        new Select.SelectJoin("Expense").sumJoinRange(dateFrom,dateTo,i))));
-
-        Looper.forLoop(lista.size(),i->Record.list.add(lista.get(i).get(0)));
-        Looper.forLoop(Record.list.size(), i -> tableView_sumFromRange.getItems().add(Record.list.get(i)));
-        Record.list.removeAll(Record.list);
+        LoadToView.loadSumRange(dateFrom,dateTo,tableView_sumFromRange,()->Record.list.removeAll(Record.list));
 
         button_filter.setText("REFRESH");
         button_filter.setOnAction(e->refreshTimeRangeFilter());

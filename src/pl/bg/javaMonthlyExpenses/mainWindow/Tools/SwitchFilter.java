@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.holder.TestBuilderRecord;
@@ -24,13 +25,6 @@ public class SwitchFilter  {
 
 
     private static Object result;
-
-    public static void switchTablesOptions(ComboBox comboBox,DoIt doIt) {
-
-
-
-
-    }
 
 
     public static void switchFilter(ComboBox comboBox, FilterResult filterResult) {
@@ -110,37 +104,36 @@ public class SwitchFilter  {
 
     public static List<Record> switchFilterUpdateColumn(ComboBox comboBox, Object value , List <Record> list_record) {
 
-        Looper.forLoop(list_record.size(),i-> {
-
+Logger.log(list_record.get(0).date);
 
         switch (comboBox.getValue().toString()) {
             case "Account":
-             list_record.get(i).accountName= (String)value;
+             list_record.get(0).accountName= (String)value;
                 break;
 
             case "Expense":
-                list_record.get(i).amount=(double)value;
+                list_record.get(0).amount=(double)value;
                 break;
 
             case "Date":
-                list_record.get(i).date=(String)value;
+                list_record.get(0).date=(String)value;
                 break;
 
             case "Category":
-                list_record.get(i).categoryName =(String)value;
+                list_record.get(0).categoryName =(String)value;
                 break;
 
             case "Shop":
-                list_record.get(i).shopName=(String)value;
+                list_record.get(0).shopName=(String)value;
                 break;
 
             case "Common?":
-                list_record.get(i).isCommon=String.valueOf(value);
+                list_record.get(0).isCommon=String.valueOf(value);
                 break;
 
 
         }
-        });
+        Logger.log("" + list_record.get(0).date);
         return list_record;
     }
 

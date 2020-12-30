@@ -67,9 +67,7 @@ public class TestBuilderRecord extends Connection {
         List <String> columnsWith_IntType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"Integer");
         List <String> columnsWith_StringType = SQLTools.fetchColumnsNamesByTypeDemo(table_name,"String");
 
-        HashMap<String, String> map = new SQLTools().getMappedTable(table_name);
-        map = validateMap(map);
-
+        HashMap<String, String> map =validateMap( new SQLTools().getMappedTable(table_name));
         List<Object> columns = new ArrayList<>();
 
         List<TestBuilderRecord> identyfiedObjects = new ArrayList<>();

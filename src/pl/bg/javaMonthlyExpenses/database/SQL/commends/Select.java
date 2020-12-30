@@ -36,7 +36,7 @@ public  class Select extends SQLTools {
 
         sql = "Select *from " + table_name + ";";
 
-        return TestBuilderRecord.matchWithTypeAndAdd(rs,table_name,sql);
+        return new TestBuilderRecord.BuilderList().addFlag(TestBuilderRecord.Flag.REGULAR).build().matchWithTypeAndAdd(rs,table_name,sql);
     }
 
     public static List<Object> selectSpecifyColumns(List<String> columns, Object condition) {
