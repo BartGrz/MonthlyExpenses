@@ -8,21 +8,17 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class UpdateBalanceTool  {
-    List <Object> result_debt;
-    
-    
+
     synchronized private void sumBalance() {
         
-        Select.setConnection();
+        Select.checkConnection();
         Looper.forLoopChoseIndex(1,3,i-> new SQLModifyMain.Update("Balance")
                 .update("Balance", new Select("Expense").selectSumBasic(i), i));
         
     }
-    
-    
+
     synchronized private void sumDebt() {
-      
-      //  for (int i = 1; i < 3; i++) {
+
 Looper.forLoopChoseIndex(1,3,i->{
     
 
@@ -102,8 +98,7 @@ Record.list.removeAll(Record.list);
         Logger.end();
         
         }
-        
-        
+
     }
 
 

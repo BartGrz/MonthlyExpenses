@@ -24,6 +24,7 @@ public static class Insert extends SQLModifyMain {
 
          list_names.removeAll(list_names);
          pragmaTable(table_name);
+
          list_names.remove(0); //usuwa ID z listy nazw po komendzie pragma tableinfo();
 
          if(values.size()==1) {
@@ -40,7 +41,6 @@ public static class Insert extends SQLModifyMain {
                      " values " + Formatter.listFormatterValues(valueFormatter(values)) + ";";
 
          }
-
             try {
                 statement.execute(sql);
             } catch (SQLException e) {

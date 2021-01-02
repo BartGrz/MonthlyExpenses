@@ -18,12 +18,15 @@ public class SQLTools extends Connection {
     public static String sql;
     public static ResultSet rs;
     public static List list_types = new ArrayList();
-    public static List list_names = new ArrayList<>();
+  public static List list_names = new ArrayList<>();
     public static HashMap<String, String> map = new HashMap<String, String>();
     
     
-    public static void pragmaTable(String table_name) { //mozna dac iterator() na mape, dzieki temu lista nie bdzie potrzebna, w demo wszystko jest
+    public static void pragmaTable(String table_name) {
+
         checkConnection();
+        //List<String> column_names = new ArrayList();
+
         sql = "pragma table_info(" + table_name + ");";
     
         try {
@@ -44,7 +47,19 @@ public class SQLTools extends Connection {
             Logger.warn("" + e);
         }
     }
-    //test
+
+  public static List <String> getNames(HashMap<String, String> tableMap){
+
+        List<String> column_names = new ArrayList<>();
+        Iterator it = tableMap.keySet().iterator();
+
+        while (it.hasNext()) {
+         column_names.add( it.next().toString());
+
+        }
+
+        return column_names;
+  }
 
     public static HashMap<String,String> getMappedTable (String table_name) {
         checkConnection();
@@ -194,7 +209,7 @@ public class SQLTools extends Connection {
         }
         try {
             rs = statement.executeQuery(sql);
-            
+
             while (rs.next()) {
                 id = rs.getInt("id" + table_name);
             }
@@ -352,5 +367,8 @@ public class SQLTools extends Connection {
         }
 
     }
-   
+
+    public static void main(String[] args) {
+
+    }
 }

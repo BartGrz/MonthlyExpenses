@@ -98,6 +98,8 @@ public class TestBuilderRecord extends Connection {
 
                     Object val = columns.get(i);
 
+
+
                     switch (map.get(val)) {
 
                         case "integer":

@@ -1,6 +1,7 @@
 package pl.bg.javaMonthlyExpenses.mainWindow.Tools;
 
 import javafx.collections.ObservableList;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.holder.TestBuilderRecord;
 import pl.bg.javaMonthlyExpenses.mainWindow.functionInterfaces.DoIt;
@@ -20,6 +21,7 @@ public class ComboBoxTools {
         doIt.doIt();
     }
     public static void fillingComboBox(List<TestBuilderRecord> list_res, ObservableList list, DoIt doIt) {
+
 
       for(int i = 0; i<list_res.size();i++) {
             list.add(Select.onlyNames(list_res));

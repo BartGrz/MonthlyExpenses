@@ -91,7 +91,7 @@ public class TableCategoriesWinController extends TableController implements  In
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        SQLModifyMain.setConnection();
+        SQLModifyMain.checkConnection();
 
         comboBox_options.setItems(list_options);
         button_delORadd.setVisible(false);

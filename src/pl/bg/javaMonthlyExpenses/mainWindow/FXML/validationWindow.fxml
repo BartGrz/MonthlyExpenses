@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="180.0" prefWidth="264.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.dummy.Demo">
+   <children>
+      <ComboBox fx:id="comboBox_database" layoutX="57.0" layoutY="66.0" onAction="#choose" prefWidth="150.0" />
+      <Label layoutX="113.0" layoutY="36.0" text="DataBase" />
+      <PasswordField fx:id="password" layoutX="57.0" layoutY="107.0" prefHeight="25.0" prefWidth="150.0" />
+      <Button fx:id="open" layoutX="120.0" layoutY="147.0" mnemonicParsing="false" onAction="#open" text="OPEN" />
+   </children>
+</AnchorPane>

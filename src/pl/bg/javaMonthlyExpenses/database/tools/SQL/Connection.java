@@ -9,22 +9,42 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class Connection {
-    
-    
-    public static final String url = "jdbc:sqlite:" + System.getProperty("user.home") +"\\Desktop\\MonthlyExpenses.db" ;
+
+   // public static final String url = "jdbc:sqlite:" + System.getProperty("user.home") +"\\Desktop\\" ;
     public static java.sql.Connection connection;
     public static Statement statement;
-    
+    public static String database;
+
     public static void setConnection() {
 
+        final String chosenUrl = "jdbc:sqlite:" + System.getProperty("user.home") + "\\Desktop\\"+ database;
         try {
-            connection = DriverManager.getConnection(url);
+            connection = DriverManager.getConnection(chosenUrl);
+            statement = connection.createStatement();
+            Logger.conn_status("Connected to " + database);
+        } catch (SQLException e) {
+            Logger.error("" + e);
+        }
+    }
+
+/*
+    public static void setConnectionDemo() {
+
+
+
+        try {
+            connection = DriverManager.getConnection(chosenUrl);
+            Logger.log("" +url+database);
             statement = connection.createStatement();
             Logger.conn_status("Connected");
         } catch (SQLException e) {
             Logger.error("" + e);
         }
     }
+
+
+ */
+
     
     public void disconnect() {
         try {

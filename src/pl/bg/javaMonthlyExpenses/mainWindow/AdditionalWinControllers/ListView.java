@@ -46,7 +46,7 @@ public class ListView  implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        Select.setConnection();
+        Select.checkConnection();
         
         TablesBuilder.buildCustom(columnName,field,tableView_list);
     

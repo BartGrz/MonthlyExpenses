@@ -1,5 +1,6 @@
 package pl.bg.javaMonthlyExpenses.dummy;
 
+import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
@@ -159,4 +160,6 @@ public class NoteBook {
         return val;
 
     }
+
+
 }

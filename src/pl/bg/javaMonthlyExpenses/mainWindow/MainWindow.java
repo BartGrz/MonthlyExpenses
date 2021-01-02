@@ -57,9 +57,7 @@ public class MainWindow extends Application implements Initializable {
     private ComboBox comboBox_rangeFrom = new ComboBox(), comboBox_rangeTo = new ComboBox();
     @FXML
     private Button button_filter = new Button();
-    
-    private List<String> list_columns = new ArrayList<>();
-    private List<String> list_tables = new ArrayList<>();
+
     private ObservableList<String> list_dates = FXCollections.observableArrayList();
     
     
@@ -109,14 +107,9 @@ public class MainWindow extends Application implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Select.setConnection();
-        
-        list_tables.add("Balance");
-        list_tables.add("Account");
-        list_columns.add("accountName");
-        list_columns.add("Balance");
-        list_columns.add("debt");
-        list_columns.add("result");
+        Select.checkConnection();
+
+
         
         fillingTables();
         
@@ -145,10 +138,6 @@ public class MainWindow extends Application implements Initializable {
         tableView_dog.getItems().clear();
         tableView_addExpense.getItems().clear();
         tableView_homeExpense.getItems().clear();
-        
-        
-        list_tables.add("Balance");
-        list_tables.add("Account");
         
         
         tableView_balance.getColumns().removeAll(tableView_balance.getColumns());

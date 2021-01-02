@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
+import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.PopUp;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.ComboBoxTools;
@@ -78,6 +79,7 @@ public class RecordModify implements Initializable {
 
 
     public void clearView() {
+
         button_check.setOnAction(e-> showAdded());
 
         button_check.setVisible(true);
@@ -131,7 +133,6 @@ public class RecordModify implements Initializable {
     public void saveAll(){
 
         clearView();
-        SQLModifyMain.setConnection();
         new SQLModifyMain.Insert().insert("Expense",values );
 
         PopUp popup = new PopUp();
@@ -143,7 +144,7 @@ public class RecordModify implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        Select.setConnection();
+        Select.checkConnection();
 
         ComboBoxTools.fillingComboBoxDate(list_date,()->comboBox_date.setItems(list_date));
 
