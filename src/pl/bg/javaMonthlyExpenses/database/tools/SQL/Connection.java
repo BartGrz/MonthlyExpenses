@@ -52,7 +52,7 @@ public class Connection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Logger.conn_status("Disconnected");
+        Logger.conn_status("Disconnected from " +database);
     }
     
     public static void checkConnection( ) {
