@@ -1,16 +1,12 @@
 package pl.bg.javaMonthlyExpenses.mainWindow;
 
-import javafx.application.Application;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.UpdateBalanceTool;
-import pl.bg.javaMonthlyExpenses.dummy.Demo;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.ListView;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.DeleteRecord;
@@ -26,21 +22,18 @@ import pl.bg.javaMonthlyExpenses.mainWindow.interfaces.MainWindow;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainWindowPersonal extends Application implements MainWindow, Initializable {
+public class MainWindowPersonal  implements MainWindow, Initializable {
 
     @FXML
     private TableView tableView_main = new TableView();
     @FXML
     private TableView tableView_balance = new TableView();
+    private Stage stage_main = new Stage();
 
 
     @FXML
     @Override
-    public void add() {
-
-        new RecordModify().startModify();
-
-    }
+    public void add() { new RecordModify().startModify(); }
 
     @Override
     public void delete() {
@@ -134,28 +127,16 @@ public class MainWindowPersonal extends Application implements MainWindow, Initi
     @Override
     public void changeDatabase() {
 
+        ChooseDatabase.stageMain.close();
         Stage stage = new Stage();
-        stage.setHeight(188);
-        stage.setWidth(264);
+        stage.setHeight(210.0);
+        stage.setWidth(343.0);
 
         try {
-            new Demo().startApp(stage);
+            new ChooseDatabase().startApp(stage);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindowPersonal.fxml"));
-        Scene scene = new Scene(root, 860, 520);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("MonthlyExpenses");
-        primaryStage.show();
-        primaryStage.maxHeightProperty().set(530);
-        primaryStage.maxWidthProperty().set(860);
-
     }
 
     @Override

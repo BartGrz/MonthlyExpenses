@@ -46,7 +46,7 @@ public class Connection {
  */
 
     
-    public void disconnect() {
+    public static void disconnect() {
         try {
             statement.getConnection().close();
         } catch (SQLException e) {

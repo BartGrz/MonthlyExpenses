@@ -1,4 +1,4 @@
-package pl.bg.javaMonthlyExpenses.dummy;
+package pl.bg.javaMonthlyExpenses.mainWindow;
 
 
 
@@ -14,25 +14,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
-import pl.bg.javaMonthlyExpenses.Logger.Logger;
-import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
+
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
-import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
-import pl.bg.javaMonthlyExpenses.holder.BuildRecord;
-import pl.bg.javaMonthlyExpenses.holder.Record;
-import pl.bg.javaMonthlyExpenses.mainWindow.interfaces.MainWindow;
+
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
-public class Demo extends Application implements Initializable {
+public class ChooseDatabase extends Application implements Initializable {
 
     private String fxmlFile ;
-   private static Stage stageMain = new Stage(), stage = new Stage();
+   public static Stage stageMain = new Stage();
+    private static Stage stage = new Stage();
 
    @FXML
    private ComboBox comboBox_database = new ComboBox();
@@ -40,12 +40,12 @@ public class Demo extends Application implements Initializable {
    private PasswordField password = new PasswordField();
    @FXML
    private Button open = new Button();
-   public static boolean isOpened ;
+   @FXML
+   private Label label_passInfo = new Label(), label_passwordText=new Label();
+
 
 
    private ObservableList<String> database = FXCollections.observableArrayList("Common","Personal"); //
-   final String pass ="u" ;
-
 
 
     public void start(Stage stage)  {
@@ -64,8 +64,6 @@ public class Demo extends Application implements Initializable {
         stage.setScene(scene);
         stage.setTitle("validator");
         stage.show();
-        //isOpened = true;
-
     }
 
     @FXML
@@ -89,7 +87,8 @@ public class Demo extends Application implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
+        label_passInfo.setVisible(false);
+        label_passwordText.setVisible(false);
         password.setVisible(false);
         open.setVisible(false);
        Looper.forLoop(database.size(),i-> comboBox_database.getItems().add(database.get(i)));
@@ -101,6 +100,9 @@ public class Demo extends Application implements Initializable {
         switch (comboBox_database.getValue().toString()) {
             case "Common":
 
+                label_passwordText.setVisible(false);
+                label_passInfo.setVisible(false);
+                stage.setWidth(343);
                 password.setVisible(false);
                 open.setVisible(true);
 
@@ -108,6 +110,7 @@ public class Demo extends Application implements Initializable {
 
             case "Personal" :
 
+                label_passwordText.setVisible(true);
                 password.setVisible(true);
                 open.setVisible(true);
 
@@ -117,25 +120,30 @@ public class Demo extends Application implements Initializable {
     }
     public void open() {
 
-        if(password.isVisible() && password.getText().equals(pass)) {
+        if(password.isVisible() && password.getText().hashCode() == checkPassword(password.getText().hashCode())) {
 
-            Connection.database="MonthlyExpenses_personal.db";
-           Connection.setConnection();
             fxmlFile = "mainWindowPersonal.fxml";
+
+            openMainWindow();
+            isOpened(stage);
+
+        }else if (password.isVisible() && password.getText().hashCode() != checkPassword(password.getText().hashCode())) {
+
+            stage.setWidth(500);
+            label_passInfo.setVisible(true);
+            label_passInfo.setText("PASSWORD INCORRECT");
+            password.setText(null);
+            Connection.disconnect();
 
         }else{
 
          Connection.database="MonthlyExpenses.db";
          Connection.setConnection();
          fxmlFile = "mainWindow.fxml";
+            openMainWindow();
+            isOpened(stage);
 
             }
-        openMainWindow();
-        isOpened(stage);
-
-
-
-
     }
     public void startApp(Stage stage) {
         try {
@@ -152,4 +160,38 @@ public class Demo extends Application implements Initializable {
         }
 
     }
+
+    public static int checkPassword(int pass) {
+
+        Connection.database="MonthlyExpenses_personal.db";
+        Connection.setConnection();
+
+        List <Integer> passwords = new ArrayList<>();
+        ResultSet rs = null;
+
+        String sql = "Select password from Password";
+
+        try {
+            rs = Connection.statement.executeQuery(sql);
+            while (rs.next()) {
+            passwords.add(rs.getInt("password"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        for (int i = 0; i< passwords.size();i++) {
+
+            if(pass == passwords.get(i).hashCode()) {
+
+                return passwords.get(i);
+            }else {
+
+            }
+        }
+        return 0;
+    }
+
+
 }

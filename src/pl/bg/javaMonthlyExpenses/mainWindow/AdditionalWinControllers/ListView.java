@@ -24,7 +24,11 @@ public class ListView  implements Initializable {
     
     static Stage listView = new Stage();
     public static String columnName, field, table_name;
-    
+
+
+
+
+
     
     public void start()  {
         

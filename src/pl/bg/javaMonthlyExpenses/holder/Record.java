@@ -1,6 +1,5 @@
 package pl.bg.javaMonthlyExpenses.holder;
 
-import pl.bg.javaMonthlyExpenses.dummy.Demo;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

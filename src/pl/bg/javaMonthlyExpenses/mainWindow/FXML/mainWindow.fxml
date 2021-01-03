@@ -21,6 +21,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
                         <MenuItem mnemonicParsing="false" onAction="#updateSumTable" text="Update" />
                         <MenuItem mnemonicParsing="false" onAction="#filter" text="Filter" />
+                         <MenuItem mnemonicParsing="false" onAction="#changeDatabase" text="ChangeDatabase" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Categories">

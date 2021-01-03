@@ -1,14 +1,10 @@
 package pl.bg.javaMonthlyExpenses.mainWindow;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
@@ -16,9 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.*;
-import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
-import pl.bg.javaMonthlyExpenses.holder.BuildRecord;
 import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 
@@ -39,7 +33,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
-public class MainWindow extends Application implements Initializable {
+public class MainWindow  implements Initializable {
     
     @FXML
     private TableView tableView_main = new TableView();
@@ -60,7 +54,7 @@ public class MainWindow extends Application implements Initializable {
 
     private ObservableList<String> list_dates = FXCollections.observableArrayList();
     
-    
+    /*
     @Override
     public void start(Stage primaryStage) throws Exception {
         
@@ -73,6 +67,8 @@ public class MainWindow extends Application implements Initializable {
         primaryStage.maxWidthProperty().set(860);
         
     }
+
+     */
     @FXML
     public void closeApp() {
         
@@ -80,6 +76,22 @@ public class MainWindow extends Application implements Initializable {
         System.exit(0);
         
     }
+
+    @FXML
+    public void changeDatabase() {
+
+        ChooseDatabase.stageMain.close();
+        Stage stage = new Stage();
+        stage.setHeight(210.0);
+        stage.setWidth(343.0);
+
+        try {
+            new ChooseDatabase().startApp(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void filter() {
         

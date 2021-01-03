@@ -3,7 +3,6 @@ package pl.bg.javaMonthlyExpenses.database.tools.SQL;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.Objects.ObjectTools;
-import pl.bg.javaMonthlyExpenses.dummy.Demo;
 import pl.bg.javaMonthlyExpenses.dummy.TestResult;
 import pl.bg.javaMonthlyExpenses.holder.TestBuilderRecord;
 import pl.bg.javaMonthlyExpenses.formatter.Formatter;

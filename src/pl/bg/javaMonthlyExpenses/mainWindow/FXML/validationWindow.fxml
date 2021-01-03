@@ -3,11 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="180.0" prefWidth="264.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.dummy.Demo">
+<AnchorPane prefHeight="180.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/10.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.ChooseDatabase">
    <children>
-      <ComboBox fx:id="comboBox_database" layoutX="57.0" layoutY="66.0" onAction="#choose" prefWidth="150.0" />
-      <Label layoutX="113.0" layoutY="36.0" text="DataBase" />
-      <PasswordField fx:id="password" layoutX="57.0" layoutY="107.0" prefHeight="25.0" prefWidth="150.0" />
-      <Button fx:id="open" layoutX="120.0" layoutY="147.0" mnemonicParsing="false" onAction="#open" text="OPEN" />
+      <ComboBox fx:id="comboBox_database" layoutX="102.0" layoutY="65.0" onAction="#choose" prefWidth="150.0" />
+      <Label layoutX="32.0" layoutY="69.0" text="DATABASE" />
+      <PasswordField fx:id="password" layoutX="102.0" layoutY="106.0" prefHeight="25.0" prefWidth="150.0" />
+      <Button fx:id="open" layoutX="154.0" layoutY="141.0" mnemonicParsing="false" onAction="#open" text="OPEN" />
+      <Label fx:id="label_passwordText" layoutX="32.0" layoutY="110.0" text="PASSWORD" />
+      <Label fx:id="label_passInfo" layoutX="277.0" layoutY="110.0" text="Label" />
    </children>
 </AnchorPane>
