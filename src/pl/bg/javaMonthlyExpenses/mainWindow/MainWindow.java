@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.*;
+import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 import pl.bg.javaMonthlyExpenses.exeptions.DateValidException;
 import pl.bg.javaMonthlyExpenses.holder.Record;
@@ -53,29 +54,7 @@ public class MainWindow  implements Initializable {
     private Button button_filter = new Button();
 
     private ObservableList<String> list_dates = FXCollections.observableArrayList();
-    
-    /*
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/mainWindow.fxml"));
-        Scene scene = new Scene(root, 860, 520);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("MonthlyExpenses");
-        primaryStage.show();
-        primaryStage.maxHeightProperty().set(530);
-        primaryStage.maxWidthProperty().set(860);
-        
-    }
 
-     */
-    @FXML
-    public void closeApp() {
-        
-        Platform.exit();
-        System.exit(0);
-        
-    }
 
     @FXML
     public void changeDatabase() {
@@ -119,10 +98,9 @@ public class MainWindow  implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Select.checkConnection();
 
+        Connection.checkConnection();
 
-        
         fillingTables();
         
         ComboBoxTools.fillingComboBoxDate(list_dates, () -> comboBox_rangeFrom.setItems(list_dates));

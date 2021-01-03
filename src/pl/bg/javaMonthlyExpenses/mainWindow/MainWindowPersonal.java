@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.UpdateBalanceTool;
+import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 import pl.bg.javaMonthlyExpenses.holder.Record;
 import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.ListView;
 import pl.bg.javaMonthlyExpenses.mainWindow.RecordWinControllers.DeleteRecord;
@@ -20,6 +22,8 @@ import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 import pl.bg.javaMonthlyExpenses.mainWindow.interfaces.MainWindow;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class MainWindowPersonal  implements MainWindow, Initializable {
@@ -27,7 +31,7 @@ public class MainWindowPersonal  implements MainWindow, Initializable {
     @FXML
     private TableView tableView_main = new TableView();
     @FXML
-    private TableView tableView_balance = new TableView();
+    private TableView tableView_balance = new TableView(), tableView_expenses=new TableView(), tableView_addExpenses = new TableView();
     private Stage stage_main = new Stage();
 
 
@@ -51,14 +55,20 @@ public class MainWindowPersonal  implements MainWindow, Initializable {
 
         tableView_main.getItems().clear();
         tableView_balance.getItems().clear();
+        tableView_expenses.getItems().clear();
+        tableView_addExpenses.getItems().clear();
 
         tableView_balance.getColumns().removeAll(tableView_balance.getColumns());
         tableView_main.getColumns().removeAll(tableView_main.getColumns());
+        tableView_expenses.getColumns().removeAll(tableView_expenses.getColumns());
+        tableView_addExpenses.getColumns().removeAll(tableView_addExpenses.getColumns());
 
         fillingTables();
 
         tableView_balance.refresh();
         tableView_main.refresh();
+        tableView_expenses.refresh();
+        tableView_addExpenses.refresh();
 
     }
 
@@ -112,15 +122,30 @@ public class MainWindowPersonal  implements MainWindow, Initializable {
 
         TablesBuilder.buildMain(tableView_main);
         TablesBuilder.buildBalance(tableView_balance);
+        TablesBuilder.buildForCategories(tableView_expenses);
+        TablesBuilder.buildForCategories(tableView_addExpenses);
 
         Thread thread_first = new Thread(()->  {
 
             LoadToView.loadMain(20,tableView_main,()-> Record.list.removeAll(Record.list));
 
             LoadToView.loadBalanceReview(tableView_balance,()->Record.list.removeAll(Record.list));
+
+
         });
 
+Thread thread_second = new Thread(()-> {
+
+    LoadToView.loadCategoriesAndSum("Category", Arrays.asList("opla","nauk"),tableView_expenses,
+            ()->Record.list.removeAll(Record.list));
+
+    LoadToView.loadCategoriesAndSum("Category", Arrays.asList("jedzenie","fajki","alkoh"),tableView_addExpenses,
+            ()->Record.list.removeAll(Record.list));
+
+
+});
         thread_first.start();
+        checkIfAllive(thread_first,()->{ thread_second.start(); });
 
     }
 
@@ -145,4 +170,24 @@ public class MainWindowPersonal  implements MainWindow, Initializable {
         fillingTables();
 
     }
+    public void checkIfAllive(Thread thread,Runnable runnable) {
+
+        while (thread.isAlive()) {}
+        try {
+            if (!thread.isAlive() && SQLTools.rs.isClosed()) {
+                runnable.run();
+
+            } else {
+                Logger.warn(thread.getName() + " STILL WORKING ");
+                Thread.sleep(500);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Logger.success();
+    }
+
 }

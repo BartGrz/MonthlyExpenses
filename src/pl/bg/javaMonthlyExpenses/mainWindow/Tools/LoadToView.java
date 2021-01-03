@@ -47,6 +47,7 @@ public class LoadToView extends Connection {
         Looper.forLoop(list_records.size(),i-> Record.list.add(list_records.get(i).get(0)));
 
         Looper.forLoop(Record.list.size(), (i) -> tableView.getItems().add(Record.list.get(i)));
+
         if (!Record.list.isEmpty()) {
             doIt.doIt();
             return true;

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="514.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.MainWindowPersonal">
+<AnchorPane prefHeight="514.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.MainWindowPersonal">
     <children>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="468.0" prefWidth="734.0">
             <children>
@@ -55,6 +56,8 @@
                                         <TableView fx:id="tableView_balance" prefHeight="76.0" prefWidth="361.0" snapToPixel="false" />
                                     </children>
                                 </VBox>
+                        <TableView fx:id="tableView_expenses" layoutY="76.0" prefHeight="84.0" prefWidth="318.0" />
+                        <TableView fx:id="tableView_addExpenses" layoutX="1.0" layoutY="160.0" prefHeight="144.0" prefWidth="318.0" />
 
                             </children>
                         </AnchorPane>
@@ -63,4 +66,7 @@
             </children>
         </AnchorPane>
     </children>
+   <cursor>
+      <Cursor fx:constant="CLOSED_HAND" />
+   </cursor>
 </AnchorPane>

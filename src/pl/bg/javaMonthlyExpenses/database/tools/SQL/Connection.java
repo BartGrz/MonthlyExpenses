@@ -27,25 +27,6 @@ public class Connection {
         }
     }
 
-/*
-    public static void setConnectionDemo() {
-
-
-
-        try {
-            connection = DriverManager.getConnection(chosenUrl);
-            Logger.log("" +url+database);
-            statement = connection.createStatement();
-            Logger.conn_status("Connected");
-        } catch (SQLException e) {
-            Logger.error("" + e);
-        }
-    }
-
-
- */
-
-    
     public static void disconnect() {
         try {
             statement.getConnection().close();
