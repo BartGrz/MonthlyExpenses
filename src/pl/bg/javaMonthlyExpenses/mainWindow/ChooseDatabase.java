@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
+import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
 
@@ -120,14 +121,14 @@ public class ChooseDatabase extends Application implements Initializable {
     }
     public void open() {
 
-        if(password.isVisible() && password.getText().hashCode() == checkPassword(password.getText().hashCode())) {
+        if(password.isVisible()  && checkPassword(password.getText().hashCode())) {
 
             fxmlFile = "mainWindowPersonal.fxml";
 
             openMainWindow();
             isOpened(stage);
 
-        }else if (password.isVisible() && password.getText().hashCode() != checkPassword(password.getText().hashCode())) {
+        }else if (password.isVisible() && password.getText().equals(null) || ! checkPassword(password.getText().hashCode())) {
 
             stage.setWidth(500);
             label_passInfo.setVisible(true);
@@ -135,7 +136,7 @@ public class ChooseDatabase extends Application implements Initializable {
             password.setText(null);
             Connection.disconnect();
 
-        }else{
+        }else if (!password.isVisible()){
 
          Connection.database="MonthlyExpenses.db";
          Connection.setConnection();
@@ -161,7 +162,7 @@ public class ChooseDatabase extends Application implements Initializable {
 
     }
 
-    public static int checkPassword(int pass) {
+    public static boolean checkPassword(int pass) {
 
         Connection.database="MonthlyExpenses_personal.db";
         Connection.setConnection();
@@ -182,15 +183,15 @@ public class ChooseDatabase extends Application implements Initializable {
         }
 
         for (int i = 0; i< passwords.size();i++) {
-
+            Logger.log("z textu " + pass + " z bazy " +passwords.get(i));
             if(pass == passwords.get(i).hashCode()) {
 
-                return passwords.get(i);
+                return true;
             }else {
-
+                return false;
             }
         }
-        return 0;
+        return false;
     }
 
 
