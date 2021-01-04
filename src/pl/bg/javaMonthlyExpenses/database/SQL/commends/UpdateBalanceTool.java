@@ -19,6 +19,8 @@ public class UpdateBalanceTool  {
 
     synchronized private void sumDebt() {
 
+
+
 Looper.forLoopChoseIndex(1,3,i->{
     
 

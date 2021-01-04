@@ -7,6 +7,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import pl.bg.javaMonthlyExpenses.Logger.Logger;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
+import pl.bg.javaMonthlyExpenses.database.SQL.commends.UpdateBalancePrivateTool;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.UpdateBalanceTool;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.SQLTools;
 import pl.bg.javaMonthlyExpenses.holder.Record;
@@ -74,7 +75,8 @@ public class MainWindowPersonal  implements MainWindow, Initializable {
 
     @Override
     public void updateSumTable() {
-        new UpdateBalanceTool().startTool();
+        //new UpdateBalanceTool().startTool();
+        new UpdateBalancePrivateTool().startTool();
     }
 
     @Override
@@ -129,7 +131,7 @@ public class MainWindowPersonal  implements MainWindow, Initializable {
 
             LoadToView.loadMain(20,tableView_main,()-> Record.list.removeAll(Record.list));
 
-            LoadToView.loadBalanceReview(tableView_balance,()->Record.list.removeAll(Record.list));
+            LoadToView.loadBalanceReview(tableView_balance,4,()->Record.list.removeAll(Record.list));
 
 
         });

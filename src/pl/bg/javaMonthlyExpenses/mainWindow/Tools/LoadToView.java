@@ -55,14 +55,14 @@ public class LoadToView extends Connection {
             return false;
         }
     }
-    public static boolean loadBalanceReview( TableView tableView, DoIt doIt) {
+    public static boolean loadBalanceReview( TableView tableView,int index, DoIt doIt) {
 
         final String table_name = "Balance";
         final String tableJoined = "Account";
 
         List <List<Record>> list_records = new ArrayList<>();
 
-        Looper.forLoopChoseIndex(1,3,i-> list_records.add( BuildRecord.records(new Select.SelectJoin(table_name).
+        Looper.forLoopChoseIndex(1,index,i-> list_records.add( BuildRecord.records(new Select.SelectJoin(table_name).
                 selectJoinOneCond(tableJoined,i))));
 
        Looper.forLoop(list_records.size(),i-> Record.list.add(list_records.get(i).get(0)));

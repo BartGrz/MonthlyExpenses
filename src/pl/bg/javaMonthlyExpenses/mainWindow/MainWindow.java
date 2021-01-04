@@ -162,7 +162,7 @@ public class MainWindow  implements Initializable {
 
             LoadToView.loadMain(20,tableView_main,()->Record.list.removeAll(Record.list));
 
-            LoadToView.loadBalanceReview(tableView_balance,()->Record.list.removeAll(Record.list));
+            LoadToView.loadBalanceReview(tableView_balance,3,()->Record.list.removeAll(Record.list));
         });
     
     Thread thread_second = new Thread(()->  {
