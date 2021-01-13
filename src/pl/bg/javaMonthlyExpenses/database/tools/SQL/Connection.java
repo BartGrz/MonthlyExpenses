@@ -10,14 +10,13 @@ import java.util.Properties;
 
 public class Connection {
 
-   // public static final String url = "jdbc:sqlite:" + System.getProperty("user.home") +"\\Desktop\\" ;
     public static java.sql.Connection connection;
     public static Statement statement;
     public static String database;
 
     public static void setConnection() {
 
-        final String chosenUrl = "jdbc:sqlite:" + System.getProperty("user.home") + "\\Desktop\\"+ database;
+        final String chosenUrl = "jdbc:sqlite:" + System.getProperty("user.home") + "\\Desktop\\databases\\"+ database;
         try {
             connection = DriverManager.getConnection(chosenUrl);
             statement = connection.createStatement();

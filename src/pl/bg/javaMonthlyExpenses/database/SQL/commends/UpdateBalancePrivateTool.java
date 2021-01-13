@@ -61,13 +61,13 @@ public class UpdateBalancePrivateTool extends Connection {
         Looper.forLoopChoseIndex(1,4,i->{
 switch (i) {
     case 1:
-        new SQLModifyMain.Update("Balance").update("result",(debt_b) ,i);
+        new SQLModifyMain.Update("Balance").update("result",(debt_b)*(-1) ,i);
         break;
     case 2:
-        new SQLModifyMain.Update("Balance").update("result",(balance_credit+debt_credit) ,i);
+        new SQLModifyMain.Update("Balance").update("result",(balance_credit+debt_credit)*(-1) ,i);
         break;
     case 3:
-        new SQLModifyMain.Update("Balance").update("result",(balance_oszcz+debt_oszcz) ,i);
+        new SQLModifyMain.Update("Balance").update("result",(balance_oszcz+debt_oszcz)*(-1) ,i);
         break;
 }
 
