@@ -17,7 +17,7 @@ public class ComboBoxTools {
 
 
     public static void fillingComboBoxDate(ObservableList list,DoIt doIt) {
-        Looper.forLoop(31,(i)->list.add(ld.minusDays(i).toString()));
+        Looper.forLoop(50,(i)->list.add(ld.minusDays(i).toString()));
         doIt.doIt();
     }
     public static void fillingComboBox(List<TestBuilderRecord> list_res, ObservableList list, DoIt doIt) {
