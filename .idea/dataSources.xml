@@ -9,5 +9,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\Bartek\Desktop\databases#MonthlyExpenses</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="MonthlyExpenses_devTest" uuid="cfe07654-45ab-46e5-a2d0-528dff16041e">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/Desktop/databases/MonthlyExpenses_devTest</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
