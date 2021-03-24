@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.FXML.Bill">
+   <children>
+      <SplitPane layoutY="-1.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="248.0" prefWidth="598.0">
+               <children>
+                  <ComboBox fx:id="comboBox_account" layoutX="21.0" layoutY="73.0" prefWidth="150.0" />
+                  <ComboBox fx:id="comboBox_shop" layoutX="207.0" layoutY="73.0" prefWidth="150.0" />
+                  <Label layoutX="74.0" layoutY="51.0" text="Account" />
+                  <Label layoutX="268.0" layoutY="51.0" text="Shop" />
+
+                  <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="598.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <ComboBox fx:id="comboBox_date" layoutX="391.0" layoutY="73.0" prefWidth="150.0" />
+                  <Label layoutX="452.0" layoutY="51.0" text="Date" />
+                  <Label layoutX="68.0" layoutY="128.0" text="Expense" />
+                  <Label layoutX="262.0" layoutY="128.0" text="Category" />
+                  <Label layoutX="438.0" layoutY="128.0" text="Common?" />
+                  <ComboBox layoutX="207.0" layoutY="159.0" prefWidth="150.0" />
+                  <ComboBox layoutX="390.0" layoutY="159.0" prefWidth="150.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
