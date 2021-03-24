@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="514.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.MainWindow">
+   <children>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="468.0" prefWidth="734.0">
+         <children>
+            <MenuBar layoutY="2.0" prefHeight="38.0" prefWidth="850.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Record">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#add" text="Add" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete" text="Delete" />
+                        <MenuItem mnemonicParsing="false" onAction="#update" text="Change" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Tables">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+                        <MenuItem mnemonicParsing="false" onAction="#updateSumTable" text="Update" />
+                        <MenuItem mnemonicParsing="false" onAction="#filter" text="Filter" />
+                         <MenuItem mnemonicParsing="false" onAction="#changeDatabase" text="ChangeDatabase" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Categories">
+                     <items>
+                         <MenuItem mnemonicParsing="false" onAction="#tableCategories" text="Options" />
+                        <MenuItem mnemonicParsing="false" onAction="#listCategories" text="List" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Shops">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#tableShops" text="Options" />
+                        <MenuItem mnemonicParsing="false" onAction="#listShops" text="List" />
+
+
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+          <AnchorPane layoutX="495.0" layoutY="40.0" minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="225.0" />
+            <SplitPane dividerPositions="0.6202830188679245" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="478.0" prefWidth="850.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="136.0">
+                     <children>
+                        <TableView fx:id="tableView_main" prefHeight="476.0" prefWidth="523.0" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="476.0" prefWidth="613.0">
+                     <children>
+                        <VBox layoutX="1.0">
+                           <children>
+                              <TableView fx:id="tableView_balance" prefHeight="76.0" prefWidth="361.0" snapToPixel="false" />
+                              <TableView fx:id="tableView_dog" prefHeight="121.0" prefWidth="361.0" />
+                              <TableView fx:id="tableView_homeExpense" prefHeight="138.0" prefWidth="361.0" />
+                              <TableView fx:id="tableView_addExpense" prefHeight="141.0" prefWidth="361.0" />
+                           </children>
+                        </VBox>
+                        <TableView fx:id="tableView_sumFromRange" layoutX="362.0" layoutY="76.0" prefHeight="76.0" prefWidth="481.0" />
+                        <ComboBox fx:id="comboBox_rangeFrom" layoutX="378.0" layoutY="38.0" onAction="#chooseRange" prefHeight="25.0" prefWidth="176.0" />
+                        <ComboBox fx:id="comboBox_rangeTo" layoutX="584.0" layoutY="38.0" prefHeight="25.0" prefWidth="176.0" />
+                        <Label layoutX="388.0" layoutY="15.0" text="FROM DATE" />
+                        <Label layoutX="584.0" layoutY="15.0" text="TO DATE" />
+                        <Button fx:id="button_filter" layoutX="776.0" layoutY="38.0" mnemonicParsing="false" onAction="#filterSumByTimeRange" text="FILTER" />
+
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

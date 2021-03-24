@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.TableWinControllers.TableShopWinController">
+
+    <SplitPane dividerPositions="0.37027027027027026" layoutY="27.0" orientation="VERTICAL" prefHeight="372.0" prefWidth="600.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="598.0">
+            <Label layoutX="64.0" layoutY="45.0" text="OPTIONS" />
+            <ComboBox fx:id="comboBox_options" layoutX="14.0" layoutY="79.0" onAction="#choose" prefWidth="150.0" />
+            <ComboBox fx:id="comboBox_category" layoutX="190.0" layoutY="79.0" prefWidth="150.0" />
+            <Label layoutX="237.0" layoutY="45.0" text="Category" />
+            <TextField fx:id="textField_modifiy" layoutX="191.0" layoutY="79.0" />
+            <Button fx:id="button_delORadd" layoutX="357.0" layoutY="79.0" mnemonicParsing="false" text="DELETE" />
+            <Button fx:id="button_update" layoutX="520.0" layoutY="79.0" mnemonicParsing="false" text="UPDATE" />
+            <TextField fx:id="textField_changeTo" layoutX="357.0" layoutY="79.0" />
+            <Label fx:id="label_to" layoutX="418.0" layoutY="45.0" text="TO" />
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="143.0" prefWidth="598.0" />
+    </SplitPane>
+    <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="600.0">
+        <Menu mnemonicParsing="false" text="Category">
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Clear" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" text="Delete" />
+        </Menu>
+    </MenuBar>
+</AnchorPane>

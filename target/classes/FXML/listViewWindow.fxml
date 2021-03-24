@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="451.0" prefWidth="172.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.ListView">
+   <children>
+      <TableView fx:id="tableView_list" prefHeight="451.0" prefWidth="172.0" />
+   </children>
+</AnchorPane>
