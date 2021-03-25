@@ -10,7 +10,7 @@ import java.util.List;
 public class CsvReader {
     public List<Bill> csvReader (String path) throws FileNotFoundException {
 
-        FileReader fileReader = new FileReader(System.getProperty("user.home")+"\\Desktop\\"+path+".csv");
+        FileReader fileReader = new FileReader(System.getProperty("user.home")+"\\Desktop\\bills\\"+path+".csv");
 
         CsvToBean<Bill> csvToBean = new CsvToBeanBuilder<Bill>(fileReader)
                 .withSeparator(';')

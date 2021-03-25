@@ -8,19 +8,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import pl.bg.javaMonthlyExpenses.database.SQL.commends.SQLModifyMain;
 import pl.bg.javaMonthlyExpenses.database.SQL.commends.Select;
+import pl.bg.javaMonthlyExpenses.database.tools.Looper;
 import pl.bg.javaMonthlyExpenses.database.tools.SQL.Connection;
+import pl.bg.javaMonthlyExpenses.holder.Record;
+import pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers.PopUp;
 import pl.bg.javaMonthlyExpenses.mainWindow.Tools.ComboBoxTools;
+import pl.bg.javaMonthlyExpenses.mainWindow.Tools.LoadToView;
+import pl.bg.javaMonthlyExpenses.mainWindow.Tools.TablesBuilder;
 
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BillAdding  implements Initializable {
@@ -30,7 +36,7 @@ public class BillAdding  implements Initializable {
     @FXML
     private TableView tableView_bill = new TableView();
     @FXML
-    private ComboBox comboBox_date = new ComboBox();
+    public ComboBox comboBox_date = new ComboBox();
     @FXML
     private  ComboBox comboBox_account = new ComboBox();
     @FXML
@@ -40,9 +46,13 @@ public class BillAdding  implements Initializable {
     @FXML
     private ComboBox comboBox_common = new ComboBox();
     @FXML
-    private TextField textField_expense = new TextField();
+    private TextField textfield_expense = new TextField();
     @FXML
     private Button button_add = new Button();
+    @FXML
+    Label label_expAccount = new Label();
+    @FXML
+    Label label_expCommon =new Label();
 
     private ObservableList<String> list_date = FXCollections.observableArrayList();
     private ObservableList<String> list_accountName = FXCollections.observableArrayList();
@@ -56,21 +66,80 @@ public class BillAdding  implements Initializable {
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/AddBill.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/AddBill.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(root,900,374);
+        Scene scene = new Scene(root,900,400);
         stage.setScene(scene);
         stage.show();
 
     }
 
+    @FXML
+    public void next () {
+
+        Record record = new Record.Builder()
+                .expense(Double.parseDouble(textfield_expense.getText()))
+                .shop(comboBox_shop.getValue().toString())
+                .date(comboBox_date.getValue().toString())
+                .account(comboBox_account.getValue().toString())
+                .category(comboBox_category.getValue().toString())
+                .common(comboBox_common.getValue().toString())
+                .build();
+
+        tableView_bill.getItems().add(record);
+        Record.list.add(record);
+        updateBalance();
+
+
+    }
+    @FXML
+    public void updateBalance() {
+
+        double expCommon = 0;
+        double expAccount=0;
+
+        for(int i = 0; i< Record.list.size();i++) {
+
+            if (Record.list.get(i).isCommon.equals("true")) {
+                expCommon = expCommon + Record.list.get(i).amount;
+            } else {
+                expAccount = expAccount + Record.list.get(i).amount;
+            }
+
+            label_expCommon.setText(""+expCommon);
+            label_expAccount.setText(""+expAccount);
+        }
+    }
+    @FXML
+    public void saveAll() {
+
+        List values = new ArrayList<>();
+
+        for (int i = 0; i < Record.list.size(); i++) {
+
+            values.add(Record.list.get(i).amount);
+            values.add(Record.list.get(i).date);
+            values.add(Select.matchWithId("Account", Record.list.get(i).accountName));
+            values.add(Select.matchWithId("Category", Record.list.get(i).categoryName));
+            values.add(Select.matchWithId("Shop", Record.list.get(i).shopName));
+            values.add(Select.matchWithId("CommonAccount", Record.list.get(i).isCommon));
+
+            new SQLModifyMain.Insert().insert("Expense", values);
+            values.removeAll(values);
+
+        }
+        Record.list.removeAll(Record.list);
+
+       new PopUp().popUp();
+       stage.close();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-      //  Select.checkConnection();
+        TablesBuilder.buildMainWithoutId(tableView_bill);
+        Select.checkConnection();
 
         ComboBoxTools.fillingComboBoxDate(list_date,()->comboBox_date.setItems(list_date));
 
@@ -81,8 +150,6 @@ public class BillAdding  implements Initializable {
         ComboBoxTools.fillingComboBox(new Select("Shop").selectBasic(),list_shopName,()->comboBox_shop.setItems(list_shopName));
 
         comboBox_common.setItems(list_isCommon);
-
-
 
     }
 }

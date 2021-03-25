@@ -3,7 +3,10 @@ package pl.bg.javaMonthlyExpenses.mainWindow.AdditionalWinControllers;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import org.flywaydb.core.internal.database.hsqldb.HSQLDBTable;
+
 import java.io.IOException;
 
 public class PopUp {
@@ -29,5 +32,5 @@ public class PopUp {
 
         PopUp.popUp.close();
     }
-    //
+
 }
