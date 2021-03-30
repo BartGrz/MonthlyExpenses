@@ -7,4 +7,4 @@
 * Sqlite (JDBC 3.34) 
 
 #### I created this app to get more control on my expenses. All written in java (even sql commends, later I will try using hibernate), 
-#### based on sqlite database nad user GUI created form javaFX library.      
+#### based on sqlite database nad user GUI created using javaFX library.      
