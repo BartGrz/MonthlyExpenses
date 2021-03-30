@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.beans.JavaBean;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JavaBean
 public class Bill {
 
     @CsvBindByPosition(position = 0)
