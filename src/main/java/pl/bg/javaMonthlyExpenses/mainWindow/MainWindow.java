@@ -88,7 +88,7 @@ public class MainWindow  implements Initializable {
     @FXML
     public void addBillCSV() {
         try {
-            new DemoBillWindow().start(new Stage());
+            new DemoBillWindow().start();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -184,7 +184,7 @@ public class MainWindow  implements Initializable {
     
     Thread thread_second = new Thread(()->  {
 
-        LoadToView.loadCategoriesAndSum("Category",Arrays.asList("swinsk", "napoj","jedzenie","jedzenie[z"),
+        LoadToView.loadCategoriesAndSum("Category",Arrays.asList("swinsk", "napoj","jedzenie[c","jedzenie[z"),
                 tableView_addExpense,()->Record.list.removeAll(Record.list));
 
         LoadToView.loadCategoriesAndSum("Category",Arrays.asList("Vet", "Pies","jedzenie[p","UBER"),
