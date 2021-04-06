@@ -1,5 +1,6 @@
 package pl.bg.javaMonthlyExpenses.csvReader;
 
+import com.sun.source.tree.LambdaExpressionTree;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -24,16 +25,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DemoBillWindow extends Application   {
+public class DemoBillWindow     {
 
     ObservableList<String> list_accounts = FXCollections.observableArrayList();
     ObservableList<String> list_shop = FXCollections.observableArrayList();
     ObservableList<String> list_date = FXCollections.observableArrayList();
     TableView tableView = new TableView();
     Pane pane = new Pane();
+    static Stage stage = new Stage();
 
-    @Override
-    public void start(Stage stage) throws Exception {
+
+    public void start( ) throws Exception {
 
         Connection.checkConnection();
 
@@ -41,6 +43,9 @@ public class DemoBillWindow extends Application   {
         Label label_account = new Label("Account");
         Label label_shop= new Label("Shop");
         Label label_date = new Label("Date");
+
+
+
 
         ComboBox comboBox_account = new ComboBox();
         ComboBox comboBox_shop = new ComboBox();
@@ -86,7 +91,10 @@ public class DemoBillWindow extends Application   {
 
         button_confirm.setLayoutX(350);
         button_confirm.setLayoutY(150);
+
+
         button_confirm.setVisible(true);
+
 
         pane.getChildren().addAll
                 (button_confirm,label,textField_csv,label_account,
@@ -115,8 +123,28 @@ public class DemoBillWindow extends Application   {
     public void confirm (String path,String accountName,String date, String shopName) {
 
         Button button_save = new Button("SAVE");
+
+        Label common = new Label("common expense : ");
+        Label own = new Label("self expesne : ");
+        Label common_exp = new Label();
+        Label own_expense = new Label();
+
         button_save.setLayoutX(250);
         button_save.setLayoutY(450);
+
+
+        common.setLayoutX(50);
+        common.setLayoutY(450);
+
+        common_exp.setLayoutX(160);
+        common_exp.setLayoutY(450);
+
+        own.setLayoutX(50);
+        own.setLayoutY(470);
+
+        own_expense.setLayoutX(160);
+        own_expense.setLayoutY(470);
+
 
 
 
@@ -124,7 +152,18 @@ public class DemoBillWindow extends Application   {
         try {
 
             List<Bill> bills = new CsvReader().csvReader(path);
+           double commonExpense =0;
+           double ownExpenes =0;
 
+            for(int i =0;i<bills.size();i++) {
+
+                if (bills.get(i).isCommon()) {
+
+                    commonExpense = commonExpense + bills.get(i).getExpense();
+                }else {
+                    ownExpenes = ownExpenes + bills.get(i).getExpense();
+                }
+            }
 
             for (int i = 0; i < bills.size(); i++) {
 
@@ -140,10 +179,12 @@ public class DemoBillWindow extends Application   {
 
             }
 
+            common_exp.setText(String.valueOf(commonExpense));
+            own_expense.setText(String.valueOf(ownExpenes));
 
             TablesBuilder.buildMain(tableView);
             tableView.getItems().addAll(Record.list);
-            pane.getChildren().addAll(tableView,button_save);
+            pane.getChildren().addAll(tableView,button_save,common,common_exp,own,own_expense);
 
 
 
@@ -175,9 +216,11 @@ button_save.setOnAction(e-> save());
 
          }
          Record.list.removeAll( Record.list);
+
+         stage.close();
      }
     public static void main(String[] args) {
-        Application.launch(args);
+     //   Application.launch(args);
     }
 
 
