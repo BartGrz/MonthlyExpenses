@@ -6,5 +6,5 @@
 * opencsv 4.1
 * Sqlite (JDBC 3.34) 
 
-#### I created this app to get more control on my expenses. All written in java (even sql commends, later I will try using hibernate), 
+#### I created this app to get more control on my expenses. All written in java (later I will try using hibernate framework instead of hardcoding sql commends), 
 #### based on sqlite database nad user GUI created using javaFX library.      
