@@ -1,10 +1,11 @@
-# Monthly expenses application
-
-* java 11
-* java 10(for javaFx lib)
-* lombok 1.18.16
-* opencsv 4.1
+# Monthly expenses application [old project] 
+* Java 11
+* Java 10(for javaFx lib)
+* Lombok 1.18.16
+* Opencsv 4.1
 * Sqlite (JDBC 3.34) 
+* Maven
 
-#### I created this app to get more control on my expenses. All written in java (later I will try using hibernate framework instead of hardcoding sql commends), 
-#### based on sqlite database nad user GUI created using javaFX library.      
+#### I have created this app to get more control on my expenses. All written in java based on sqlite database and user GUI created using javaFX library.  
+## * (idea will be redeveloped based on spring 5, spring boot 2 and hibernate framework)
+
